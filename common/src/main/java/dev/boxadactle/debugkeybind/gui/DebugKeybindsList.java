@@ -1,0 +1,225 @@
+package dev.boxadactle.debugkeybind.gui;
+
+import com.google.common.collect.ImmutableList;
+import dev.boxadactle.debugkeybind.DebugKeybind;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ComponentPath;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.ContainerObjectSelectionList;
+import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.narration.NarratableEntry;
+import net.minecraft.client.gui.narration.NarratedElementType;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.gui.navigation.FocusNavigationEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import org.apache.commons.lang3.ArrayUtils;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+
+public class DebugKeybindsList extends ContainerObjectSelectionList<DebugKeybindsList.Entry> {
+
+    DebugKeybindsScreen keyBindsScreen;
+    int maxNameWidth;
+
+    public DebugKeybindsList(DebugKeybindsScreen keyBindsScreen, Minecraft minecraft) {
+        super(minecraft, keyBindsScreen.width + 45, keyBindsScreen.height, 20, keyBindsScreen.height - 32, 20);
+        this.keyBindsScreen = keyBindsScreen;
+        DebugKeybind[] keyMappings = ArrayUtils.clone(DebugKeybind.toArray());
+        // in the original class, this is run, but we don't run it here as it is already manually sorted
+        // Arrays.sort(keyMappings);
+        String string = null;
+        DebugKeybind[] var5 = keyMappings;
+        int var6 = keyMappings.length;
+
+        for(int var7 = 0; var7 < var6; ++var7) {
+            DebugKeybind keyMapping = var5[var7];
+            String string2 = keyMapping.getCategory();
+            if (!string2.equals(string)) {
+                string = string2;
+                this.addEntry(new DebugKeybindsList.CategoryEntry(Component.translatable(string2)));
+            }
+
+            Component component = Component.translatable(keyMapping.getName());
+            int i = minecraft.font.width(component);
+            if (i > this.maxNameWidth) {
+                this.maxNameWidth = i;
+            }
+
+            this.addEntry(new DebugKeybindsList.KeyEntry(keyMapping, component));
+        }
+
+    }
+
+    public DebugKeybindsList(Minecraft minecraft, int i, int j, int k, int l, int m) {
+        super(minecraft, i, j, k, l, m);
+    }
+
+    public void resetMappingAndUpdateButtons() {
+        this.refreshEntries();
+    }
+
+    public void refreshEntries() {
+        this.children().forEach(DebugKeybindsList.Entry::refreshEntry);
+    }
+
+    protected int getScrollbarPosition() {
+        return super.getScrollbarPosition() + 15;
+    }
+
+    public int getRowWidth() {
+        return super.getRowWidth() + 32;
+    }
+
+    @Environment(EnvType.CLIENT)
+    public class CategoryEntry extends DebugKeybindsList.Entry {
+        final Component name;
+        private final int width;
+
+        public CategoryEntry(Component component) {
+            this.name = component;
+            this.width = DebugKeybindsList.this.minecraft.font.width(this.name);
+        }
+
+        public void render(GuiGraphics guiGraphics, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f) {
+            Font var10001 = DebugKeybindsList.this.minecraft.font;
+            Component var10002 = this.name;
+            int var10003 = DebugKeybindsList.this.minecraft.screen.width / 2 - this.width / 2;
+            int var10004 = j + m;
+            Objects.requireNonNull(DebugKeybindsList.this.minecraft.font);
+            guiGraphics.drawString(var10001, var10002, var10003, var10004 - 9 - 1, 16777215, false);
+        }
+
+        @Nullable
+        public ComponentPath nextFocusPath(FocusNavigationEvent focusNavigationEvent) {
+            return null;
+        }
+
+        public List<? extends GuiEventListener> children() {
+            return Collections.emptyList();
+        }
+
+        public List<? extends NarratableEntry> narratables() {
+            return ImmutableList.of(new NarratableEntry() {
+                public NarratableEntry.NarrationPriority narrationPriority() {
+                    return NarrationPriority.HOVERED;
+                }
+
+                public void updateNarration(NarrationElementOutput narrationElementOutput) {
+                    narrationElementOutput.add(NarratedElementType.TITLE, DebugKeybindsList.CategoryEntry.this.name);
+                }
+            });
+        }
+
+        protected void refreshEntry() {
+        }
+    }
+
+    @Environment(EnvType.CLIENT)
+    public class KeyEntry extends DebugKeybindsList.Entry {
+        private final DebugKeybind key;
+        private final Component name;
+        private final Button changeButton;
+        private final Button resetButton;
+        private boolean hasCollision = false;
+
+        KeyEntry(DebugKeybind keyMapping, Component component) {
+            this.key = keyMapping;
+            this.name = component;
+            this.changeButton = Button.builder(component, (button) -> {
+                DebugKeybindsList.this.keyBindsScreen.selectedKey = keyMapping;
+                DebugKeybindsList.this.resetMappingAndUpdateButtons();
+            }).bounds(0, 0, 75, 20).createNarration((supplier) -> {
+                return keyMapping.isUnbound() ? Component.translatable("narrator.controls.unbound", new Object[]{component}) : Component.translatable("narrator.controls.bound", new Object[]{component, supplier.get()});
+            }).build();
+            this.resetButton = Button.builder(Component.translatable("controls.reset"), (button) -> {
+                keyMapping.setToDefault();
+                DebugKeybindsList.this.resetMappingAndUpdateButtons();
+            }).bounds(0, 0, 50, 20).createNarration((supplier) -> {
+                return Component.translatable("narrator.controls.reset", new Object[]{component});
+            }).build();
+            this.refreshEntry();
+        }
+
+        public void render(GuiGraphics guiGraphics, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f) {
+            Font var10001 = DebugKeybindsList.this.minecraft.font;
+            Component var10002 = this.name;
+            int var10003 = k + 90 - DebugKeybindsList.this.maxNameWidth;
+            int var10004 = j + m / 2;
+            Objects.requireNonNull(DebugKeybindsList.this.minecraft.font);
+            guiGraphics.drawString(var10001, var10002, var10003, var10004 - 9 / 2, 16777215, false);
+            this.resetButton.setX(k + 190);
+            this.resetButton.setY(j);
+            this.resetButton.render(guiGraphics, n, o, f);
+            this.changeButton.setX(k + 105);
+            this.changeButton.setY(j);
+            if (this.hasCollision) {
+                int q = this.changeButton.getX() - 6;
+                guiGraphics.fill(q, j + 2, q + 3, j + m + 2, ChatFormatting.RED.getColor() | -16777216);
+            }
+
+            this.changeButton.render(guiGraphics, n, o, f);
+        }
+
+        public List<? extends GuiEventListener> children() {
+            return ImmutableList.of(this.changeButton, this.resetButton);
+        }
+
+        public List<? extends NarratableEntry> narratables() {
+            return ImmutableList.of(this.changeButton, this.resetButton);
+        }
+
+        protected void refreshEntry() {
+            this.changeButton.setMessage(this.key.getTranslatedKey());
+            this.resetButton.active = !this.key.isDefault();
+            this.hasCollision = false;
+            MutableComponent mutableComponent = Component.empty();
+            if (!this.key.isUnbound()) {
+                DebugKeybind[] var2 = DebugKeybind.toArray();
+                int var3 = var2.length;
+
+                for(int var4 = 0; var4 < var3; ++var4) {
+                    DebugKeybind keyMapping = var2[var4];
+                    if (keyMapping != this.key && this.key.conflicts(keyMapping)) {
+                        if (this.hasCollision) {
+                            mutableComponent.append(", ");
+                        }
+
+                        this.hasCollision = true;
+                        mutableComponent.append(Component.translatable(keyMapping.getName()));
+                    }
+                }
+            }
+
+            if (this.hasCollision) {
+                this.changeButton.setMessage(Component.literal("[ ").append(this.changeButton.getMessage().copy().withStyle(ChatFormatting.WHITE)).append(" ]").withStyle(ChatFormatting.RED));
+                this.changeButton.setTooltip(Tooltip.create(Component.translatable("controls.keybinds.duplicateKeybinds", new Object[]{mutableComponent})));
+            } else {
+                this.changeButton.setTooltip((Tooltip)null);
+            }
+
+            if (DebugKeybindsList.this.keyBindsScreen.selectedKey == this.key) {
+                this.changeButton.setMessage(Component.literal("> ").append(this.changeButton.getMessage().copy().withStyle(new ChatFormatting[]{ChatFormatting.WHITE, ChatFormatting.UNDERLINE})).append(" <").withStyle(ChatFormatting.YELLOW));
+            }
+
+        }
+    }
+
+    public abstract static class Entry extends ContainerObjectSelectionList.Entry<DebugKeybindsList.Entry> {
+        public Entry() {
+        }
+
+        abstract void refreshEntry();
+    }
+
+
+}

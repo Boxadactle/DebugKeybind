@@ -1,0 +1,25 @@
+{
+  "controls.keybinds.debug": "Teclas de depuración...",
+  "controls.keybinds.debug.title": "Teclas de depuración",
+
+  "key.categories.debug": "Depuración",
+  "key.categories.debug_actions": "Acciones de depuración (debe ser presionado con la tecla de depuración)",
+
+  "key.debug.debugkeybind": "Tecla de depuración",
+
+  "key.debug_actions.reload_chunks": "Recargar chunks",
+  "key.debug_actions.show_hitboxes": "Mostrar cajas de colisiones",
+  "key.debug_actions.copy_location": "Copiar la ubicación como comando /tp.",
+  "key.debug_actions.clear_chat": "Limpiar chat",
+  "key.debug_actions.chunk_borders": "Mostrar bordes de chunks",
+  "key.debug_actions.advanced_tooltips": "Descripciones avanzadas",
+  "key.debug_actions.inspect": "Copiar datos de entidad o bloque al portapapeles",
+  "key.debug_actions.profiling": "Iniciar/Terminar profilado",
+  "key.debug_actions.creative_spectator": "Alternar entre creativo/espectador",
+  "key.debug_actions.pause_focus": "Conmutar modo \"Pausar juego al combiar de ventana\"",
+  "key.debug_actions.help": "Mostrar todas las teclas de depuración",
+  "key.debug_actions.dynamic_textures": "Volcar texturas dinámicas",
+  "key.debug_actions.reload_resourcepacks": "Recargar paquestes de recursos",
+  "key.debug_actions.open_gamemode_switcher": "Abrir el menú del juego",
+  "key.debug_actions.pause_without_menu": "Pausa sin el menú del juego (si es posible)"
+}

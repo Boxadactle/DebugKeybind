@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.boxadactle.debugkeybind.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "ControlsScreenMixin",
+    "GamemodeSwitcherScreenMixin",
+    "InputConstantsMixin",
+    "KeyboardHandlerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

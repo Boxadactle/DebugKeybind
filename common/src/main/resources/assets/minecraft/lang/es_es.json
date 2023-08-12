@@ -1,0 +1,58 @@
+{
+  "debug.advanced_tooltips.help": "%s + %s = Descripciones avanzadas",
+  "debug.advanced_tooltips.off": "Descripciones avanzadas: no",
+  "debug.advanced_tooltips.on": "Descripciones avanzadas: sí",
+  
+  "debug.chunk_boundaries.help": "%s + %s = Mostrar bordes de chunks",
+  "debug.chunk_boundaries.off": "Bordes de chunks: ocultar",
+  "debug.chunk_boundaries.on": "Bordes de chunks: mostrar",
+  
+  "debug.clear_chat.help": "%s + %s = Limpiar chat",
+  "debug.copy_location.help": "%s + %s = Copiar la ubicación como comando /tp. Mantenlas pulsadas para forzar el cierre del juego",
+  
+  "debug.copy_location.message": "Ubicación copiada en el portapapeles",
+  
+  "debug.crash.message": "Estás pulsando %s + %s. Si no las sueltas, el juego dejará de funcionar.",
+  "debug.crash.warning": "El juego dejará de funcionar en %s...",
+  
+  "debug.creative_spectator.error": "No tienes permiso para cambiar el modo de juego",
+  "debug.creative_spectator.help": "%s + %s = Cambiar entre el modo de juego anterior <-> espectador",
+  
+  "debug.dump_dynamic_textures": "Texturas dinámicas guardadas en %s",
+  "debug.dump_dynamic_textures.help": "%s + %s = Volcar texturas dinámicas",
+  
+  "debug.gamemodes.error": "No se ha podido abrir el menú de modos de juego, no tienes permisos",
+  "debug.gamemodes.help": "%s + %s = Abrir menú de modos de juego",
+  "debug.gamemodes.press_f4": "[ %s ]",
+  "debug.gamemodes.select_next": "%s siguiente",
+  
+  "debug.help.help": "%s + %s = Mostrar esta lista",
+  "debug.help.message": "Teclas:",
+  
+  "debug.inspect.client.block": "Se han copiado los datos del bloque al portapapeles (lado del cliente)",
+  "debug.inspect.client.entity": "Se han copiado los datos de la entidad al portapapeles (lado del cliente)",
+  "debug.inspect.help": "%s + %s = Copiar datos de entidad o bloque al portapapeles",
+  "debug.inspect.server.block": "Se han copiado los datos del bloque al portapapeles (lado del servidor)",
+  "debug.inspect.server.entity": "Se han copiado los datos de la entidad al portapapeles (lado del servidor)",
+  
+  "debug.pause.help": "%s + %s = Pausa sin el menú del juego (si es posible pausar)",
+  "debug.pause_focus.help": "%s + %s = Pausar juego al cambiar de ventana",
+  "debug.pause_focus.off": "Pausar al minimizar pantalla: no",
+  "debug.pause_focus.on": "Pausar al minimizar pantalla: sí",
+  
+  "debug.prefix": "[Debug]:",
+  
+  "debug.profiling.help": "%s + %s = Iniciar/Terminar perfilado",
+  "debug.profiling.start": "Iniciado perfilado durante %s segundos. Usa %s + %s para detenerlo antes.",
+  "debug.profiling.stop": "Perfilado terminado. Resultados guardados en %s.",
+  
+  "debug.reload_chunks.help": "%s + %s = Recargar chunks",
+  "debug.reload_chunks.message": "Recargando todos los chunks",
+  
+  "debug.reload_resourcepacks.help": "%s + %s = Recargar paquetes de recursos",
+  "debug.reload_resourcepacks.message": "Paquetes de recursos recargados",
+  
+  "debug.show_hitboxes.help": "%s + %s = Mostrar cajas de colisiones",
+  "debug.show_hitboxes.off": "Cajas de colisiones: ocultar",
+  "debug.show_hitboxes.on": "Cajas de colisiones: mostrar"
+}

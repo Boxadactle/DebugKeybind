@@ -1,0 +1,25 @@
+{
+  "controls.keybinds.debug": "Debug Keybinds...",
+  "controls.keybinds.debug.title": "Debug Keybinds",
+
+  "key.categories.debug": "Debug",
+  "key.categories.debug_actions": "Debug Actions (must be pressed with debug key)",
+
+  "key.debug.debugkeybind": "Debug Key",
+
+  "key.debug_actions.reload_chunks": "Reload All Chunks",
+  "key.debug_actions.show_hitboxes": "Show Hitboxes",
+  "key.debug_actions.copy_location": "Copy Location (hold to crash game)",
+  "key.debug_actions.clear_chat": "Clear Chat",
+  "key.debug_actions.chunk_borders": "Show Chunk Borders",
+  "key.debug_actions.advanced_tooltips": "Render Advanced Tooltips",
+  "key.debug_actions.inspect": "Copy entity/block data to clipboard",
+  "key.debug_actions.profiling": "Start Profiling",
+  "key.debug_actions.creative_spectator": "Toggle creative/spectator",
+  "key.debug_actions.pause_focus": "Toggle \"Pause on lost focus\" mode",
+  "key.debug_actions.help": "Show all commands/keybinds",
+  "key.debug_actions.dynamic_textures": "Dump Dynamic Textures",
+  "key.debug_actions.reload_resourcepacks": "Reload All Resource Packs",
+  "key.debug_actions.open_gamemode_switcher": "Open Gamemode Switcher",
+  "key.debug_actions.pause_without_menu": "Pause Without Pause Menu (if possible)"
+}

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "debugkeybind",
+  "version": "${version}",
+
+  "name": "DebugKeybind",
+  "description": "A basic mod that adds keybinds for the F3 menu",
+  "authors": [],
+  "contact": {},
+
+  "license": "MIT",
+  "icon": "icon.png",
+
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.boxadactle.debugkeybind.fabric.DebugKeybindFabric"
+    ],
+    "modmenu": [
+      "dev.boxadactle.debugkeybind.fabric.ModMenuImpl"
+    ]
+  },
+  "mixins": [
+    "DebugKeybind.mixins.json",
+    "DebugKeybind-common.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14",
+    "minecraft": ">=1.20"
+  },
+  "recommends": {
+    "modmenu": ">=7.0.0"
+  },
+  "breaks": {
+    "coordinatesdisplay": "<=3.2.0"
+  }
+}
