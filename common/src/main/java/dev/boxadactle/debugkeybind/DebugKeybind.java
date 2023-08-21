@@ -9,6 +9,7 @@ import java.util.List;
 public class DebugKeybind {
 
     public static DebugKeybind DEBUG = createDebugKeybind("key.debug.debugkeybind", 292);
+    public static DebugKeybind HIDE_GUI = createDebugKeybind("key.debug.hide_gui", 290);
 
     public static DebugKeybind RELOAD_CHUNKS = createActionKeybind("key.debug_actions.reload_chunks", 65);
     public static DebugKeybind SHOW_HITBOXES = createActionKeybind("key.debug_actions.show_hitboxes", 66);
@@ -35,6 +36,7 @@ public class DebugKeybind {
     public static List<DebugKeybind> toList() {
         return Lists.newArrayList(
                 DEBUG,
+                HIDE_GUI,
 
                 RELOAD_CHUNKS,
                 SHOW_HITBOXES,

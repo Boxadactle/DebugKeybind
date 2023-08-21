@@ -21,7 +21,6 @@
     ]
   },
   "mixins": [
-    "DebugKeybind.mixins.json",
     "DebugKeybind-common.mixins.json"
   ],
   "depends": {
