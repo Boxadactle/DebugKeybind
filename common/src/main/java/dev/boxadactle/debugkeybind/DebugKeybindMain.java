@@ -11,7 +11,7 @@ public class DebugKeybindMain
 
 	public static final String MOD_ID = "debugkeybind";
 
-	public static final String VERSION = "1.0.0";
+	public static final String VERSION = "1.1.0";
 
 	public static final String VERSION_STRING = MOD_NAME + " v" + VERSION;
 

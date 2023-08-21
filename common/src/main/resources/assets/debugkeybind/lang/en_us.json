@@ -6,6 +6,7 @@
   "key.categories.debug_actions": "Debug Actions (must be pressed with debug key)",
 
   "key.debug.debugkeybind": "Debug Key",
+  "key.debug.hide_gui": "Hide GUI",
 
   "key.debug_actions.reload_chunks": "Reload All Chunks",
   "key.debug_actions.show_hitboxes": "Show Hitboxes",

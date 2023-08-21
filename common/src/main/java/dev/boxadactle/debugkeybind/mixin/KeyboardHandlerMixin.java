@@ -148,6 +148,29 @@ public abstract class KeyboardHandlerMixin {
         }
     }
 
+    @Inject(
+            method = "keyPress",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/mojang/blaze3d/platform/InputConstants;isKeyDown(JI)Z",
+                    ordinal = 5
+            )
+    )
+    private void overrideF1(long l, int i, int j, int k, int m, CallbackInfo ci) {
+        // we check if the keycode isnt F1, as the original F1 is still hard-coded
+        // We don't need to handle the menu if it is f1, because minecraft will do it for us
+        if (!DebugKeybind.HIDE_GUI.isDefault()) {
+            if (i == DebugKeybind.HIDE_GUI.getKeyCode()) {
+                this.minecraft.options.hideGui = !this.minecraft.options.hideGui;
+            }
+
+            // now to check if the key pressed was F1, so we can open the menu (to be closed by the hard-code).
+            // The keybind is not bound to F1, so the menu should not open
+            else if(i == 290) {
+                this.minecraft.options.hideGui = !this.minecraft.options.hideGui;
+            }
+        }
+    }
     
     /**
      * @author Boxadactle
