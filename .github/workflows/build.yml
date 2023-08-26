@@ -24,8 +24,8 @@ jobs:
         with:
           java-version: 17
 
-      - name: Build and Publish with Gradle
-        run: ./gradlew build modPublish --stacktrace
+      - name: Publish with Gradle
+        run: ./gradlew modPublish --stacktrace
         env:
           CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
