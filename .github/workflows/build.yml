@@ -11,6 +11,9 @@ on:
   push:
     branches: ["latest"]
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,6 +23,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 17
+
       - name: Build and Publish with Gradle
         run: ./gradlew build modPublish --stacktrace
         env:
