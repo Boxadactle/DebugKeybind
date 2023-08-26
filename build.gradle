@@ -1,6 +1,8 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "dev.architectury.loom" version "1.1-SNAPSHOT" apply false
+    id "me.shedaniel.unified-publishing" version "0.1.+"
+    id "maven-publish"
 }
 
 architectury {
@@ -46,3 +48,5 @@ allprojects {
         withSourcesJar()
     }
 }
+
+tasks.register('modPublish')

@@ -1,5 +1,7 @@
 plugins {
     id "com.github.johnrengelman.shadow" version "7.1.2"
+    id "me.shedaniel.unified-publishing"
+    id "maven-publish"
 }
 
 architectury {
@@ -77,3 +79,32 @@ publishing {
         // Add repositories to publish to here.
     }
 }
+
+unifiedPublishing {
+    project {
+        displayName = "[Fabric ${rootProject.supported_mc_version}] v${rootProject.mod_version}"
+        releaseType = "release"
+        gameVersions.addAll("1.20.1", "1.20")
+        gameLoaders.add("fabric")
+
+        mainPublication remapJar
+
+        if (System.getenv("CURSEFORGE_TOKEN") != null) {
+            curseforge {
+                token = System.getenv("CURSEFORGE_TOKEN")
+                id = project.curseforge_project_id
+                gameVersions.addAll("Java 17")
+            }
+        }
+
+        if (System.getenv("MODRINTH_TOKEN") != null) {
+            modrinth {
+                token = System.getenv("MODRINTH_TOKEN")
+                id = project.modrinth_project_id
+                version = "${rootProject.mod_version}-fabric"
+            }
+        }
+    }
+}
+
+rootProject.tasks.getByName("modPublish").dependsOn("publishUnified")
