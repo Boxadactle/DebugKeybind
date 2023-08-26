@@ -9,7 +9,7 @@ name: Compile & Release
 
 on:
   push:
-    branches: ["modrinth"]
+    branches: ["latest"]
 
 jobs:
   build:
