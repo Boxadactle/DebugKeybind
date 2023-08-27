@@ -80,6 +80,9 @@ publishing {
     }
 }
 
+def modrinthToken = System.getenv().MODRINTH_TOKEN
+def curseforgeToken = System.getenv().CURSEFORGE_TOKEN
+
 unifiedPublishing {
     project {
         displayName = "[Fabric ${rootProject.supported_mc_version}] v${rootProject.mod_version}"
@@ -89,17 +92,17 @@ unifiedPublishing {
 
         mainPublication remapJar
 
-        if (System.getenv("CURSEFORGE_TOKEN") != null) {
+        if (curseforgeToken != null) {
             curseforge {
-                token = System.getenv("CURSEFORGE_TOKEN")
+                token = curseforgeToken
                 id = project.curseforge_project_id
                 gameVersions.addAll("Java 17")
             }
         }
 
-        if (System.getenv("MODRINTH_TOKEN") != null) {
+        if (modrinthToken != null) {
             modrinth {
-                token = System.getenv("MODRINTH_TOKEN")
+                token = modrinthToken
                 id = project.modrinth_project_id
                 version = "${rootProject.mod_version}-fabric"
             }
