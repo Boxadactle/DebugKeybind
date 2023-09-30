@@ -5,39 +5,40 @@
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
 
-name: Compile & Release
-
+name: Build
 on:
   push:
-    branches: ["latest"]
+    branches: [ "dev" ]
+  pull_request:
+    branches: [ "dev" ]
 
 permissions:
   contents: read
 
 jobs:
   build:
+
     runs-on: windows-latest
+
     steps:
-      - uses: actions/checkout@v1
-      - name: Set up JDK 17
-        uses: actions/setup-java@v1
-        with:
-          java-version: 17
-
-      - name: Publish with Gradle
-        run: ./gradlew build modPublish --stacktrace
-        env:
-          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
-          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
-
-      - name: Upload fabric
-        uses: actions/upload-artifact@v3
-        with:
-          name: fabric-build
-          path: fabric/build/libs
-
-      - name: Upload forge
-        uses: actions/upload-artifact@v3
-        with:
-          name: forge-build
-          path: forge/build/libs
+    - uses: actions/checkout@v3
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        
+    - name: Build with Gradle
+      run: ./gradlew build
+      
+    - name: Upload fabric
+      uses: actions/upload-artifact@v3
+      with:
+        name: fabric-build
+        path: fabric/build/libs
+        
+    - name: Upload forge
+      uses: actions/upload-artifact@v3
+      with:
+        name: forge-build
+        path: forge/build/libs
