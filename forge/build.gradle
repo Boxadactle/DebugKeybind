@@ -1,6 +1,9 @@
 plugins {
     id "com.github.johnrengelman.shadow" version "7.1.2"
+    id "me.shedaniel.unified-publishing"
+    id "maven-publish"
 }
+
 architectury {
     platformSetupLoomIde()
     forge()
@@ -47,6 +50,12 @@ remapJar {
 
 jar {
     archiveClassifier.set("dev")
+
+    manifest {
+        attributes([
+                "MixinConfigs": "DebugKeybind-common.mixins.json"
+        ])
+    }
 }
 
 sourcesJar {
@@ -74,3 +83,35 @@ publishing {
         // Add repositories to publish to here.
     }
 }
+
+def modrinthToken = System.getenv().MODRINTH_TOKEN
+def curseforgeToken = System.getenv().CURSEFORGE_TOKEN
+
+unifiedPublishing {
+    project {
+        displayName = "[Forge ${rootProject.supported_mc_version}] v${rootProject.mod_version}"
+        releaseType = "release"
+        gameVersions.addAll("1.20.1", "1.20")
+        gameLoaders.add("forge")
+
+        mainPublication remapJar
+
+        if (curseforgeToken != null) {
+            curseforge {
+                token = curseforgeToken
+                id = project.curseforge_project_id
+                gameVersions.addAll("Java 17")
+            }
+        }
+
+        if (modrinthToken != null) {
+            modrinth {
+                token = modrinthToken
+                id = project.modrinth_project_id
+                version = "${rootProject.mod_version}-forge"
+            }
+        }
+    }
+}
+
+rootProject.tasks.getByName("modPublish").dependsOn("publishUnified")

@@ -24,6 +24,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.nio.file.Path;
 import java.util.Locale;
@@ -172,41 +173,40 @@ public abstract class KeyboardHandlerMixin {
         }
     }
     
-    /**
-     * @author Boxadactle
-     * @reason Replace method since values are hardcoded.
-     *         Copy+pasted and modified
-     */
-    @Overwrite
-    private boolean handleDebugKeys(int i) {
+    @Inject(
+            method = "handleDebugKeys",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void overrideDebugKeys(int i, CallbackInfoReturnable<Boolean> cir) {
         if (this.debugCrashKeyTime > 0L && this.debugCrashKeyTime < Util.getMillis() - 100L) {
-            return true;
+            cir.setReturnValue(true);
         } else {
             if (i == DebugKeybind.RELOAD_CHUNKS.getKeyCode()) {
                 this.minecraft.levelRenderer.allChanged();
                 this.debugFeedbackTranslated("debug.reload_chunks.message");
-                return true;
+                cir.setReturnValue(true);
             }
 
             if (i == DebugKeybind.SHOW_HITBOXES.getKeyCode()) {
                 boolean bl = !this.minecraft.getEntityRenderDispatcher().shouldRenderHitBoxes();
                 this.minecraft.getEntityRenderDispatcher().setRenderHitBoxes(bl);
                 this.debugFeedbackTranslated(bl ? "debug.show_hitboxes.on" : "debug.show_hitboxes.off");
-                return true;
+                cir.setReturnValue(true);
             }
 
             if (i == DebugKeybind.COPY_LOCATION.getKeyCode()) {
                 if (this.minecraft.player.isReducedDebugInfo()) {
-                    return false;
+                    cir.setReturnValue(false);
                 } else {
                     ClientPacketListener clientPacketListener = this.minecraft.player.connection;
                     if (clientPacketListener == null) {
-                        return false;
+                        cir.setReturnValue(false);
                     }
 
                     this.debugFeedbackTranslated("debug.copy_location.message");
                     this.setClipboard(String.format(Locale.ROOT, "/execute in %s run tp @s %.2f %.2f %.2f %.2f %.2f", this.minecraft.player.level().dimension().location(), this.minecraft.player.getX(), this.minecraft.player.getY(), this.minecraft.player.getZ(), this.minecraft.player.getYRot(), this.minecraft.player.getXRot()));
-                    return true;
+                    cir.setReturnValue(true);
                 }
             }
 
@@ -215,14 +215,14 @@ public abstract class KeyboardHandlerMixin {
                     this.minecraft.gui.getChat().clearMessages(false);
                 }
 
-                return true;
+                cir.setReturnValue(true);
 
             }
 
             if (i == DebugKeybind.CHUNK_BORDERS.getKeyCode()) {
                 boolean bl2 = this.minecraft.debugRenderer.switchRenderChunkborder();
                 this.debugFeedbackTranslated(bl2 ? "debug.chunk_boundaries.on" : "debug.chunk_boundaries.off");
-                return true;
+                cir.setReturnValue(true);
             }
 
             if (i == DebugKeybind.ADVANCED_TOOLTIPS.getKeyCode()) {
@@ -230,7 +230,7 @@ public abstract class KeyboardHandlerMixin {
                 this.debugFeedbackTranslated(this.minecraft.options.advancedItemTooltips ? "debug.advanced_tooltips.on" : "debug.advanced_tooltips.off");
                 this.minecraft.options.save();
 
-                return true;
+                cir.setReturnValue(true);
             }
 
             if (i == DebugKeybind.INSPECT.getKeyCode()) {
@@ -238,7 +238,7 @@ public abstract class KeyboardHandlerMixin {
                     this.copyRecreateCommand(this.minecraft.player.hasPermissions(2), !Screen.hasShiftDown());
                 }
 
-                return true;
+                cir.setReturnValue(true);
             }
 
             if (i == DebugKeybind.PROFILING.getKeyCode()) {
@@ -246,7 +246,7 @@ public abstract class KeyboardHandlerMixin {
                     this.debugFeedbackTranslated("debug.profiling.start", 10);
                 }
 
-                return true;
+                cir.setReturnValue(true);
             }
 
             if (i == DebugKeybind.CREATIVE_SPECTATOR.getKeyCode()) {
@@ -260,14 +260,14 @@ public abstract class KeyboardHandlerMixin {
                     var10000.sendUnsignedCommand("gamemode " + ((GameType) MoreObjects.firstNonNull(var10001, GameType.CREATIVE)).getName());
                 }
 
-                return true;
+                cir.setReturnValue(true);
             }
 
             if (i == DebugKeybind.PAUSE_FOCUS.getKeyCode()) {
                 this.minecraft.options.pauseOnLostFocus = !this.minecraft.options.pauseOnLostFocus;
                 this.minecraft.options.save();
                 this.debugFeedbackTranslated(this.minecraft.options.pauseOnLostFocus ? "debug.pause_focus.on" : "debug.pause_focus.off");
-                return true;
+                cir.setReturnValue(true);
             }
 
             if (i == DebugKeybind.HELP.getKeyCode()) {
@@ -291,7 +291,7 @@ public abstract class KeyboardHandlerMixin {
                 chatComponent.addMessage(Component.translatable("debug.reload_resourcepacks.help", debugKey, DebugKeybind.RELOAD_RESOURCEPACKS.getTranslatedKey()));
                 chatComponent.addMessage(Component.translatable("debug.pause.help", debugKey, DebugKeybind.PAUSE_WITHOUT_MENU.getTranslatedKey()));
                 chatComponent.addMessage(Component.translatable("debug.gamemodes.help", debugKey, DebugKeybind.OPEN_GAMEMODE_SWITCHER.getTranslatedKey()));
-                return true;
+                cir.setReturnValue(true);
             }
 
             if (i == DebugKeybind.DUMP_DYNAMIC_TEXTURES.getKeyCode()) {
@@ -302,13 +302,13 @@ public abstract class KeyboardHandlerMixin {
                     return style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, path2.toFile().toString()));
                 });
                 this.debugFeedbackTranslated("debug.dump_dynamic_textures", component);
-                return true;
+                cir.setReturnValue(true);
             }
 
             if (i == DebugKeybind.RELOAD_RESOURCEPACKS.getKeyCode()) {
                 this.debugFeedbackTranslated("debug.reload_resourcepacks.message");
                 this.minecraft.reloadResourcePacks();
-                return true;
+                cir.setReturnValue(true);
             }
 
             if (i == DebugKeybind.OPEN_GAMEMODE_SWITCHER.getKeyCode()) {
@@ -319,6 +319,6 @@ public abstract class KeyboardHandlerMixin {
                 }
             }
         }
-        return false;
+        cir.setReturnValue(false);
     }
 }
