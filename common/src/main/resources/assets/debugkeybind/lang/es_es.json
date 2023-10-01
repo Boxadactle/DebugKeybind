@@ -6,6 +6,7 @@
   "key.categories.debug_actions": "Acciones de depuración (debe ser presionado con la tecla de depuración)",
 
   "key.debug.debugkeybind": "Tecla de depuración",
+  "key.debug.hide_gui": "Eliminar el GUI",
 
   "key.debug_actions.reload_chunks": "Recargar chunks",
   "key.debug_actions.show_hitboxes": "Mostrar cajas de colisiones",
