@@ -5,7 +5,7 @@
 
   "name": "DebugKeybind",
   "description": "A basic mod that adds keybinds for the F3 menu",
-  "authors": [],
+  "authors": [ "Boxadactle" ],
   "contact": {},
 
   "license": "MIT",
