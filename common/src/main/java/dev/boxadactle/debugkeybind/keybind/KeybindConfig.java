@@ -62,7 +62,9 @@ public class KeybindConfig implements BConfig {
         OPEN_GAMEMODE_SWITCHER.setKey(toKey(openGamemodeSwitcher));
         PAUSE_WITHOUT_MENU.setKey(toKey(pauseWithoutMenu));
 
-        DebugKeybindMain.LOGGER.info("Sucessfully reloaded all keybinds");
+        DebugKeybinds.refreshActionBindings();
+
+        DebugKeybindMain.LOGGER.info("Loaded all keybinds");
     }
 
     @Override
@@ -84,6 +86,8 @@ public class KeybindConfig implements BConfig {
         reloadResourcePacks = getKey(RELOAD_RESOURCEPACKS);
         openGamemodeSwitcher = getKey(OPEN_GAMEMODE_SWITCHER);
         pauseWithoutMenu = getKey(PAUSE_WITHOUT_MENU);
+
+        DebugKeybinds.refreshActionBindings();
 
         DebugKeybindMain.LOGGER.info("Sucessfully loaded all keybinds to be saved");
     }

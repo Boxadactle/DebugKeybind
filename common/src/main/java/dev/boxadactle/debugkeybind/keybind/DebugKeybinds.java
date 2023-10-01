@@ -11,6 +11,7 @@ import java.util.List;
 public class DebugKeybinds {
 
     static List<GlobalKeybind> list = new ArrayList<>();
+    static List<ActionKeybind> list2 = new ArrayList<>();
     static HashMap<Integer, ActionKeybind> map = new HashMap<>();
 
     public static GlobalKeybind DEBUG = createGlobalKeybind("key.debug.debugkeybind", 292);
@@ -32,9 +33,11 @@ public class DebugKeybinds {
     public static ActionKeybind OPEN_GAMEMODE_SWITCHER = createActionKeybind("key.debug_actions.open_gamemode_switcher", 293);
     public static ActionKeybind PAUSE_WITHOUT_MENU = createActionKeybind("key.debug_actions.pause_without_menu", 256);
 
-    public static void resetAllToDefault() {
-        for (DebugKeybind k : toList()) {
-            k.setToDefault();
+    public static void refreshActionBindings() {
+        map.clear();
+
+        for (ActionKeybind k : list2) {
+            map.put(k.getKeyCode(), k);
         }
     }
 
@@ -88,7 +91,7 @@ public class DebugKeybinds {
 
     private static ActionKeybind createActionKeybind(String key, int i) {
         ActionKeybind keybind = new ActionKeybind(key, i, "key.categories.debug_actions");
-        map.put(i, keybind);
+        list2.add(keybind);
         return keybind;
     }
 }
