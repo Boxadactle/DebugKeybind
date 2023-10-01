@@ -1,11 +1,11 @@
-package dev.boxadactle.debugkeybind.core;
+package dev.boxadactle.debugkeybind.keybind;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.boxadactle.boxlib.config.BConfig;
 import dev.boxadactle.boxlib.config.BConfigFile;
-import dev.boxadactle.debugkeybind.DebugKeybind;
+import dev.boxadactle.debugkeybind.DebugKeybindMain;
 
-import static dev.boxadactle.debugkeybind.DebugKeybind.*;
+import static dev.boxadactle.debugkeybind.keybind.DebugKeybinds.*;
 
 @BConfigFile(DebugKeybindMain.MOD_ID)
 public class KeybindConfig implements BConfig {

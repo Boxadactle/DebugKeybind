@@ -15,7 +15,7 @@ public class InputConstantsMixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    private static void handleUnbound(long l, int i, CallbackInfoReturnable<Boolean> cir) {
+    private static void handleUnboundKey(long l, int i, CallbackInfoReturnable<Boolean> cir) {
         if (i == -1) cir.setReturnValue(false);
     }
 

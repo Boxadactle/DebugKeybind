@@ -1,7 +1,7 @@
 package dev.boxadactle.debugkeybind.mixin;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import dev.boxadactle.debugkeybind.DebugKeybind;
+import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
 import net.minecraft.client.KeyboardHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -31,7 +31,7 @@ public abstract class KeyboardHandlerMixin {
             index = 1
     )
     private int modifyKey(int i) {
-        return DebugKeybind.DEBUG.getKeyCode();
+        return DebugKeybinds.DEBUG.getKeyCode();
     }
 
     @ModifyArg(
@@ -44,7 +44,7 @@ public abstract class KeyboardHandlerMixin {
             index = 1
     )
     private int modifyKey2(int i) {
-        return DebugKeybind.DEBUG.getKeyCode();
+        return DebugKeybinds.DEBUG.getKeyCode();
     }
 
     @ModifyArg(
@@ -57,7 +57,7 @@ public abstract class KeyboardHandlerMixin {
             index = 1
     )
     private int modifyKey4(int i) {
-        return DebugKeybind.DEBUG.getKeyCode();
+        return DebugKeybinds.DEBUG.getKeyCode();
     }
 
     @ModifyArg(
@@ -70,7 +70,7 @@ public abstract class KeyboardHandlerMixin {
             index = 1
     )
     private int modifyKey5(int i) {
-        return DebugKeybind.DEBUG.getKeyCode();
+        return DebugKeybinds.DEBUG.getKeyCode();
     }
 
     @Inject(
@@ -82,8 +82,8 @@ public abstract class KeyboardHandlerMixin {
             )
     )
     private void handleF3Escape(long h, int i, int j, int k, int l, CallbackInfo ci) {
-        if (i == DebugKeybind.PAUSE_WITHOUT_MENU.getKeyCode()) {
-            boolean flag2 = InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), DebugKeybind.DEBUG.getKeyCode());
+        if (i == DebugKeybinds.PAUSE_WITHOUT_MENU.getKeyCode()) {
+            boolean flag2 = InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), DebugKeybinds.DEBUG.getKeyCode());
             this.minecraft.pauseGame(flag2);
         }
     }
@@ -99,8 +99,8 @@ public abstract class KeyboardHandlerMixin {
     private void overrideF1(long l, int i, int j, int k, int m, CallbackInfo ci) {
         // we check if the keycode isnt F1, as the original F1 is still hard-coded
         // We don't need to handle the menu if it is f1, because minecraft will do it for us
-        if (!DebugKeybind.HIDE_GUI.isDefault()) {
-            if (i == DebugKeybind.HIDE_GUI.getKeyCode()) {
+        if (!DebugKeybinds.HIDE_GUI.isDefault()) {
+            if (i == DebugKeybinds.HIDE_GUI.getKeyCode()) {
                 this.minecraft.options.hideGui = !this.minecraft.options.hideGui;
             }
 
@@ -123,8 +123,8 @@ public abstract class KeyboardHandlerMixin {
     private void checkKey(long l, int i, int j, int k, int m, CallbackInfo ci) {
         // we check if the keycode isnt F3, as the original F3 is still hard-coded
         // We don't need to handle the menu if it is f3, because minecraft will do it for us
-        if (!DebugKeybind.DEBUG.isDefault()) {
-            if (i == DebugKeybind.DEBUG.getKeyCode()) {
+        if (!DebugKeybinds.DEBUG.isDefault()) {
+            if (i == DebugKeybinds.DEBUG.getKeyCode()) {
                 toggleDebugScreen(true);
             }
 
@@ -136,6 +136,7 @@ public abstract class KeyboardHandlerMixin {
         }
     }
 
+    // TODO: move to modifyarg rather than redirect
     @Redirect(
             method = "keyPress",
             at = @At(
@@ -144,7 +145,7 @@ public abstract class KeyboardHandlerMixin {
             )
     )
     private boolean remapDebugKeys(KeyboardHandler instance, int i) {
-        int code = DebugKeybind.remapActionKey(i);
+        int code = DebugKeybinds.remapActionKey(i);
         return code > 0 && handleDebugKeys(code);
     }
 

@@ -1,9 +1,9 @@
-package dev.boxadactle.debugkeybind.core;
+package dev.boxadactle.debugkeybind;
 
 import dev.boxadactle.boxlib.config.BConfigClass;
 import dev.boxadactle.boxlib.config.BConfigHandler;
 import dev.boxadactle.boxlib.util.ModLogger;
-import dev.boxadactle.debugkeybind.core.KeybindConfig;
+import dev.boxadactle.debugkeybind.keybind.KeybindConfig;
 import net.minecraft.client.KeyMapping;
 
 public class DebugKeybindMain

@@ -3,10 +3,13 @@ package dev.boxadactle.debugkeybind.gui;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.boxadactle.boxlib.util.GuiUtils;
-import dev.boxadactle.debugkeybind.DebugKeybind;
+import dev.boxadactle.debugkeybind.keybind.DebugKeybind;
+import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
+import dev.boxadactle.debugkeybind.keybind.GlobalKeybind;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
@@ -18,7 +21,9 @@ import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import org.apache.commons.lang3.ArrayUtils;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -31,7 +36,7 @@ public class DebugKeybindsList extends ContainerObjectSelectionList<DebugKeybind
     public DebugKeybindsList(DebugKeybindsScreen keyBindsScreen, Minecraft minecraft) {
         super(minecraft, keyBindsScreen.width + 45, keyBindsScreen.height, 20, keyBindsScreen.height - 32, 20);
         this.keyBindsScreen = keyBindsScreen;
-        DebugKeybind[] keyMappings = ArrayUtils.clone(DebugKeybind.toArray());
+        DebugKeybind[] keyMappings = ArrayUtils.clone(DebugKeybinds.toArray());
         // in the original class, this is run, but we don't run it here as it is already manually sorted
         // Arrays.sort(keyMappings);
         String string = null;
@@ -123,6 +128,7 @@ public class DebugKeybindsList extends ContainerObjectSelectionList<DebugKeybind
         private final Button changeButton;
         private final Button resetButton;
         private boolean hasCollision = false;
+        private MutableComponent collisionTooltip = Component.empty();
 
         KeyEntry(DebugKeybind keyMapping, Component component) {
             this.key = keyMapping;
@@ -130,7 +136,12 @@ public class DebugKeybindsList extends ContainerObjectSelectionList<DebugKeybind
             this.changeButton = new Button(0, 0, 75, 20, component, (button) -> {
                 DebugKeybindsList.this.keyBindsScreen.selectedKey = keyMapping;
                 DebugKeybindsList.this.resetMappingAndUpdateButtons();
-            });
+            }) {
+                @Override
+                protected @NotNull MutableComponent createNarrationMessage() {
+                    return hasCollision ? collisionTooltip : super.createNarrationMessage();
+                }
+            };
             this.resetButton = new Button(0, 0, 50, 20, Component.translatable("controls.reset"), (button) -> {
                 keyMapping.setToDefault();
                 DebugKeybindsList.this.resetMappingAndUpdateButtons();
@@ -172,20 +183,36 @@ public class DebugKeybindsList extends ContainerObjectSelectionList<DebugKeybind
             this.hasCollision = false;
             MutableComponent mutableComponent = Component.empty();
             if (!this.key.isUnbound()) {
-                DebugKeybind[] var2 = DebugKeybind.toArray();
-                int var3 = var2.length;
+                List<DebugKeybind> var2 = DebugKeybinds.toList();
 
-                for(int var4 = 0; var4 < var3; ++var4) {
-                    DebugKeybind keyMapping = var2[var4];
-                    if (keyMapping != this.key && this.key.conflicts(keyMapping)) {
-                        if (this.hasCollision) {
-                            mutableComponent.append(", ");
-                        }
+                List<Component> var3 = key.checkConflicts(var2);
 
-                        this.hasCollision = true;
-                        mutableComponent.append(Component.translatable(keyMapping.getName()));
+                this.hasCollision = !var3.isEmpty();
+
+                if (this.hasCollision) {
+                    for (int i = 0; i < var3.size(); i++) {
+                        if (i != 0) mutableComponent.append(", ");
+
+                        mutableComponent.append(var3.get(i));
                     }
                 }
+
+                if (key instanceof GlobalKeybind) {
+                    List<KeyMapping> var4 = Arrays.stream(minecraft.options.keyMappings).toList();
+                    List<Component> var5 = ((GlobalKeybind) key).checkMinecraftConflicts(var4);
+
+                    this.hasCollision = this.hasCollision || !var5.isEmpty();
+
+                    if (!var5.isEmpty()) {
+                        for (int i = 0; i < var5.size(); i++) {
+                            if (i != 0) mutableComponent.append(", ");
+
+                            mutableComponent.append(var5.get(i));
+                        }
+                    }
+                }
+
+                this.collisionTooltip = mutableComponent;
             }
 
             if (this.hasCollision) {

@@ -1,7 +1,7 @@
 package dev.boxadactle.debugkeybind.mixin;
 
-import dev.boxadactle.debugkeybind.core.DebugKeybindMain;
-import dev.boxadactle.debugkeybind.DebugKeybind;
+import dev.boxadactle.debugkeybind.DebugKeybindMain;
+import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
 import net.minecraft.client.gui.screens.debug.GameModeSwitcherScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -24,13 +24,13 @@ public abstract class GamemodeSwitcherScreenMixin {
             index = 1
     )
     private int overrideF3Close(int p_84832_) {
-        return DebugKeybind.DEBUG.getKeyCode();
+        return DebugKeybinds.DEBUG.getKeyCode();
     }
 
     // please PR if you can think of a bettter way to do this lmao
     @Inject(method = "keyPressed", at = @At("HEAD"), cancellable = true)
     private void overrideF4Press(int i, int j, int k, CallbackInfoReturnable<Boolean> cir) {
-        int l = DebugKeybind.OPEN_GAMEMODE_SWITCHER.getKeyCode();
+        int l = DebugKeybinds.OPEN_GAMEMODE_SWITCHER.getKeyCode();
 
         // check if key is keybind and keybind is not default (F4)
         // if false, it will run the original method, otherwise it will

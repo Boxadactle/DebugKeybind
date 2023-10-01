@@ -1,6 +1,6 @@
 package dev.boxadactle.debugkeybind.forge;
 
-import dev.boxadactle.debugkeybind.core.DebugKeybindMain;
+import dev.boxadactle.debugkeybind.DebugKeybindMain;
 import dev.boxadactle.debugkeybind.gui.DebugKeybindsScreen;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.fml.ModLoadingContext;

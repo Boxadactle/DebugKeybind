@@ -3,8 +3,9 @@ package dev.boxadactle.debugkeybind.gui;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.boxadactle.boxlib.util.ClientUtils;
-import dev.boxadactle.debugkeybind.core.DebugKeybindMain;
-import dev.boxadactle.debugkeybind.DebugKeybind;
+import dev.boxadactle.debugkeybind.DebugKeybindMain;
+import dev.boxadactle.debugkeybind.keybind.DebugKeybind;
+import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
 import net.minecraft.Util;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.OptionsSubScreen;
@@ -30,7 +31,7 @@ public class DebugKeybindsScreen extends OptionsSubScreen {
         this.keyBindsList = new DebugKeybindsList(this, this.minecraft);
         this.addWidget(this.keyBindsList);
         this.resetButton = this.addRenderableWidget(new Button(this.width / 2 - 155, this.height - 29, 150, 20, Component.translatable("controls.resetAll"), (button) -> {
-            DebugKeybind[] var2 = DebugKeybind.toArray();
+            DebugKeybind[] var2 = DebugKeybinds.toArray();
             int var3 = var2.length;
 
             for(int var4 = 0; var4 < var3; ++var4) {
@@ -67,7 +68,7 @@ public class DebugKeybindsScreen extends OptionsSubScreen {
         this.keyBindsList.render(poseStack, i, j, f);
         drawCenteredString(poseStack, this.font, this.title, this.width / 2, 8, 16777215);
         boolean bl = false;
-        DebugKeybind[] var6 = DebugKeybind.toArray();
+        DebugKeybind[] var6 = DebugKeybinds.toArray();
         int var7 = var6.length;
 
         for(int var8 = 0; var8 < var7; ++var8) {
