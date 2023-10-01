@@ -1,26 +1,23 @@
 package dev.boxadactle.debugkeybind.gui;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.vertex.PoseStack;
+import dev.boxadactle.boxlib.util.GuiUtils;
 import dev.boxadactle.debugkeybind.DebugKeybind;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ComponentPath;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
-import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
-import net.minecraft.client.gui.navigation.FocusNavigationEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import org.apache.commons.lang3.ArrayUtils;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
@@ -90,18 +87,13 @@ public class DebugKeybindsList extends ContainerObjectSelectionList<DebugKeybind
             this.width = DebugKeybindsList.this.minecraft.font.width(this.name);
         }
 
-        public void render(GuiGraphics guiGraphics, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f) {
+        public void render(PoseStack guiGraphics, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f) {
             Font var10001 = DebugKeybindsList.this.minecraft.font;
             Component var10002 = this.name;
             int var10003 = DebugKeybindsList.this.minecraft.screen.width / 2 - this.width / 2;
             int var10004 = j + m;
             Objects.requireNonNull(DebugKeybindsList.this.minecraft.font);
-            guiGraphics.drawString(var10001, var10002, var10003, var10004 - 9 - 1, 16777215, false);
-        }
-
-        @Nullable
-        public ComponentPath nextFocusPath(FocusNavigationEvent focusNavigationEvent) {
-            return null;
+            drawString(guiGraphics, var10001, var10002, var10003, var10004 - 9 - 1, 16777215);
         }
 
         public List<? extends GuiEventListener> children() {
@@ -135,36 +127,32 @@ public class DebugKeybindsList extends ContainerObjectSelectionList<DebugKeybind
         KeyEntry(DebugKeybind keyMapping, Component component) {
             this.key = keyMapping;
             this.name = component;
-            this.changeButton = Button.builder(component, (button) -> {
+            this.changeButton = new Button(0, 0, 75, 20, component, (button) -> {
                 DebugKeybindsList.this.keyBindsScreen.selectedKey = keyMapping;
                 DebugKeybindsList.this.resetMappingAndUpdateButtons();
-            }).bounds(0, 0, 75, 20).createNarration((supplier) -> {
-                return keyMapping.isUnbound() ? Component.translatable("narrator.controls.unbound", new Object[]{component}) : Component.translatable("narrator.controls.bound", new Object[]{component, supplier.get()});
-            }).build();
-            this.resetButton = Button.builder(Component.translatable("controls.reset"), (button) -> {
+            });
+            this.resetButton = new Button(0, 0, 50, 20, Component.translatable("controls.reset"), (button) -> {
                 keyMapping.setToDefault();
                 DebugKeybindsList.this.resetMappingAndUpdateButtons();
-            }).bounds(0, 0, 50, 20).createNarration((supplier) -> {
-                return Component.translatable("narrator.controls.reset", new Object[]{component});
-            }).build();
+            });
             this.refreshEntry();
         }
 
-        public void render(GuiGraphics guiGraphics, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f) {
+        public void render(PoseStack guiGraphics, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f) {
             Font var10001 = DebugKeybindsList.this.minecraft.font;
             Component var10002 = this.name;
             int var10003 = k + 90 - DebugKeybindsList.this.maxNameWidth;
             int var10004 = j + m / 2;
             Objects.requireNonNull(DebugKeybindsList.this.minecraft.font);
-            guiGraphics.drawString(var10001, var10002, var10003, var10004 - 9 / 2, 16777215, false);
-            this.resetButton.setX(k + 190);
-            this.resetButton.setY(j);
+            drawString(guiGraphics, var10001, var10002, var10003, var10004 - 9 / 2, 16777215);
+            this.resetButton.x = (k + 190);
+            this.resetButton.y = (j);
             this.resetButton.render(guiGraphics, n, o, f);
-            this.changeButton.setX(k + 105);
-            this.changeButton.setY(j);
+            this.changeButton.x = (k + 105);
+            this.changeButton.y = (j);
             if (this.hasCollision) {
-                int q = this.changeButton.getX() - 6;
-                guiGraphics.fill(q, j + 2, q + 3, j + m + 2, ChatFormatting.RED.getColor() | -16777216);
+                int q = this.changeButton.x - 6;
+                fill(guiGraphics, q, j + 2, q + 3, j + m + 2, GuiUtils.RED | -16777216);
             }
 
             this.changeButton.render(guiGraphics, n, o, f);
@@ -202,9 +190,6 @@ public class DebugKeybindsList extends ContainerObjectSelectionList<DebugKeybind
 
             if (this.hasCollision) {
                 this.changeButton.setMessage(Component.literal("[ ").append(this.changeButton.getMessage().copy().withStyle(ChatFormatting.WHITE)).append(" ]").withStyle(ChatFormatting.RED));
-                this.changeButton.setTooltip(Tooltip.create(Component.translatable("controls.keybinds.duplicateKeybinds", new Object[]{mutableComponent})));
-            } else {
-                this.changeButton.setTooltip((Tooltip)null);
             }
 
             if (DebugKeybindsList.this.keyBindsScreen.selectedKey == this.key) {

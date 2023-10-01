@@ -1,8 +1,9 @@
-package dev.boxadactle.debugkeybind;
+package dev.boxadactle.debugkeybind.core;
 
 import dev.boxadactle.boxlib.config.BConfigClass;
 import dev.boxadactle.boxlib.config.BConfigHandler;
 import dev.boxadactle.boxlib.util.ModLogger;
+import dev.boxadactle.debugkeybind.core.KeybindConfig;
 import net.minecraft.client.KeyMapping;
 
 public class DebugKeybindMain
@@ -11,7 +12,7 @@ public class DebugKeybindMain
 
 	public static final String MOD_ID = "debugkeybind";
 
-	public static final String VERSION = "1.1.0";
+	public static final String VERSION = "2.0.0";
 
 	public static final String VERSION_STRING = MOD_NAME + " v" + VERSION;
 

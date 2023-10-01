@@ -1,8 +1,9 @@
-package dev.boxadactle.debugkeybind;
+package dev.boxadactle.debugkeybind.core;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.boxadactle.boxlib.config.BConfig;
 import dev.boxadactle.boxlib.config.BConfigFile;
+import dev.boxadactle.debugkeybind.DebugKeybind;
 
 import static dev.boxadactle.debugkeybind.DebugKeybind.*;
 

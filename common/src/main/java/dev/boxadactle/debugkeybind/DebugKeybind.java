@@ -4,12 +4,15 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.network.chat.Component;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class DebugKeybind {
 
     public static DebugKeybind DEBUG = createDebugKeybind("key.debug.debugkeybind", 292);
     public static DebugKeybind HIDE_GUI = createDebugKeybind("key.debug.hide_gui", 290);
+
+    static HashMap<Integer, DebugKeybind> map = new HashMap<>();
 
     public static DebugKeybind RELOAD_CHUNKS = createActionKeybind("key.debug_actions.reload_chunks", 65);
     public static DebugKeybind SHOW_HITBOXES = createActionKeybind("key.debug_actions.show_hitboxes", 66);
@@ -33,6 +36,11 @@ public class DebugKeybind {
         }
     }
 
+    public static int remapActionKey(int code) {
+        DebugKeybind k = map.get(code);
+        return k != null ? k.getDefaultKeyCode() : -1;
+    }
+
     public static List<DebugKeybind> toList() {
         return Lists.newArrayList(
                 DEBUG,
@@ -49,7 +57,7 @@ public class DebugKeybind {
                 CREATIVE_SPECTATOR,
                 PAUSE_FOCUS,
                 HELP,
-                DUMP_DYNAMIC_TEXTURES,
+//                DUMP_DYNAMIC_TEXTURES,
                 RELOAD_RESOURCEPACKS,
                 OPEN_GAMEMODE_SWITCHER,
                 PAUSE_WITHOUT_MENU
@@ -65,7 +73,9 @@ public class DebugKeybind {
     }
 
     private static DebugKeybind createActionKeybind(String key, int i) {
-        return new DebugKeybind(key, i, "key.categories.debug_actions");
+        DebugKeybind keybind = new DebugKeybind(key, i, "key.categories.debug_actions");
+        map.put(i, keybind);
+        return keybind;
     }
 
     String name;

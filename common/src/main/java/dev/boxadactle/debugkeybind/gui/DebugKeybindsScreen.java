@@ -1,11 +1,11 @@
 package dev.boxadactle.debugkeybind.gui;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.blaze3d.vertex.PoseStack;
 import dev.boxadactle.boxlib.util.ClientUtils;
-import dev.boxadactle.debugkeybind.DebugKeybindMain;
+import dev.boxadactle.debugkeybind.core.DebugKeybindMain;
 import dev.boxadactle.debugkeybind.DebugKeybind;
 import net.minecraft.Util;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.OptionsSubScreen;
 import net.minecraft.client.gui.screens.Screen;
@@ -29,7 +29,7 @@ public class DebugKeybindsScreen extends OptionsSubScreen {
     protected void init() {
         this.keyBindsList = new DebugKeybindsList(this, this.minecraft);
         this.addWidget(this.keyBindsList);
-        this.resetButton = this.addRenderableWidget(Button.builder(Component.translatable("controls.resetAll"), (button) -> {
+        this.resetButton = this.addRenderableWidget(new Button(this.width / 2 - 155, this.height - 29, 150, 20, Component.translatable("controls.resetAll"), (button) -> {
             DebugKeybind[] var2 = DebugKeybind.toArray();
             int var3 = var2.length;
 
@@ -39,10 +39,10 @@ public class DebugKeybindsScreen extends OptionsSubScreen {
             }
 
             this.keyBindsList.resetMappingAndUpdateButtons();
-        }).bounds(this.width / 2 - 155, this.height - 29, 150, 20).build());
-        this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (button) -> {
+        }));
+        this.addRenderableWidget(new Button(this.width / 2 - 155 + 160, this.height - 29, 150, 20, CommonComponents.GUI_DONE, (button) -> {
             this.onClose();
-        }).bounds(this.width / 2 - 155 + 160, this.height - 29, 150, 20).build());
+        }));
     }
 
     public boolean keyPressed(int i, int j, int k) {
@@ -62,10 +62,10 @@ public class DebugKeybindsScreen extends OptionsSubScreen {
         }
     }
 
-    public void render(GuiGraphics guiGraphics, int i, int j, float f) {
-        this.renderBackground(guiGraphics);
-        this.keyBindsList.render(guiGraphics, i, j, f);
-        guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, 8, 16777215);
+    public void render(PoseStack poseStack, int i, int j, float f) {
+        this.renderBackground(poseStack);
+        this.keyBindsList.render(poseStack, i, j, f);
+        drawCenteredString(poseStack, this.font, this.title, this.width / 2, 8, 16777215);
         boolean bl = false;
         DebugKeybind[] var6 = DebugKeybind.toArray();
         int var7 = var6.length;
@@ -79,7 +79,7 @@ public class DebugKeybindsScreen extends OptionsSubScreen {
         }
 
         this.resetButton.active = bl;
-        super.render(guiGraphics, i, j, f);
+        super.render(poseStack, i, j, f);
     }
 
     @Override

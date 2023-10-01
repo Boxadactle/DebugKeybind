@@ -23,8 +23,8 @@ dependencies {
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 
-    modApi("dev.boxadactle.boxlib:BoxLib-fabric:${rootProject.boxlib_version}")
-    include("dev.boxadactle.boxlib:BoxLib-fabric:${rootProject.boxlib_version}")
+    modApi("dev.boxadactle:Boxlib-fabric:${rootProject.boxlib_version}")
+    include("dev.boxadactle:Boxlib-fabric:${rootProject.boxlib_version}")
 
     modImplementation("com.terraformersmc:modmenu:${rootProject.modmenu_version}") {
         transitive = false
@@ -80,34 +80,32 @@ publishing {
     }
 }
 
-def modrinthToken = System.getenv().MODRINTH_TOKEN
-def curseforgeToken = System.getenv().CURSEFORGE_TOKEN
-
 unifiedPublishing {
     project {
-        displayName = "[Fabric ${rootProject.supported_mc_version}] v${rootProject.mod_version}"
+        displayName = "[Fabric ${rootProject.minecraft_version}] v${rootProject.mod_version}"
+        version = "${rootProject.mod_version}-fabric"
+        changelog = "A changelog can be found here: https://github.com/Boxadactle/DebugKeybind/releases/tag/${rootProject.mod_version}"
         releaseType = "release"
-        gameVersions.addAll("1.20.1", "1.20")
-        gameLoaders.add("fabric")
+        gameVersions = [ "1.19.1", "1.19.2" ]
+        gameLoaders = [ "fabric", "quilt" ]
 
-        mainPublication remapJar
+        mainPublication tasks.remapJar
 
-        if (curseforgeToken != null) {
+        var cfToken = System.getenv("CURSEFORGE_TOKEN")
+        if (cfToken != null) {
             curseforge {
-                token = curseforgeToken
-                id = project.curseforge_project_id
-                gameVersions.addAll("Java 17")
+                token = cfToken
+                id = "901782"
             }
         }
 
+        var modrinthToken = System.getenv("MODRINTH_TOKEN")
         if (modrinthToken != null) {
             modrinth {
                 token = modrinthToken
-                id = project.modrinth_project_id
-                version = "${rootProject.mod_version}-fabric"
+                id = "DX9ioka8"
+                version = "${rootProject.mod_version}-${project.name}"
             }
         }
     }
 }
-
-rootProject.tasks.getByName("modPublish").dependsOn("publishUnified")

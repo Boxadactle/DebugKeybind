@@ -1,6 +1,6 @@
 package dev.boxadactle.debugkeybind.mixin;
 
-import dev.boxadactle.debugkeybind.DebugKeybindMain;
+import dev.boxadactle.debugkeybind.core.DebugKeybindMain;
 import dev.boxadactle.debugkeybind.DebugKeybind;
 import net.minecraft.client.gui.screens.debug.GameModeSwitcherScreen;
 import org.spongepowered.asm.mixin.Mixin;
