@@ -33,17 +33,17 @@ public class ControlsScreenMixin extends OptionsSubScreen {
         int k = this.height / 6 - 12;
         k += 24 * 3;
 
-        this.addRenderableWidget(new Button(i, k, 150, 20, Component.translatable("controls.keybinds.debug"), (p_280844_) -> {
+        this.addRenderableWidget(new Button.Builder(Component.translatable("controls.keybinds.debug"), (p_280844_) -> {
             Screen s = ClientUtils.getCurrentScreen();
             ClientUtils.setScreen(new DebugKeybindsScreen(s));
-        }));
+        }).bounds(i, k, 150, 20).build());
     }
 
     @ModifyArg(
             method = "init",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/components/Button;<init>(IIIILnet/minecraft/network/chat/Component;Lnet/minecraft/client/gui/components/Button$OnPress;)V",
+                    target = "Lnet/minecraft/client/gui/components/Button$Builder;bounds(IIII)Lnet/minecraft/client/gui/components/Button$Builder;",
                     ordinal = 2
             ),
             index = 1

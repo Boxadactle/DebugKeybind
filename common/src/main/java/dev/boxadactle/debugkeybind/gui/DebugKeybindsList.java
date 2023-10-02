@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.narration.NarratedElementType;
@@ -133,19 +134,14 @@ public class DebugKeybindsList extends ContainerObjectSelectionList<DebugKeybind
         KeyEntry(DebugKeybind keyMapping, Component component) {
             this.key = keyMapping;
             this.name = component;
-            this.changeButton = new Button(0, 0, 75, 20, component, (button) -> {
+            this.changeButton = Button.builder(component, (button) -> {
                 DebugKeybindsList.this.keyBindsScreen.selectedKey = keyMapping;
                 DebugKeybindsList.this.resetMappingAndUpdateButtons();
-            }) {
-                @Override
-                protected @NotNull MutableComponent createNarrationMessage() {
-                    return hasCollision ? collisionTooltip : super.createNarrationMessage();
-                }
-            };
-            this.resetButton = new Button(0, 0, 50, 20, Component.translatable("controls.reset"), (button) -> {
+            }).bounds(0, 0, 75, 20).build();
+            this.resetButton = Button.builder(Component.translatable("controls.reset"), (button) -> {
                 keyMapping.setToDefault();
                 DebugKeybindsList.this.resetMappingAndUpdateButtons();
-            });
+            }).bounds(0, 0, 50, 20).build();
             this.refreshEntry();
         }
 
@@ -156,13 +152,13 @@ public class DebugKeybindsList extends ContainerObjectSelectionList<DebugKeybind
             int var10004 = j + m / 2;
             Objects.requireNonNull(DebugKeybindsList.this.minecraft.font);
             drawString(guiGraphics, var10001, var10002, var10003, var10004 - 9 / 2, 16777215);
-            this.resetButton.x = (k + 190);
-            this.resetButton.y = (j);
+            this.resetButton.setX(k + 190);
+            this.resetButton.setY(j);
             this.resetButton.render(guiGraphics, n, o, f);
-            this.changeButton.x = (k + 105);
-            this.changeButton.y = (j);
+            this.changeButton.setX(k + 105);
+            this.changeButton.setY(j);
             if (this.hasCollision) {
-                int q = this.changeButton.x - 6;
+                int q = this.changeButton.getX() - 6;
                 fill(guiGraphics, q, j + 2, q + 3, j + m + 2, GuiUtils.RED | -16777216);
             }
 
@@ -212,11 +208,13 @@ public class DebugKeybindsList extends ContainerObjectSelectionList<DebugKeybind
                     }
                 }
 
-                this.collisionTooltip = mutableComponent;
+                this.changeButton.setTooltip(Tooltip.create(mutableComponent));
             }
 
             if (this.hasCollision) {
                 this.changeButton.setMessage(Component.literal("[ ").append(this.changeButton.getMessage().copy().withStyle(ChatFormatting.WHITE)).append(" ]").withStyle(ChatFormatting.RED));
+            } else {
+                this.changeButton.setTooltip(null);
             }
 
             if (DebugKeybindsList.this.keyBindsScreen.selectedKey == this.key) {
