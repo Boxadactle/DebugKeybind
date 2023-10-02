@@ -3,34 +3,49 @@ package dev.boxadactle.debugkeybind.mixin;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.controls.KeyBindsList;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.Redirect;
+
+import java.util.List;
 
 @Mixin(KeyBindsList.KeyEntry.class)
 public class KeyBindsListMixin {
 
     @Shadow @Final private KeyMapping key;
 
-    @ModifyArg(
-            method = "render",
+    @Shadow private boolean hasCollision;
+
+    @Redirect(
+            method = "refreshEntry",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/components/Button;setMessage(Lnet/minecraft/network/chat/Component;)V",
-                    ordinal = 0
-            ),
-            index = 0
+                    target = "Lnet/minecraft/network/chat/Component;empty()Lnet/minecraft/network/chat/MutableComponent;"
+            )
     )
-    private Component checkDebugCollisions(Component par1) {
-        if (DebugKeybinds.collidesWithGlobalKeybinds(key))
-            return par1.copy().withStyle(ChatFormatting.RED);
+    private MutableComponent checkDebugCollisions() {
+        List<Component> collisions = DebugKeybinds.getCollisions(key);
 
-        return par1;
+        MutableComponent mutableComponent = Component.empty();
+
+        if (!collisions.isEmpty()) {
+            boolean bl = false;
+            this.hasCollision = true;
+
+            for (Component c : collisions) {
+                if (bl) mutableComponent.append(", ");
+
+                bl = true;
+                mutableComponent.append(c);
+            }
+        }
+
+        return mutableComponent;
     }
 
 }

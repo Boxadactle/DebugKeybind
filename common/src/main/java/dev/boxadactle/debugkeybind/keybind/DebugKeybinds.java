@@ -3,6 +3,7 @@ package dev.boxadactle.debugkeybind.keybind;
 import com.google.common.collect.Lists;
 import dev.boxadactle.debugkeybind.mixin.KeyAccessor;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,21 +63,21 @@ public class DebugKeybinds {
                 CREATIVE_SPECTATOR,
                 PAUSE_FOCUS,
                 HELP,
-//                DUMP_DYNAMIC_TEXTURES,
+                DUMP_DYNAMIC_TEXTURES,
                 RELOAD_RESOURCEPACKS,
                 OPEN_GAMEMODE_SWITCHER,
                 PAUSE_WITHOUT_MENU
         );
     }
 
-    public static boolean collidesWithGlobalKeybinds(KeyMapping k) {
-        boolean bl = false;
+    public static List<Component> getCollisions(KeyMapping k) {
+        List<Component> collisions = new ArrayList<>();
 
         for (GlobalKeybind key : list) {
-            if (key.getKeyCode() == ((KeyAccessor)k).getKey().getValue()) bl = true;
+            if (key.getKeyCode() == ((KeyAccessor)k).getKey().getValue()) collisions.add(Component.translatable(key.getName()));
         }
 
-        return bl;
+        return collisions;
     }
 
     public static DebugKeybind[] toArray() {

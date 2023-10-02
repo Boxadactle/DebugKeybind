@@ -178,6 +178,7 @@ public class DebugKeybindsList extends ContainerObjectSelectionList<DebugKeybind
             this.resetButton.active = !this.key.isDefault();
             this.hasCollision = false;
             MutableComponent mutableComponent = Component.empty();
+            boolean bl = false;
             if (!this.key.isUnbound()) {
                 List<DebugKeybind> var2 = DebugKeybinds.toList();
 
@@ -186,10 +187,11 @@ public class DebugKeybindsList extends ContainerObjectSelectionList<DebugKeybind
                 this.hasCollision = !var3.isEmpty();
 
                 if (this.hasCollision) {
-                    for (int i = 0; i < var3.size(); i++) {
-                        if (i != 0) mutableComponent.append(", ");
+                    for (Component component : var3) {
+                        if (bl) mutableComponent.append(", ");
 
-                        mutableComponent.append(var3.get(i));
+                        bl = true;
+                        mutableComponent.append(component);
                     }
                 }
 
@@ -200,15 +202,16 @@ public class DebugKeybindsList extends ContainerObjectSelectionList<DebugKeybind
                     this.hasCollision = this.hasCollision || !var5.isEmpty();
 
                     if (!var5.isEmpty()) {
-                        for (int i = 0; i < var5.size(); i++) {
-                            if (i != 0) mutableComponent.append(", ");
+                        for (Component component : var5) {
+                            if (bl) mutableComponent.append(", ");
 
-                            mutableComponent.append(var5.get(i));
+                            bl = true;
+                            mutableComponent.append(component);
                         }
                     }
                 }
 
-                this.changeButton.setTooltip(Tooltip.create(mutableComponent));
+                this.changeButton.setTooltip(Tooltip.create(Component.translatable("controls.keybinds.duplicateKeybinds", mutableComponent)));
             }
 
             if (this.hasCollision) {

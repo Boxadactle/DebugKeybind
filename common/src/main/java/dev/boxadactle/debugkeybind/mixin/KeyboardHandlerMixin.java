@@ -189,6 +189,7 @@ public abstract class KeyboardHandlerMixin {
             chatComponent.addMessage(Component.translatable("debug.creative_spectator.help", debugKey, DebugKeybinds.CREATIVE_SPECTATOR.getTranslatedKey()));
             chatComponent.addMessage(Component.translatable("debug.pause_focus.help", debugKey, DebugKeybinds.PAUSE_FOCUS.getTranslatedKey()));
             chatComponent.addMessage(Component.translatable("debug.help.help", debugKey, DebugKeybinds.HELP.getTranslatedKey()));
+            chatComponent.addMessage(Component.translatable("debug.dump_dynamic_textures.help", debugKey, DebugKeybinds.DUMP_DYNAMIC_TEXTURES.getTranslatedKey()));
             chatComponent.addMessage(Component.translatable("debug.reload_resourcepacks.help", debugKey, DebugKeybinds.RELOAD_RESOURCEPACKS.getTranslatedKey()));
             chatComponent.addMessage(Component.translatable("debug.pause.help", debugKey, DebugKeybinds.PAUSE_WITHOUT_MENU.getTranslatedKey()));
             chatComponent.addMessage(Component.translatable("debug.gamemodes.help", debugKey, DebugKeybinds.OPEN_GAMEMODE_SWITCHER.getTranslatedKey()));
