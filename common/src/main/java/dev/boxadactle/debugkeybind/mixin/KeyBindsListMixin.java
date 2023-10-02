@@ -1,7 +1,6 @@
 package dev.boxadactle.debugkeybind.mixin;
 
 import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.screens.controls.KeyBindsList;
 import net.minecraft.network.chat.Component;

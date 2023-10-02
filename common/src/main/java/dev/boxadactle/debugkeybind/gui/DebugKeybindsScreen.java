@@ -7,6 +7,7 @@ import dev.boxadactle.debugkeybind.DebugKeybindMain;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybind;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
 import net.minecraft.Util;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.OptionsSubScreen;
 import net.minecraft.client.gui.screens.Screen;
@@ -63,10 +64,10 @@ public class DebugKeybindsScreen extends OptionsSubScreen {
         }
     }
 
-    public void render(PoseStack poseStack, int i, int j, float f) {
-        this.renderBackground(poseStack);
-        this.keyBindsList.render(poseStack, i, j, f);
-        drawCenteredString(poseStack, this.font, this.title, this.width / 2, 8, 16777215);
+    public void render(GuiGraphics guiGraphics, int i, int j, float f) {
+        this.renderBackground(guiGraphics);
+        this.keyBindsList.render(guiGraphics, i, j, f);
+        guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, 8, 16777215);
         boolean bl = false;
         DebugKeybind[] var6 = DebugKeybinds.toArray();
         int var7 = var6.length;
@@ -80,7 +81,7 @@ public class DebugKeybindsScreen extends OptionsSubScreen {
         }
 
         this.resetButton.active = bl;
-        super.render(poseStack, i, j, f);
+        super.render(guiGraphics, i, j, f);
     }
 
     @Override

@@ -12,6 +12,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.client.gui.components.Tooltip;
@@ -93,13 +94,13 @@ public class DebugKeybindsList extends ContainerObjectSelectionList<DebugKeybind
             this.width = DebugKeybindsList.this.minecraft.font.width(this.name);
         }
 
-        public void render(PoseStack guiGraphics, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f) {
+        public void render(GuiGraphics guiGraphics, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f) {
             Font var10001 = DebugKeybindsList.this.minecraft.font;
             Component var10002 = this.name;
             int var10003 = DebugKeybindsList.this.minecraft.screen.width / 2 - this.width / 2;
             int var10004 = j + m;
             Objects.requireNonNull(DebugKeybindsList.this.minecraft.font);
-            drawString(guiGraphics, var10001, var10002, var10003, var10004 - 9 - 1, 16777215);
+            guiGraphics.drawString(var10001, var10002, var10003, var10004 - 9 - 1, 16777215);
         }
 
         public List<? extends GuiEventListener> children() {
@@ -145,13 +146,13 @@ public class DebugKeybindsList extends ContainerObjectSelectionList<DebugKeybind
             this.refreshEntry();
         }
 
-        public void render(PoseStack guiGraphics, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f) {
+        public void render(GuiGraphics guiGraphics, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f) {
             Font var10001 = DebugKeybindsList.this.minecraft.font;
             Component var10002 = this.name;
             int var10003 = k + 90 - DebugKeybindsList.this.maxNameWidth;
             int var10004 = j + m / 2;
             Objects.requireNonNull(DebugKeybindsList.this.minecraft.font);
-            drawString(guiGraphics, var10001, var10002, var10003, var10004 - 9 / 2, 16777215);
+            guiGraphics.drawString(var10001, var10002, var10003, var10004 - 9 / 2, 16777215);
             this.resetButton.setX(k + 190);
             this.resetButton.setY(j);
             this.resetButton.render(guiGraphics, n, o, f);
@@ -159,7 +160,7 @@ public class DebugKeybindsList extends ContainerObjectSelectionList<DebugKeybind
             this.changeButton.setY(j);
             if (this.hasCollision) {
                 int q = this.changeButton.getX() - 6;
-                fill(guiGraphics, q, j + 2, q + 3, j + m + 2, GuiUtils.RED | -16777216);
+                guiGraphics.fill(q, j + 2, q + 3, j + m + 2, GuiUtils.RED | -16777216);
             }
 
             this.changeButton.render(guiGraphics, n, o, f);
