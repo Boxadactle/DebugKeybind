@@ -1,6 +1,8 @@
 package dev.boxadactle.debugkeybind.mixin;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import dev.boxadactle.boxlib.util.ClientUtils;
+import dev.boxadactle.debugkeybind.DebugKeybindMain;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
 import net.minecraft.Util;
 import net.minecraft.client.KeyboardHandler;
@@ -22,8 +24,6 @@ public abstract class KeyboardHandlerMixin {
 
     @Shadow @Final private Minecraft minecraft;
 
-    @Shadow protected abstract boolean handleDebugKeys(int i);
-
     @Shadow private long debugCrashKeyTime;
 
     @Shadow protected abstract void debugFeedbackTranslated(String string, Object... objects);
@@ -33,7 +33,7 @@ public abstract class KeyboardHandlerMixin {
             at = @At(
                     value = "INVOKE",
                     target = "Lcom/mojang/blaze3d/platform/InputConstants;isKeyDown(JI)Z",
-                    ordinal = 1
+                    ordinal = 0
             ),
             index = 1
     )
@@ -41,69 +41,33 @@ public abstract class KeyboardHandlerMixin {
         return DebugKeybinds.DEBUG.getKeyCode();
     }
 
-    @ModifyArg(
-            method = "keyPress",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lcom/mojang/blaze3d/platform/InputConstants;isKeyDown(JI)Z",
-                    ordinal = 3
-            ),
-            index = 1
-    )
-    private int modifyKey2(int i) {
-        return DebugKeybinds.DEBUG.getKeyCode();
-    }
-
-    @ModifyArg(
-            method = "keyPress",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lcom/mojang/blaze3d/platform/InputConstants;isKeyDown(JI)Z",
-                    ordinal = 4
-            ),
-            index = 1
-    )
-    private int modifyKey4(int i) {
-        return DebugKeybinds.DEBUG.getKeyCode();
-    }
-
-    @ModifyArg(
-            method = "keyPress",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lcom/mojang/blaze3d/platform/InputConstants;isKeyDown(JI)Z",
-                    ordinal = 5
-            ),
-            index = 1
-    )
-    private int modifyKey5(int i) {
-        return DebugKeybinds.DEBUG.getKeyCode();
-    }
-
     @Inject(
             method = "keyPress",
             at = @At(
                     value = "INVOKE",
-                    target = "Lcom/mojang/blaze3d/platform/InputConstants;isKeyDown(JI)Z",
-                    ordinal = 5
+                    target = "Lcom/mojang/blaze3d/platform/InputConstants;getKey(II)Lcom/mojang/blaze3d/platform/InputConstants$Key;",
+                    ordinal = 0
             )
     )
-    private void handleF3Escape(long h, int i, int j, int k, int l, CallbackInfo ci) {
-        if (i == DebugKeybinds.PAUSE_WITHOUT_MENU.getKeyCode()) {
+    private void handleExtraKeys(long l, int i, int j, int k, int m, CallbackInfo ci) {
+        if (k != 0) {
+            handleF3Escape(i);
+            overrideF1(i);
+        }
+    }
+
+    @Unique
+    private void handleF3Escape(int i) {
+        // check if the current screen is null so the game doesnt pause immediately
+        // after being unpaused with escape
+        if (ClientUtils.getCurrentScreen() == null && i == DebugKeybinds.PAUSE_WITHOUT_MENU.getKeyCode()) {
             boolean flag2 = InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), DebugKeybinds.DEBUG.getKeyCode());
             this.minecraft.pauseGame(flag2);
         }
     }
 
-    @Inject(
-            method = "keyPress",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lcom/mojang/blaze3d/platform/InputConstants;isKeyDown(JI)Z",
-                    ordinal = 5
-            )
-    )
-    private void overrideF1(long l, int i, int j, int k, int m, CallbackInfo ci) {
+    @Unique
+    private void overrideF1(int i) {
         // we check if the keycode isnt F1, as the original F1 is still hard-coded
         // We don't need to handle the menu if it is f1, because minecraft will do it for us
         if (!DebugKeybinds.HIDE_GUI.isDefault()) {
@@ -148,18 +112,18 @@ public abstract class KeyboardHandlerMixin {
         if (this.handledDebugKey) {
             if (bl) this.handledDebugKey = false;
         } else {
-            this.minecraft.options.renderDebug = !this.minecraft.options.renderDebug;
-            this.minecraft.options.renderDebugCharts = this.minecraft.options.renderDebug && Screen.hasShiftDown();
-            this.minecraft.options.renderFpsChart = this.minecraft.options.renderDebug && Screen.hasAltDown();
-
+            this.minecraft.getDebugOverlay().toggleOverlay();
         }
     }
+
     @ModifyArg(
             method = "keyPress",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/KeyboardHandler;handleDebugKeys(I)Z"
-            )
+                    target = "Lnet/minecraft/client/KeyboardHandler;handleDebugKeys(I)Z",
+                    ordinal = 0
+            ),
+            index = 0
     )
     private int remapDebugKeys(int i) {
         return DebugKeybinds.remapActionKey(i);
