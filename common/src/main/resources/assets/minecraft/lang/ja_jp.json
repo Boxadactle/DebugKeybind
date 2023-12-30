@@ -1,0 +1,57 @@
+{
+  "debug.advanced_tooltips.help": "%s + %s = 高度なツールチップ",
+  "debug.advanced_tooltips.off": "高度なツールチップ：非表示",
+  "debug.advanced_tooltips.on": "高度なツールチップ：表示",
+
+  "debug.chunk_boundaries.help": "%s + %s = チャンクの境界を表示",
+  "debug.chunk_boundaries.off": "チャンクの境界：非表示",
+  "debug.chunk_boundaries.on": "チャンクの境界：表示",
+
+  "debug.clear_chat.help": "%s + %s = チャットをクリア",
+
+  "debug.copy_location.help": "%s + %s = 位置を/tpコマンドとしてコピーし、%s + %sを押し続けるとゲームがクラッシュします",
+  "debug.copy_location.message": "クリップボードに位置をコピーしました",
+
+  "debug.crash.message": "%s + %sが押されています。これは解除されない限りゲームをクラッシュさせます。",
+  "debug.crash.warning": "%sでクラッシュ...",
+
+  "debug.creative_spectator.error": "ゲームモードを切り替える権限がありません",
+  "debug.creative_spectator.help": "%s + %s = 前のゲームモード <-> スペクテイターに切り替え",
+
+  "debug.dump_dynamic_textures": "ダイナミックテクスチャを%sに保存しました",
+  "debug.dump_dynamic_textures.help": "%s + %s = ダイナミックテクスチャをダンプ",
+
+  "debug.gamemodes.error": "ゲームモードスイッチャーを開く権限がありません",
+  "debug.gamemodes.help": "%s + %s = ゲームモードスイッチャーを開く",
+  "debug.gamemodes.press_f4": "[ %s ]",
+  "debug.gamemodes.select_next": "%s 次へ",
+
+  "debug.help.help": "%s + %s = このリストを表示",
+  "debug.help.message": "キーバインド:",
+
+  "debug.inspect.client.block": "クライアントサイドのブロックデータをクリップボードにコピーしました",
+  "debug.inspect.client.entity": "クライアントサイドのエンティティデータをクリップボードにコピーしました",
+  "debug.inspect.help": "%s + %s = エンティティまたはブロックデータをクリップボードにコピー",
+  "debug.inspect.server.block": "サーバーサイドのブロックデータをクリップボードにコピーしました",
+  "debug.inspect.server.entity": "サーバーサイドのエンティティデータをクリップボードにコピーしました",
+
+  "debug.pause_focus.help": "%s + %s = フォーカスが失われたときに一時停止",
+  "debug.pause_focus.off": "フォーカスが失われたときに一時停止：無効",
+  "debug.pause_focus.on": "フォーカスが失われたときに一時停止：有効",
+  "debug.pause.help": "%s + %s = ポーズメニューなしで一時停止（可能な場合）",
+
+  "debug.prefix": "[デバッグ]:",
+
+  "debug.profiling.help": "%s + %s = プロファイリングの開始/停止",
+  "debug.profiling.start": "%s秒間のプロファイリングが開始されました。早めに停止するには %s + %s を使用してください",
+  "debug.profiling.stop": "プロファイリングが終了しました。結果を %s に保存しました",
+
+  "debug.reload_chunks.help": "%s + %s = チャンクをリロード",
+  "debug.reload_chunks.message": "すべてのチャンクをリロード中",
+  "debug.reload_resourcepacks.help": "%s + %s = リソースパックをリロード",
+  "debug.reload_resourcepacks.message": "リソースパックをリロードしました",
+
+  "debug.show_hitboxes.help": "%s + %s = ヒットボックスを表示",
+  "debug.show_hitboxes.off": "ヒットボックス：非表示",
+  "debug.show_hitboxes.on": "ヒットボックス：表示"
+}

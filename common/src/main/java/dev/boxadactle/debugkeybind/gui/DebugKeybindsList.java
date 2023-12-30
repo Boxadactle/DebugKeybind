@@ -36,7 +36,7 @@ public class DebugKeybindsList extends ContainerObjectSelectionList<DebugKeybind
     int maxNameWidth;
 
     public DebugKeybindsList(DebugKeybindsScreen keyBindsScreen, Minecraft minecraft) {
-        super(minecraft, keyBindsScreen.width + 45, keyBindsScreen.height, 20, keyBindsScreen.height - 32, 20);
+        super(minecraft, keyBindsScreen.width + 45, keyBindsScreen.height - 52, 20, 20);
         this.keyBindsScreen = keyBindsScreen;
         DebugKeybind[] keyMappings = ArrayUtils.clone(DebugKeybinds.toArray());
         // in the original class, this is run, but we don't run it here as it is already manually sorted
@@ -62,10 +62,6 @@ public class DebugKeybindsList extends ContainerObjectSelectionList<DebugKeybind
             this.addEntry(new DebugKeybindsList.KeyEntry(keyMapping, component));
         }
 
-    }
-
-    public DebugKeybindsList(Minecraft minecraft, int i, int j, int k, int l, int m) {
-        super(minecraft, i, j, k, l, m);
     }
 
     public void resetMappingAndUpdateButtons() {

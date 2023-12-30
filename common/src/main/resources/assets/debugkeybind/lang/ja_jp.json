@@ -1,0 +1,26 @@
+{
+  "controls.keybinds.debug": "デバッグキーバインド...",
+  "controls.keybinds.debug.title": "デバッグキーバインド",
+
+  "key.categories.debug": "デバッグ",
+  "key.categories.debug_actions": "デバッグアクション（デバッグキーと同時に押す必要があります）",
+
+  "key.debug.debugkeybind": "デバッグキー",
+  "key.debug.hide_gui": "GUIを非表示",
+
+  "key.debug_actions.reload_chunks": "すべてのチャンクをリロード",
+  "key.debug_actions.show_hitboxes": "ヒットボックスを表示",
+  "key.debug_actions.copy_location": "位置をコピー（ゲームクラッシュのために押し続ける）",
+  "key.debug_actions.clear_chat": "チャットをクリア",
+  "key.debug_actions.chunk_borders": "チャンクの境界を表示",
+  "key.debug_actions.advanced_tooltips": "高度なツールチップをレンダリング",
+  "key.debug_actions.inspect": "エンティティ/ブロックデータをクリップボードにコピー",
+  "key.debug_actions.profiling": "プロファイリングの開始",
+  "key.debug_actions.creative_spectator": "クリエイティブ/スペクテイターの切り替え",
+  "key.debug_actions.pause_focus": "\"フォーカスが失われたときに一時停止\"モードの切り替え",
+  "key.debug_actions.help": "すべてのコマンド/キーバインドを表示",
+  "key.debug_actions.dynamic_textures": "ダイナミックテクスチャのダンプ",
+  "key.debug_actions.reload_resourcepacks": "すべてのリソースパックをリロード",
+  "key.debug_actions.open_gamemode_switcher": "ゲームモードスイッチャーを開く",
+  "key.debug_actions.pause_without_menu": "メニューなしで一時停止（可能な場合）"
+}
