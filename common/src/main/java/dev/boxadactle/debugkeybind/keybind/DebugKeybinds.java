@@ -44,7 +44,19 @@ public class DebugKeybinds {
 
     public static int remapActionKey(int code) {
         ActionKeybind k = map.get(code);
-        return k != null ? k.getDefaultKeyCode() : -1;
+        int keyCode = k != null ? k.getDefaultKeyCode() : -1;
+
+        // if keyCode is -1, we need to check if the key is an action keybind by default
+        // if it is, we return -1
+        if (keyCode == -1) {
+            for (ActionKeybind key : list2) {
+                if (key.getDefaultKeyCode() == code) {
+                    return -1;
+                }
+            }
+        }
+
+        return code;
     }
 
     public static List<DebugKeybind> toList() {

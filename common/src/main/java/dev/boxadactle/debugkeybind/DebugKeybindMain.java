@@ -12,7 +12,7 @@ public class DebugKeybindMain
 
 	public static final String MOD_ID = "debugkeybind";
 
-	public static final String VERSION = "5.0.0";
+	public static final String VERSION = "5.0.1";
 
 	public static final String VERSION_STRING = MOD_NAME + " v" + VERSION;
 
@@ -21,6 +21,7 @@ public class DebugKeybindMain
 	public static BConfigClass<KeybindConfig> CONFIG;
 
 	public static void init() {
+		LOGGER.info("Initializing " + VERSION_STRING + "...");
 
 		CONFIG = BConfigHandler.registerConfig(KeybindConfig.class);
 
