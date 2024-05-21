@@ -1,0 +1,36 @@
+modLoader="javafml"
+loaderVersion="[2,)"
+license="MIT"
+
+[[mods]]
+modId="debugkeybind"
+version="${version}"
+displayName="DebugKeybind"
+logoFile="icon.png"
+description='''
+A basic mod that adds keybinds for the F3 menu
+'''
+
+[[dependencies.debugkeybind]]
+   modId="neoforge"
+   mandatory=true
+   versionRange="[20.5,)"
+   ordering="NONE"
+   side="BOTH"
+
+[[dependencies.debugkeybind]]
+   modId="minecraft"
+   mandatory=true
+   versionRange="[1.20.5,)"
+   ordering="NONE"
+   side="BOTH"
+
+[[dependencies.coordinatesdisplay]]
+   modId = "boxlib"
+   type = "required"
+   versionRange = "[13.0.0, 14.0.0)"
+   ordering = "NONE"
+   side = "BOTH"
+
+[[mixins]]
+   config = "DebugKeybind-common.mixins.json"

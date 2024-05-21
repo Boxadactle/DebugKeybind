@@ -1,7 +1,6 @@
 package dev.boxadactle.debugkeybind.keybind;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import dev.boxadactle.debugkeybind.DebugKeybindMain;
 import dev.boxadactle.debugkeybind.mixin.KeyAccessor;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.network.chat.Component;

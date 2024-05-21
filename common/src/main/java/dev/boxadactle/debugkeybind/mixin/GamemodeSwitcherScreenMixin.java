@@ -1,14 +1,12 @@
 package dev.boxadactle.debugkeybind.mixin;
 
-import dev.boxadactle.debugkeybind.DebugKeybindMain;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.debug.GameModeSwitcherScreen;
+import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.*;
 
 @Mixin(GameModeSwitcherScreen.class)
 public abstract class GamemodeSwitcherScreenMixin {
@@ -27,18 +25,32 @@ public abstract class GamemodeSwitcherScreenMixin {
         return DebugKeybinds.DEBUG.getKeyCode();
     }
 
-    // please PR if you can think of a bettter way to do this lmao
-    @Inject(method = "keyPressed", at = @At("HEAD"), cancellable = true)
-    private void overrideF4Press(int i, int j, int k, CallbackInfoReturnable<Boolean> cir) {
-        int l = DebugKeybinds.OPEN_GAMEMODE_SWITCHER.getKeyCode();
+    // i have found a better way to do this
+    @ModifyConstant(
+            method = "keyPressed",
+            constant = @Constant(intValue = 293)
+    )
+    private int overrideF4Press(int i) {
+        return DebugKeybinds.OPEN_GAMEMODE_SWITCHER.getKeyCode();
+    }
 
-        // check if key is keybind and keybind is not default (F4)
-        // if false, it will run the original method, otherwise it will
-        // run the original method but change the keycode arg to the code for F4
-        if (i == l && l != 293) {
-            cir.setReturnValue(keyPressed(293, j, k));
-            DebugKeybindMain.LOGGER.info("Intercepted the keypressed method and made it think we pressed F4");
-        }
+    @ModifyArg(
+            method = "render",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/GuiGraphics;drawCenteredString(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;III)V",
+                    ordinal = 1
+            ),
+            index = 1
+    )
+    private Component overrideSwitchKeyComponent(Component component) {
+        return Component.translatable(
+                "debug.gamemodes.select_next",
+                Component.translatable(
+                        "debug.gamemodes.press_f4",
+                                DebugKeybinds.OPEN_GAMEMODE_SWITCHER.getTranslatedKey()
+                ).withStyle(ChatFormatting.AQUA)
+        );
     }
 
 }
