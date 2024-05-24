@@ -2,18 +2,14 @@ package dev.boxadactle.debugkeybind.mixin;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.boxadactle.boxlib.util.ClientUtils;
-import dev.boxadactle.debugkeybind.DebugKeybindMain;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
 import net.minecraft.Util;
 import net.minecraft.client.KeyboardHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ChatComponent;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -28,102 +24,41 @@ public abstract class KeyboardHandlerMixin {
 
     @Shadow protected abstract void debugFeedbackTranslated(String string, Object... objects);
 
-    @ModifyArg(
+    @ModifyConstant(
             method = "keyPress",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lcom/mojang/blaze3d/platform/InputConstants;isKeyDown(JI)Z",
-                    ordinal = 0
-            ),
-            index = 1
+            constant = @Constant(intValue = 292)
     )
-    private int modifyKey(int i) {
+    private int overrideDebugKey(int value) {
         return DebugKeybinds.DEBUG.getKeyCode();
     }
 
-    @Inject(
+
+    @ModifyConstant(
             method = "keyPress",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lcom/mojang/blaze3d/platform/InputConstants;getKey(II)Lcom/mojang/blaze3d/platform/InputConstants$Key;",
-                    ordinal = 0
-            )
+            constant = @Constant(intValue = 256)
     )
-    private void handleExtraKeys(long l, int i, int j, int k, int m, CallbackInfo ci) {
-        if (k != 0) {
-            handleF3Escape(i);
-            overrideF1(i);
+    private int handleF3Escape(int value) {
+        if (!InputConstants.isKeyDown(ClientUtils.getWindow(), DebugKeybinds.DEBUG.getKeyCode())) {
+            return 256;
         }
+
+        return DebugKeybinds.PAUSE_WITHOUT_MENU.getKeyCode();
     }
 
-    @Unique
-    private void handleF3Escape(int i) {
-        // check if the current screen is null so the game doesnt pause immediately
-        // after being unpaused with escape
-        if (ClientUtils.getCurrentScreen() == null && i == DebugKeybinds.PAUSE_WITHOUT_MENU.getKeyCode()) {
-            boolean flag2 = InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), DebugKeybinds.DEBUG.getKeyCode());
-            this.minecraft.pauseGame(flag2);
-        }
-    }
-
-    @Unique
-    private void overrideF1(int i) {
-        // we check if the keycode isnt F1, as the original F1 is still hard-coded
-        // We don't need to handle the menu if it is f1, because minecraft will do it for us
-        if (!DebugKeybinds.HIDE_GUI.isDefault()) {
-            if (i == DebugKeybinds.HIDE_GUI.getKeyCode()) {
-                this.minecraft.options.hideGui = !this.minecraft.options.hideGui;
-            }
-
-            // now to check if the key pressed was F1, so we can hide the menu (to be revealed by the hard-code).
-            // The keybind is not bound to F1, so the menu should not open
-            else if(i == 290) {
-                this.minecraft.options.hideGui = !this.minecraft.options.hideGui;
-            }
-        }
-    }
-
-    @Inject(
+    @ModifyConstant(
             method = "keyPress",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/client/KeyMapping;set(Lcom/mojang/blaze3d/platform/InputConstants$Key;Z)V",
-                    ordinal = 0
-            )
+            constant = @Constant(intValue = 290)
     )
-    private void checkKey(long l, int i, int j, int k, int m, CallbackInfo ci) {
-        // we check if the keycode isnt F3, as the original F3 is still hard-coded
-        // We don't need to handle the menu if it is f3, because minecraft will do it for us
-        if (!DebugKeybinds.DEBUG.isDefault()) {
-            if (i == DebugKeybinds.DEBUG.getKeyCode()) {
-                toggleDebugScreen(true);
-            }
-
-            // now to check if the key pressed was F3, so we can open the menu (to be closed by the hard-code).
-            // The keybind is not bound to F3, so the menu should not open
-            else if(i == 292) {
-                toggleDebugScreen(false);
-            }
-        }
-    }
-
-    @Unique
-    private void toggleDebugScreen(boolean bl) {
-        if (this.handledDebugKey) {
-            if (bl) this.handledDebugKey = false;
-        } else {
-            this.minecraft.getDebugOverlay().toggleOverlay();
-        }
+    private int handleF1(int value) {
+        return DebugKeybinds.HIDE_GUI.getKeyCode();
     }
 
     @ModifyArg(
             method = "keyPress",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/KeyboardHandler;handleDebugKeys(I)Z",
-                    ordinal = 0
-            ),
-            index = 0
+                    target = "Lnet/minecraft/client/KeyboardHandler;handleDebugKeys(I)Z"
+            )
     )
     private int remapDebugKeys(int i) {
         return DebugKeybinds.remapActionKey(i);

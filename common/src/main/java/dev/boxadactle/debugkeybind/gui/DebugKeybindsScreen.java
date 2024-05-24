@@ -7,10 +7,14 @@ import dev.boxadactle.debugkeybind.DebugKeybindMain;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybind;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
 import net.minecraft.Util;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Options;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.OptionsSubScreen;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.controls.KeyBindsList;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.Nullable;
@@ -18,6 +22,7 @@ import org.jetbrains.annotations.Nullable;
 // this class created by modifying minecraft code
 public class DebugKeybindsScreen extends OptionsSubScreen {
 
+    private static final Component TITLE = Component.translatable("controls.keybinds.debug.title");
     @Nullable
     public DebugKeybind selectedKey;
     public long lastKeySelection;
@@ -25,34 +30,44 @@ public class DebugKeybindsScreen extends OptionsSubScreen {
     private Button resetButton;
 
     public DebugKeybindsScreen(Screen screen) {
-        super(screen, ClientUtils.getOptions(), Component.translatable("controls.keybinds.debug.title"));
+        super(screen, ClientUtils.getOptions(), TITLE);
     }
 
     protected void init() {
-        this.keyBindsList = new DebugKeybindsList(this, this.minecraft);
-        this.addWidget(this.keyBindsList);
-        this.resetButton = this.addRenderableWidget(Button.builder(Component.translatable("controls.resetAll"), (button) -> {
+        this.keyBindsList = this.addRenderableWidget(new DebugKeybindsList(this, this.minecraft));
+        this.resetButton = Button.builder(Component.translatable("controls.resetAll"), (button) -> {
             DebugKeybind[] var2 = DebugKeybinds.toArray();
             int var3 = var2.length;
 
             for(int var4 = 0; var4 < var3; ++var4) {
                 DebugKeybind keyMapping = var2[var4];
-                keyMapping.setToDefault();
+                keyMapping.setKey(keyMapping.getDefaultKey());
             }
 
             this.keyBindsList.resetMappingAndUpdateButtons();
-        }).bounds(this.width / 2 - 155, this.height - 29, 150, 20).build());
-        this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (button) -> {
+        }).build();
+        super.init();
+    }
+
+    protected void addFooter() {
+        LinearLayout linearLayout = this.layout.addToFooter(LinearLayout.horizontal().spacing(8));
+        linearLayout.addChild(this.resetButton);
+        linearLayout.addChild(Button.builder(CommonComponents.GUI_DONE, (button) -> {
             this.onClose();
-        }).bounds(this.width / 2 - 155 + 160, this.height - 29, 150, 20).build());
+        }).build());
+    }
+
+    protected void repositionElements() {
+        this.layout.arrangeElements();
+        this.keyBindsList.updateSize(this.width, this.layout);
     }
 
     public boolean keyPressed(int i, int j, int k) {
         if (this.selectedKey != null) {
             if (i == 256) {
-                this.selectedKey.setKey(InputConstants.UNKNOWN);
+                selectedKey.setKey(InputConstants.UNKNOWN);
             } else {
-                this.selectedKey.setKey(i);
+                selectedKey.setKey(InputConstants.getKey(i, j));
             }
 
             this.selectedKey = null;
@@ -65,10 +80,7 @@ public class DebugKeybindsScreen extends OptionsSubScreen {
     }
 
     public void render(GuiGraphics guiGraphics, int i, int j, float f) {
-        this.renderBackground(guiGraphics, i, j, f);
         super.render(guiGraphics, i, j, f);
-        this.keyBindsList.render(guiGraphics, i, j, f);
-        guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, 8, 16777215);
         boolean bl = false;
         DebugKeybind[] var6 = DebugKeybinds.toArray();
         int var7 = var6.length;

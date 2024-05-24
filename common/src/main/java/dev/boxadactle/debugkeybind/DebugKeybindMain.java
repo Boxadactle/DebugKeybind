@@ -6,13 +6,12 @@ import dev.boxadactle.boxlib.util.ModLogger;
 import dev.boxadactle.debugkeybind.keybind.KeybindConfig;
 import net.minecraft.client.KeyMapping;
 
-public class DebugKeybindMain
-{
+public class DebugKeybindMain {
 	public static final String MOD_NAME = "DebugKeybind";
 
 	public static final String MOD_ID = "debugkeybind";
 
-	public static final String VERSION = "7.0.0";
+	public static final String VERSION = "9.0.0";
 
 	public static final String VERSION_STRING = MOD_NAME + " v" + VERSION;
 
@@ -21,6 +20,7 @@ public class DebugKeybindMain
 	public static BConfigClass<KeybindConfig> CONFIG;
 
 	public static void init() {
+		LOGGER.info("Initializing " + VERSION_STRING + "...");
 
 		CONFIG = BConfigHandler.registerConfig(KeybindConfig.class);
 
