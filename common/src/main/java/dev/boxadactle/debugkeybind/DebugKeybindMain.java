@@ -1,8 +1,10 @@
 package dev.boxadactle.debugkeybind;
 
+import dev.boxadactle.boxlib.command.BCommandManager;
 import dev.boxadactle.boxlib.config.BConfigClass;
 import dev.boxadactle.boxlib.config.BConfigHandler;
 import dev.boxadactle.boxlib.util.ModLogger;
+import dev.boxadactle.debugkeybind.command.F3Command;
 import dev.boxadactle.debugkeybind.keybind.KeybindConfig;
 import net.minecraft.client.KeyMapping;
 
@@ -24,17 +26,7 @@ public class DebugKeybindMain {
 
 		CONFIG = BConfigHandler.registerConfig(KeybindConfig.class);
 
-	}
-
-	public static boolean shouldBeRegistered(KeyMapping k) {
-		return shouldBeRegistered(k.getCategory());
-	}
-
-	public static boolean shouldBeRegistered(String c) {
-		if (c.equals("key.categories.debug")) return false;
-		if (c.equals("key.categories.debug_actions")) return false;
-
-		return true;
+		BCommandManager.register(F3Command.create());
 	}
 
 }
