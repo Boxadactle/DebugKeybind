@@ -34,4 +34,8 @@ public interface DebugKeybind {
     String saveString();
 
     List<Component> checkConflicts(List<DebugKeybind> keybinds);
+
+    default Component getComponent() {
+        return Component.translatable(getName());
+    }
 }

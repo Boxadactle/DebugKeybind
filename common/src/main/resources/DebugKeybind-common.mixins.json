@@ -5,9 +5,9 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
     "ControlsScreenMixin",
+    "DebugInvoker",
     "GamemodeSwitcherScreenMixin",
     "InputConstantsMixin",
-    "KeyAccessor",
     "KeyBindsListMixin",
     "KeyboardHandlerMixin"
   ],

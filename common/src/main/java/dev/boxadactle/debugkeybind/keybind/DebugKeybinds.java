@@ -1,7 +1,7 @@
 package dev.boxadactle.debugkeybind.keybind;
 
 import com.google.common.collect.Lists;
-import dev.boxadactle.debugkeybind.mixin.KeyAccessor;
+import dev.boxadactle.boxlib.keybind.KeybindHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.network.chat.Component;
 
@@ -60,10 +60,21 @@ public class DebugKeybinds {
     }
 
     public static List<DebugKeybind> toList() {
+        List<DebugKeybind> keybinds = new ArrayList<>();
+        keybinds.addAll(getGlobalKeybinds());
+        keybinds.addAll(getActionKeybinds());
+        return keybinds;
+    }
+
+    public static List<DebugKeybind> getGlobalKeybinds() {
         return Lists.newArrayList(
                 DEBUG,
-                HIDE_GUI,
+                HIDE_GUI
+        );
+    }
 
+    public static List<DebugKeybind> getActionKeybinds() {
+        return Lists.newArrayList(
                 RELOAD_CHUNKS,
                 SHOW_HITBOXES,
                 COPY_LOCATION,
@@ -86,7 +97,17 @@ public class DebugKeybinds {
         List<Component> collisions = new ArrayList<>();
 
         for (GlobalKeybind key : list) {
-            if (key.getKeyCode() == ((KeyAccessor)k).getKey().getValue()) collisions.add(Component.translatable(key.getName()));
+            if (key.getKeyCode() == KeybindHelper.getBoundKey(k).getValue()) collisions.add(Component.translatable(key.getName()));
+        }
+
+        return collisions;
+    }
+
+    public static List<Component> getCollisions(DebugKeybind k) {
+        List<Component> collisions = new ArrayList<>();
+
+        for (GlobalKeybind key : list) {
+            if (key.getKeyCode() == k.getKeyCode()) collisions.add(Component.translatable(key.getName()));
         }
 
         return collisions;

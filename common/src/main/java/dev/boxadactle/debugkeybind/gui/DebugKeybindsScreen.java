@@ -1,105 +1,107 @@
 package dev.boxadactle.debugkeybind.gui;
 
-import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.vertex.PoseStack;
+import dev.boxadactle.boxlib.gui.config.BOptionScreen;
+import dev.boxadactle.boxlib.gui.config.widget.label.BCenteredLabel;
 import dev.boxadactle.boxlib.util.ClientUtils;
 import dev.boxadactle.debugkeybind.DebugKeybindMain;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybind;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
-import net.minecraft.Util;
-import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Options;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.layouts.LinearLayout;
-import net.minecraft.client.gui.screens.OptionsSubScreen;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.controls.KeyBindsList;
-import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import org.jetbrains.annotations.Nullable;
 
-// this class created by modifying minecraft code
-public class DebugKeybindsScreen extends OptionsSubScreen {
+public class DebugKeybindsScreen extends BOptionScreen {
 
-    private static final Component TITLE = Component.translatable("controls.keybinds.debug.title");
-    @Nullable
-    public DebugKeybind selectedKey;
-    public long lastKeySelection;
-    private DebugKeybindsList keyBindsList;
-    private Button resetButton;
+    KeybindEntry selectedEntry;
 
-    public DebugKeybindsScreen(Screen screen) {
-        super(screen, ClientUtils.getOptions(), TITLE);
-    }
-
-    protected void init() {
-        this.keyBindsList = this.addRenderableWidget(new DebugKeybindsList(this, this.minecraft));
-        this.resetButton = Button.builder(Component.translatable("controls.resetAll"), (button) -> {
-            DebugKeybind[] var2 = DebugKeybinds.toArray();
-            int var3 = var2.length;
-
-            for(int var4 = 0; var4 < var3; ++var4) {
-                DebugKeybind keyMapping = var2[var4];
-                keyMapping.setKey(keyMapping.getDefaultKey());
-            }
-
-            this.keyBindsList.resetMappingAndUpdateButtons();
-        }).build();
-        super.init();
-    }
-
-    protected void addFooter() {
-        LinearLayout linearLayout = this.layout.addToFooter(LinearLayout.horizontal().spacing(8));
-        linearLayout.addChild(this.resetButton);
-        linearLayout.addChild(Button.builder(CommonComponents.GUI_DONE, (button) -> {
-            this.onClose();
-        }).build());
-    }
-
-    protected void repositionElements() {
-        this.layout.arrangeElements();
-        this.keyBindsList.updateSize(this.width, this.layout);
-    }
-
-    public boolean keyPressed(int i, int j, int k) {
-        if (this.selectedKey != null) {
-            if (i == 256) {
-                selectedKey.setKey(InputConstants.UNKNOWN);
-            } else {
-                selectedKey.setKey(InputConstants.getKey(i, j));
-            }
-
-            this.selectedKey = null;
-            this.lastKeySelection = Util.getMillis();
-            this.keyBindsList.resetMappingAndUpdateButtons();
-            return true;
-        } else {
-            return super.keyPressed(i, j, k);
-        }
-    }
-
-    public void render(GuiGraphics guiGraphics, int i, int j, float f) {
-        super.render(guiGraphics, i, j, f);
-        boolean bl = false;
-        DebugKeybind[] var6 = DebugKeybinds.toArray();
-        int var7 = var6.length;
-
-        for(int var8 = 0; var8 < var7; ++var8) {
-            DebugKeybind keyMapping = var6[var8];
-            if (!keyMapping.isDefault()) {
-                bl = true;
-                break;
-            }
-        }
-
-        this.resetButton.active = bl;
+    public DebugKeybindsScreen(Screen parent) {
+        super(parent);
     }
 
     @Override
-    public void onClose() {
-        super.onClose();
+    protected Component getName() {
+        return Component.translatable("controls.keybinds.debug.title");
+    }
 
-        DebugKeybindMain.CONFIG.save();
+    @Override
+    protected int getRowWidth() {
+        return 340;
+    }
+
+    @Override
+    protected int getScrollbarPosition() {
+        return width - 15;
+    }
+
+    private void refreshEntries() {
+        configList.children().forEach(entry -> {
+            if (entry instanceof KeybindEntry) ((KeybindEntry) entry).refresh();
+        });
+    }
+
+    @Override
+    protected void initFooter(int startX, int startY) {
+        Button resetButton = createHalfCancelButton(startX, startY, (button) -> {
+            configList.children().forEach(entry -> {
+                if (entry instanceof KeybindEntry) ((KeybindEntry) entry).resetKey();
+            });
+
+            refreshEntries();
+        });
+        resetButton.setMessage(Component.translatable("controls.resetAll"));
+
+        Button doneButton = createHalfDoneButton(startX, startY, (b) -> {
+            ClientUtils.setScreen(parent);
+
+            DebugKeybindMain.CONFIG.save();
+        });
+        doneButton.setX(startX + getButtonWidth(ButtonType.SMALL) + getPadding());
+
+        addRenderableWidget(resetButton);
+        addRenderableWidget(doneButton);
+    }
+
+    @Override
+    protected void initConfigButtons() {
+        addConfigLine(new BCenteredLabel(Component.translatable("key.categories.debug")));
+
+        for (DebugKeybind keybind : DebugKeybinds.getGlobalKeybinds()) {
+            addConfigLine(new KeybindEntry(keybind, this::setSelectedEntry, this::refreshEntries));
+        }
+
+        addConfigLine(new BCenteredLabel(Component.translatable("key.categories.debug_actions")));
+
+        for (DebugKeybind keybind : DebugKeybinds.getActionKeybinds()) {
+            addConfigLine(new KeybindEntry(keybind, this::setSelectedEntry, this::refreshEntries));
+        }
+    }
+
+    private boolean setSelectedEntry(KeybindEntry entry) {
+        if (selectedEntry != null) {
+            selectedEntry = null;
+            return false;
+        }
+
+        selectedEntry = entry;
+        return true;
+    }
+
+    @Override
+    public boolean keyPressed(int i, int j, int k) {
+        if (selectedEntry != null) {
+            selectedEntry.updateKey(i);
+            selectedEntry = null;
+        }
+
+        return super.keyPressed(i, j, k);
+    }
+
+    @Override
+    public boolean mouseClicked(double d, double e, int i) {
+        if (selectedEntry != null) {
+            selectedEntry.updateKey(256);
+        }
+
+        return super.mouseClicked(d, e, i);
     }
 }

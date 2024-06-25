@@ -2,7 +2,7 @@ package dev.boxadactle.debugkeybind.mixin;
 
 import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.gui.screens.controls.KeyBindsList;
+import net.minecraft.client.gui.screens.options.controls.KeyBindsList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import org.spongepowered.asm.mixin.Final;
