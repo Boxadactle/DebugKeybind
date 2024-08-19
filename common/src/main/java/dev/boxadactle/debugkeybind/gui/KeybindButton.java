@@ -18,19 +18,15 @@ public class KeybindButton extends BCustomButton {
 
     DebugKeybind keybind;
     Supplier<Boolean> onSelect;
-
-    Consumer3<List<String>, Integer, Integer> tooltipRenderer;
     String tooltip = null;
 
     public boolean hasCollisions = false;
 
-    public KeybindButton(DebugKeybind keybind, Supplier<Boolean> onSelect, Consumer3<List<String>, Integer, Integer> tooltipRenderer) {
+    public KeybindButton(DebugKeybind keybind, Supplier<Boolean> onSelect) {
         super(keybind.getKeyTranslation());
 
         this.keybind = keybind;
         this.onSelect = onSelect;
-
-        this.tooltipRenderer = tooltipRenderer;
     }
 
     public void update(int keyPressed) {
@@ -87,11 +83,6 @@ public class KeybindButton extends BCustomButton {
         this.tooltip = I18n.get("controls.keybinds.duplicateKeybinds", tooltip);
 
         hasCollisions = true;
-    }
-
-    @Override
-    public void renderToolTip(int i, int j) {
-        tooltipRenderer.accept(List.of(tooltip.split("\n")), i, j);
     }
 
     @Override
