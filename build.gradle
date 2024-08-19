@@ -70,12 +70,12 @@ subprojects {
 
 githubRelease {
     owner = "Boxadactle"
-    repo = "BoxLib"
+    repo = "DebugKeybind"
     tagName = "$project.version"
     targetCommitish = "latest"
     releaseName = "BoxLib $project.version"
     generateReleaseNotes = true
-    body = """BoxLib $project.version for Minecraft $project.minecraft_version
+    body = """DebugKeybind $project.version for Minecraft $project.minecraft_version
 
 ${new File(rootProject.rootDir, project.changelog_file).text}
 """
