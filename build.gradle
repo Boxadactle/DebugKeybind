@@ -1,8 +1,9 @@
 plugins {
-    id 'dev.architectury.loom' version '1.6-SNAPSHOT' apply false
+    id 'dev.architectury.loom' version '1.7-SNAPSHOT' apply false
     id 'architectury-plugin' version '3.4-SNAPSHOT'
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
     id "me.shedaniel.unified-publishing" version "0.1.+"
+    id "com.github.breadmoirai.github-release" version "2.5.2"
 }
 
 architectury {
@@ -40,12 +41,12 @@ subprojects {
         // If you remove this line, sources will not be generated.
         withSourcesJar()
 
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     tasks.withType(JavaCompile).configureEach {
-        it.options.release = 21
+        it.options.release = 17
     }
 
     // Configure Maven publishing.
@@ -65,4 +66,28 @@ subprojects {
             // retrieving dependencies.
         }
     }
+}
+
+githubRelease {
+    owner = "Boxadactle"
+    repo = "DebugKeybind"
+    tagName = "$project.version"
+    targetCommitish = "latest"
+    releaseName = "BoxLib $project.version"
+    generateReleaseNotes = true
+    body = """DebugKeybind $project.version for Minecraft $project.minecraft_version
+
+${new File(rootProject.rootDir, project.changelog_file).text}
+"""
+    authorization = "Token ${System.getenv("GITHUB_TOKEN")}"
+
+    var files = []
+    for (String platform : project.enabled_platforms.split(',')) {
+        files += fileTree("$platform/build/libs") {
+            include "*$project.version*"
+        }
+    }
+    releaseAssets = files
+
+//    dryRun = true
 }

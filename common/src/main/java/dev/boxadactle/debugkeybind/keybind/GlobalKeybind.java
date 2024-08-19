@@ -3,6 +3,7 @@ package dev.boxadactle.debugkeybind.keybind;
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.boxadactle.boxlib.keybind.KeybindHelper;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
@@ -62,8 +63,8 @@ public class GlobalKeybind implements DebugKeybind {
         return key.equals(InputConstants.UNKNOWN);
     }
 
-    public Component getTranslatedKey() {
-        return key.getDisplayName();
+    public String getTranslation() {
+        return I18n.get(name);
     }
 
     public boolean isDefault() {
@@ -74,21 +75,21 @@ public class GlobalKeybind implements DebugKeybind {
         return this.key.getName();
     }
 
-    public List<Component> checkConflicts(List<DebugKeybind> keybinds) {
-        List<Component> list = new ArrayList<>();
+    public List<String> checkConflicts(List<DebugKeybind> keybinds) {
+        List<String> list = new ArrayList<>();
 
         for (DebugKeybind k : keybinds) {
-            if (!k.getName().equals(name) && k.getKeyCode() == getKeyCode()) list.add(Component.translatable(k.getName()));
+            if (!k.getName().equals(name) && k.getKeyCode() == getKeyCode()) list.add(I18n.get(k.getName()));
         }
 
         return list;
     }
 
-    public List<Component> checkMinecraftConflicts(List<KeyMapping> keyMappings) {
-        List<Component> list = new ArrayList<>();
+    public List<String> checkMinecraftConflicts(List<KeyMapping> keyMappings) {
+        List<String> list = new ArrayList<>();
 
         for (KeyMapping k : keyMappings) {
-            if (KeybindHelper.getBoundKey(k).getValue() == getKeyCode()) list.add(Component.translatable(k.getName()));
+            if (KeybindHelper.getBoundKey(k).getValue() == getKeyCode()) list.add(I18n.get(k.getName()));
         }
 
         return list;

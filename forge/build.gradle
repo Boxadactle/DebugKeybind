@@ -5,7 +5,13 @@ plugins {
 
 architectury {
     platformSetupLoomIde()
-    fabric()
+    forge {}
+}
+
+loom {
+    forge {
+        mixinConfig "debugkeybind.mixins.json"
+    }
 }
 
 configurations {
@@ -15,7 +21,7 @@ configurations {
     }
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
-    developmentFabric.extendsFrom common
+    developmentForge.extendsFrom common
 
     // Files in this configuration will be bundled into your mod using the Shadow plugin.
     // Don't use the `shadow` configuration from the plugin itself as it's meant for excluding files.
@@ -26,23 +32,18 @@ configurations {
 }
 
 dependencies {
-    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
-
-    // Fabric API. This is technically optional, but you probably want it anyway.
-    modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
-
-    modImplementation("dev.boxadactle:Boxlib-fabric:${rootProject.boxlib_version}") { transitive = false }
-
-    modImplementation("io.github.prospector:modmenu:${rootProject.modmenu_version}") { transitive = false }
+    forge "net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}"
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
-    shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
+    shadowBundle project(path: ':common', configuration: 'transformProductionForge')
+
+    modImplementation("dev.boxadactle:Boxlib-forge:${rootProject.boxlib_version}") { transitive = true }
 }
 
 processResources {
     inputs.property 'version', project.version
 
-    filesMatching('fabric.mod.json') {
+    filesMatching('META-INF/mods.toml') {
         expand version: project.version
     }
 }
@@ -58,18 +59,12 @@ remapJar {
 
 unifiedPublishing {
     project {
-        displayName = "[Fabric ${rootProject.minecraft_version}] v$rootProject.mod_version"
-        version = "$rootProject.version-fabric"
+        displayName = "[Forge ${rootProject.minecraft_version}] v$rootProject.mod_version"
+        version = "$rootProject.version-forge"
         changelog = "A changelog can be found here: https://github.com/Boxadactle/DebugKeybind/releases/tag/$rootProject.mod_version"
         releaseType = rootProject.release_type
         gameVersions = Arrays.asList(rootProject.game_versions.split(","))
-        gameLoaders = [ "fabric", "quilt" ]
-        relations {
-            it.depends {
-                it.curseforge = "boxlib"
-                it.modrinth = "boxlib"
-            }
-        }
+        gameLoaders = [ "forge" ]
 
         mainPublication tasks.remapJar
 
@@ -86,7 +81,7 @@ unifiedPublishing {
             modrinth {
                 token = modrinthToken
                 id = rootProject.project_id_modrinth
-                version = "${rootProject.mod_version}-fabric"
+                version = "${rootProject.mod_version}-forge"
             }
         }
     }

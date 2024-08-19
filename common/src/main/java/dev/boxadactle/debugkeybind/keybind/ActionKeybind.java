@@ -1,6 +1,7 @@
 package dev.boxadactle.debugkeybind.keybind;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
@@ -71,8 +72,8 @@ public class ActionKeybind implements DebugKeybind {
     }
 
     @Override
-    public Component getTranslatedKey() {
-        return key.getDisplayName();
+    public String getTranslation() {
+        return I18n.get(name);
     }
 
     @Override
@@ -86,11 +87,11 @@ public class ActionKeybind implements DebugKeybind {
     }
 
     @Override
-    public List<Component> checkConflicts(List<DebugKeybind> keybinds) {
-        List<Component> list = new ArrayList<>();
+    public List<String> checkConflicts(List<DebugKeybind> keybinds) {
+        List<String> list = new ArrayList<>();
 
         for (DebugKeybind k : keybinds) {
-            if (!k.getName().equals(name) && k.getKeyCode() == getKeyCode()) list.add(Component.translatable(k.getName()));
+            if (!k.getName().equals(name) && k.getKeyCode() == getKeyCode()) list.add(I18n.get(k.getName()));
         }
 
         return list;

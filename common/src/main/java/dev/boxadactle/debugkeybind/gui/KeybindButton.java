@@ -1,15 +1,15 @@
 package dev.boxadactle.debugkeybind.gui;
 
+import dev.boxadactle.boxlib.function.Consumer3;
 import dev.boxadactle.boxlib.gui.config.BOptionButton;
 import dev.boxadactle.boxlib.gui.config.widget.button.BCustomButton;
 import dev.boxadactle.boxlib.util.GuiUtils;
 import dev.boxadactle.boxlib.util.RenderUtils;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybind;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextComponent;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -19,13 +19,18 @@ public class KeybindButton extends BCustomButton {
     DebugKeybind keybind;
     Supplier<Boolean> onSelect;
 
+    Consumer3<List<String>, Integer, Integer> tooltipRenderer;
+    String tooltip = null;
+
     public boolean hasCollisions = false;
 
-    public KeybindButton(DebugKeybind keybind, Supplier<Boolean> onSelect) {
-        super(keybind.getTranslatedKey());
+    public KeybindButton(DebugKeybind keybind, Supplier<Boolean> onSelect, Consumer3<List<String>, Integer, Integer> tooltipRenderer) {
+        super(keybind.getKeyTranslation());
 
         this.keybind = keybind;
         this.onSelect = onSelect;
+
+        this.tooltipRenderer = tooltipRenderer;
     }
 
     public void update(int keyPressed) {
@@ -33,71 +38,92 @@ public class KeybindButton extends BCustomButton {
             keybind.setKey(keyPressed);
         }
 
-        setMessage(keybind.getTranslatedKey());
+        setMessage(keybind.getKeyTranslation());
     }
 
     public void resetKey() {
         keybind.setToDefault();
-        setMessage(keybind.getTranslatedKey());
+        setMessage(keybind.getKeyTranslation());
     }
 
-    public void updateConflicts(List<Component> conflicts) {
+    public void updateConflicts(List<String> conflicts) {
         if (conflicts.isEmpty()) {
-            setMessage(keybind.getTranslatedKey());
-            setTooltip(null);
+            setMessage(keybind.getKeyTranslation());
+            tooltip = null;
             hasCollisions = false;
 
             return;
         }
 
-        setMessage(GuiUtils.colorize(
-                GuiUtils.surround(
-                        "[ ", " ]",
-                        GuiUtils.colorize(
-                                keybind.getTranslatedKey().copy().withStyle(ChatFormatting.UNDERLINE),
-                                GuiUtils.WHITE
-                        )
-                ),
-                GuiUtils.RED
-        ));
+//        setMessage(GuiUtils.colorize(
+//                GuiUtils.surround(
+//                        "[ ", " ]",
+//                        GuiUtils.colorize(
+//                                new TextComponent(keybind.getKeyTranslation()).withStyle(ChatFormatting.UNDERLINE),
+//                                ChatFormatting.WHITE
+//                        )
+//                ),
+//                ChatFormatting.RED
+//        ).getColoredString());
+        setMessage(
+                ChatFormatting.RED + "[ " +
+                GuiUtils.colorize(
+                        new TextComponent(keybind.getKeyTranslation()).withStyle(ChatFormatting.UNDERLINE),
+                        ChatFormatting.WHITE
+                ).getColoredString() +
+                ChatFormatting.RED + " ]"
+        );
 
-        MutableComponent tooltip = Component.empty();
+        Component tooltip = new TextComponent("");
 
         for (int i = 0; i < conflicts.size() ; i++) {
             tooltip.append(conflicts.get(i));
 
             if (i != conflicts.size() - 1) {
-                tooltip.append(Component.literal(", "));
+                tooltip.append(new TextComponent(",\n"));
             }
         }
 
-        setTooltip(Tooltip.create(Component.translatable("controls.keybinds.duplicateKeybinds", tooltip)));
+        this.tooltip = I18n.get("controls.keybinds.duplicateKeybinds", tooltip);
 
         hasCollisions = true;
     }
 
     @Override
+    public void renderToolTip(int i, int j) {
+        tooltipRenderer.accept(List.of(tooltip.split("\n")), i, j);
+    }
+
+    @Override
     protected void buttonClicked(BOptionButton<?> button) {
         if (onSelect.get()) {
-            setMessage(GuiUtils.colorize(
-                    GuiUtils.surround(
-                            "> ", " <",
-                            GuiUtils.colorize(
-                                    keybind.getTranslatedKey().copy().withStyle(ChatFormatting.UNDERLINE),
-                                    GuiUtils.WHITE
-                            )
-                    ),
-                    GuiUtils.YELLOW
-            ));
+            setMessage(
+                    ChatFormatting.YELLOW + "> " +
+                    GuiUtils.colorize(
+                            new TextComponent(keybind.getKeyTranslation()).withStyle(ChatFormatting.UNDERLINE),
+                            ChatFormatting.WHITE
+                    ).getColoredString() +
+                    ChatFormatting.YELLOW + " <"
+            );
+//            setMessage(GuiUtils.colorize(
+//                    GuiUtils.surround(
+//                            "> ", " <",
+//                            GuiUtils.colorize(
+//                                    new TextComponent(keybind.getKeyTranslation()).withStyle(ChatFormatting.UNDERLINE),
+//                                    ChatFormatting.WHITE
+//                            )
+//                    ),
+//                    ChatFormatting.YELLOW
+//            ).getColoredString());
         }
     }
 
     @Override
-    public void renderWidget(GuiGraphics p_93657_, int mouseX, int mouseY, float delta) {
-        super.renderWidget(p_93657_, mouseX, mouseY, delta);
+    public void renderButton(int mouseX, int mouseY, float delta) {
+        super.renderButton(mouseX, mouseY, delta);
 
         if (hasCollisions) {
-            RenderUtils.drawSquare(p_93657_, getX() - 12, getY(), 10, getHeight(), GuiUtils.RED);
+            RenderUtils.drawSquare(x - 12, y, 10, height, GuiUtils.RED);
         }
     }
 }
