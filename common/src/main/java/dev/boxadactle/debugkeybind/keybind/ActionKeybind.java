@@ -3,6 +3,7 @@ package dev.boxadactle.debugkeybind.keybind;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,18 +73,13 @@ public class ActionKeybind implements DebugKeybind {
     }
 
     @Override
-    public String getTranslation() {
-        return I18n.get(name);
+    public Component getTranslation() {
+        return new TranslatableComponent(name);
     }
 
     @Override
     public boolean isDefault() {
         return key.getValue() == defaultKey.getValue();
-    }
-
-    @Override
-    public String saveString() {
-        return this.key.getName();
     }
 
     @Override

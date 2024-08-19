@@ -41,7 +41,7 @@ public class KeybindConfig implements BConfig {
     public int help = getDefault(HELP);
 //    public int dumpDynamicTextures = getDefault(DUMP_DYNAMIC_TEXTURES);
     public int reloadResourcePacks = getDefault(RELOAD_RESOURCEPACKS);
-//    public int openGamemodeSwitcher = getDefault(OPEN_GAMEMODE_SWITCHER);
+    public int openGamemodeSwitcher = getDefault(OPEN_GAMEMODE_SWITCHER);
     public int pauseWithoutMenu = getDefault(PAUSE_WITHOUT_MENU);
 
     @Override
@@ -63,7 +63,7 @@ public class KeybindConfig implements BConfig {
         HELP.setKey(toKey(help));
 //        DUMP_DYNAMIC_TEXTURES.setKey(toKey(dumpDynamicTextures));
         RELOAD_RESOURCEPACKS.setKey(toKey(reloadResourcePacks));
-//        OPEN_GAMEMODE_SWITCHER.setKey(toKey(openGamemodeSwitcher));
+        OPEN_GAMEMODE_SWITCHER.setKey(toKey(openGamemodeSwitcher));
         PAUSE_WITHOUT_MENU.setKey(toKey(pauseWithoutMenu));
 
         DebugKeybinds.refreshActionBindings();

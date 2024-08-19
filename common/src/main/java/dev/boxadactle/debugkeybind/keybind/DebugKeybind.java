@@ -30,28 +30,13 @@ public interface DebugKeybind {
 
     boolean isUnbound();
 
-    String getTranslation();
+    Component getTranslation();
 
-    default String getKeyTranslation() {
-        if (isUnbound()) return I18n.get("key.keyboard.unknown");
-
-        String string = getKey().getName();
-        int i = getKey().getValue();
-        String string2 = switch (getKey().getType()) {
-            case KEYSYM -> InputConstants.translateKeyCode(i);
-            case SCANCODE -> InputConstants.translateScanCode(i);
-            case MOUSE -> {
-                String string3 = I18n.get(string);
-                yield Objects.equals(string3, string) ? I18n.get(InputConstants.Type.MOUSE.getDefaultPrefix(), i + 1) : string3;
-            }
-        };
-
-        return string2 == null ? I18n.get(string) : string2;
+    default Component getKeyTranslation() {
+        return getKey().getDisplayName();
     }
 
     boolean isDefault();
-
-    String saveString();
 
     List<String> checkConflicts(List<DebugKeybind> keybinds);
 

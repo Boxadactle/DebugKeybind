@@ -1,5 +1,6 @@
 package dev.boxadactle.debugkeybind.gui;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import dev.boxadactle.boxlib.gui.config.BOptionScreen;
 import dev.boxadactle.boxlib.gui.config.widget.label.BLabel;
 import dev.boxadactle.boxlib.util.ClientUtils;
@@ -76,7 +77,7 @@ public class KeybindEntry extends BOptionScreen.ConfigList.ConfigEntry {
     }
 
     @Override
-    public void render(int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+    public void render(PoseStack stack, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
         int keybindWidth = 75;
         int resetWidth = 50;
         int padding = 2;
@@ -84,16 +85,16 @@ public class KeybindEntry extends BOptionScreen.ConfigList.ConfigEntry {
         label.x = (x - 25);
         label.y = (y);
         label.setWidth(entryWidth - keybindWidth - resetWidth - padding);
-        label.render(mouseX, mouseY, tickDelta);
+        label.render(stack, mouseX, mouseY, tickDelta);
 
         keybindButton.x = (x + entryWidth - keybindWidth - resetWidth - padding);
         keybindButton.y =(y);
         keybindButton.setWidth(keybindWidth);
-        keybindButton.render(mouseX, mouseY, tickDelta);
+        keybindButton.render(stack, mouseX, mouseY, tickDelta);
 
         resetButton.x = (x + entryWidth - resetWidth);
         resetButton.y = (y);
         resetButton.setWidth(resetWidth);
-        resetButton.render(mouseX, mouseY, tickDelta);
+        resetButton.render(stack, mouseX, mouseY, tickDelta);
     }
 }

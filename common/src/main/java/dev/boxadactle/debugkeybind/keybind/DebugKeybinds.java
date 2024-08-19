@@ -33,7 +33,7 @@ public class DebugKeybinds {
     public static ActionKeybind HELP = createActionKeybind("key.debug_actions.help", 81);
 //    public static ActionKeybind DUMP_DYNAMIC_TEXTURES = createActionKeybind("key.debug_actions.dynamic_textures", 83);
     public static ActionKeybind RELOAD_RESOURCEPACKS = createActionKeybind("key.debug_actions.reload_resourcepacks", 84);
-//    public static ActionKeybind OPEN_GAMEMODE_SWITCHER = createActionKeybind("key.debug_actions.open_gamemode_switcher", 293);
+    public static ActionKeybind OPEN_GAMEMODE_SWITCHER = createActionKeybind("key.debug_actions.open_gamemode_switcher", 293);
     public static ActionKeybind PAUSE_WITHOUT_MENU = createActionKeybind("key.debug_actions.pause_without_menu", 256);
 
     public static void refreshActionBindings() {
@@ -91,7 +91,7 @@ public class DebugKeybinds {
                 HELP,
 //                DUMP_DYNAMIC_TEXTURES,
                 RELOAD_RESOURCEPACKS,
-//                OPEN_GAMEMODE_SWITCHER,
+                OPEN_GAMEMODE_SWITCHER,
                 PAUSE_WITHOUT_MENU
         );
     }
