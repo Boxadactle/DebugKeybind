@@ -8,8 +8,8 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.OptionsScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.controls.ControlsScreen;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -24,7 +24,7 @@ public abstract class OptionsScreenMixin extends Screen {
             method = "init",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/components/Button;<init>(IIIILjava/lang/String;Lnet/minecraft/client/gui/components/Button$OnPress;)V",
+                    target = "Lnet/minecraft/client/gui/components/Button;<init>(IIIILnet/minecraft/network/chat/Component;Lnet/minecraft/client/gui/components/Button$OnPress;)V",
                     ordinal = 4
             ),
             index = 5
@@ -33,8 +33,8 @@ public abstract class OptionsScreenMixin extends Screen {
         return (button) -> {
             this.minecraft.setScreen(new BOptionScreen(this) {
                 @Override
-                protected String getName() {
-                    return I18n.get("controls.title");
+                protected Component getName() {
+                    return new TranslatableComponent("controls.title");
                 }
 
                 @Override
@@ -65,11 +65,11 @@ public abstract class OptionsScreenMixin extends Screen {
                 @Override
                 protected void initConfigButtons() {
                     addConfigLine(
-                            BCustomButton.create(I18n.get("controls.keybinds.button"), () -> {
+                            BCustomButton.create(new TranslatableComponent("controls.keybinds.button"), () -> {
                                 this.minecraft.setScreen(new ControlsScreen(this, this.minecraft.options));
                             }),
                             new BConfigScreenButton(
-                                    I18n.get("controls.keybinds.debug"),
+                                    new TranslatableComponent("controls.keybinds.debug"),
                                     this,
                                     DebugKeybindsScreen::new
                             )

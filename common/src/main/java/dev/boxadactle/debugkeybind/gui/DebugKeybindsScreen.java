@@ -15,6 +15,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import java.util.List;
 import java.util.function.Function;
@@ -28,8 +29,8 @@ public class DebugKeybindsScreen extends BOptionScreen {
     }
 
     @Override
-    protected String getName() {
-        return I18n.get("controls.keybinds.debug.title");
+    protected Component getName() {
+        return new TranslatableComponent("controls.keybinds.debug.title");
     }
 
     @Override
@@ -57,7 +58,7 @@ public class DebugKeybindsScreen extends BOptionScreen {
 
             refreshEntries();
         });
-        resetButton.setMessage(I18n.get("controls.resetAll"));
+        resetButton.setMessage(new TranslatableComponent("controls.resetAll"));
 
         Button doneButton = createHalfDoneButton(startX, startY, (b) -> {
             ClientUtils.setScreen(parent);
@@ -72,13 +73,13 @@ public class DebugKeybindsScreen extends BOptionScreen {
 
     @Override
     protected void initConfigButtons() {
-        addConfigLine(new BCenteredLabel(I18n.get("key.categories.debug")));
+        addConfigLine(new BCenteredLabel(new TranslatableComponent("key.categories.debug")));
 
         for (DebugKeybind keybind : DebugKeybinds.getGlobalKeybinds()) {
             addConfigLine(new KeybindEntry(keybind, this::setSelectedEntry, this::refreshEntries));
         }
 
-        addConfigLine(new BCenteredLabel(I18n.get("key.categories.debug_actions")));
+        addConfigLine(new BCenteredLabel(new TranslatableComponent("key.categories.debug_actions")));
 
         for (DebugKeybind keybind : DebugKeybinds.getActionKeybinds()) {
             addConfigLine(new KeybindEntry(keybind, this::setSelectedEntry, this::refreshEntries));

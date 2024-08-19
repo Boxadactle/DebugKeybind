@@ -73,7 +73,7 @@ githubRelease {
     repo = "DebugKeybind"
     tagName = "$project.version"
     targetCommitish = "latest"
-    releaseName = "BoxLib $project.version"
+    releaseName = "DebugKeybind $project.version"
     generateReleaseNotes = true
     body = """DebugKeybind $project.version for Minecraft $project.minecraft_version
 

@@ -1,3 +1,3 @@
 ## Changes
-- Rewritten for 1.15.2
+- Rewritten for 1.16.5
 - Fixed config saving bug

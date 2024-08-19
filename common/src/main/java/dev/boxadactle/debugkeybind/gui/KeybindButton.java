@@ -1,6 +1,6 @@
 package dev.boxadactle.debugkeybind.gui;
 
-import dev.boxadactle.boxlib.function.Consumer3;
+import com.mojang.blaze3d.vertex.PoseStack;
 import dev.boxadactle.boxlib.gui.config.BOptionButton;
 import dev.boxadactle.boxlib.gui.config.widget.button.BCustomButton;
 import dev.boxadactle.boxlib.util.GuiUtils;
@@ -8,7 +8,7 @@ import dev.boxadactle.boxlib.util.RenderUtils;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybind;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
 
 import java.util.List;
@@ -51,26 +51,18 @@ public class KeybindButton extends BCustomButton {
             return;
         }
 
-//        setMessage(GuiUtils.colorize(
-//                GuiUtils.surround(
-//                        "[ ", " ]",
-//                        GuiUtils.colorize(
-//                                new TextComponent(keybind.getKeyTranslation()).withStyle(ChatFormatting.UNDERLINE),
-//                                ChatFormatting.WHITE
-//                        )
-//                ),
-//                ChatFormatting.RED
-//        ).getColoredString());
-        setMessage(
-                ChatFormatting.RED + "[ " +
-                GuiUtils.colorize(
-                        new TextComponent(keybind.getKeyTranslation()).withStyle(ChatFormatting.UNDERLINE),
-                        ChatFormatting.WHITE
-                ).getColoredString() +
-                ChatFormatting.RED + " ]"
-        );
+        setMessage(GuiUtils.colorize(
+                GuiUtils.surround(
+                        "[ ", " ]",
+                        GuiUtils.colorize(
+                                keybind.getKeyTranslation().copy().withStyle(ChatFormatting.UNDERLINE),
+                                GuiUtils.WHITE
+                        )
+                ),
+                GuiUtils.RED
+        ));
 
-        Component tooltip = new TextComponent("");
+        MutableComponent tooltip = new TextComponent("");
 
         for (int i = 0; i < conflicts.size() ; i++) {
             tooltip.append(conflicts.get(i));
@@ -89,32 +81,23 @@ public class KeybindButton extends BCustomButton {
     protected void buttonClicked(BOptionButton<?> button) {
         if (onSelect.get()) {
             setMessage(
-                    ChatFormatting.YELLOW + "> " +
                     GuiUtils.colorize(
-                            new TextComponent(keybind.getKeyTranslation()).withStyle(ChatFormatting.UNDERLINE),
-                            ChatFormatting.WHITE
-                    ).getColoredString() +
-                    ChatFormatting.YELLOW + " <"
+                            GuiUtils.surround("> ", " <", GuiUtils.colorize(
+                                    keybind.getKeyTranslation().copy().withStyle(ChatFormatting.UNDERLINE),
+                                    GuiUtils.WHITE
+                            )),
+                            GuiUtils.YELLOW
+                    )
             );
-//            setMessage(GuiUtils.colorize(
-//                    GuiUtils.surround(
-//                            "> ", " <",
-//                            GuiUtils.colorize(
-//                                    new TextComponent(keybind.getKeyTranslation()).withStyle(ChatFormatting.UNDERLINE),
-//                                    ChatFormatting.WHITE
-//                            )
-//                    ),
-//                    ChatFormatting.YELLOW
-//            ).getColoredString());
         }
     }
 
     @Override
-    public void renderButton(int mouseX, int mouseY, float delta) {
-        super.renderButton(mouseX, mouseY, delta);
+    public void renderButton(PoseStack p_93657_, int mouseX, int mouseY, float delta) {
+        super.renderButton(p_93657_, mouseX, mouseY, delta);
 
         if (hasCollisions) {
-            RenderUtils.drawSquare(x - 12, y, 10, height, GuiUtils.RED);
+            RenderUtils.drawSquare(p_93657_, x - 12, y, 10, height, GuiUtils.RED);
         }
     }
 }

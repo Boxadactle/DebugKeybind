@@ -1,5 +1,7 @@
 package dev.boxadactle.debugkeybind.mixin;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import dev.boxadactle.boxlib.util.GuiUtils;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
@@ -25,11 +27,11 @@ public class KeyBindsListMixin {
             method = "render",
             at = @At("RETURN")
     )
-    private void checkDebugCollisions(int i, int j, int k, int l, int m, int n, int o, boolean bl, float f, CallbackInfo ci) {
+    private void checkDebugCollisions(PoseStack poseStack, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f, CallbackInfo ci) {
         List<String> collisions = DebugKeybinds.getCollisions(key);
 
         if (!collisions.isEmpty()) {
-            changeButton.setMessage(ChatFormatting.RED + changeButton.getMessage());
+            changeButton.setMessage(GuiUtils.colorize(changeButton.getMessage(), GuiUtils.RED));
         }
     }
 

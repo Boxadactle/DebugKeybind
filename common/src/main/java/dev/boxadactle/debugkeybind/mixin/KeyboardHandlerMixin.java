@@ -72,7 +72,7 @@ public abstract class KeyboardHandlerMixin {
         if (!(this.debugCrashKeyTime > 0L && this.debugCrashKeyTime < Util.getMillis() - 100L) && i == 81) {
             this.debugFeedbackTranslated("debug.help.message");
 
-            String debugKey = DebugKeybinds.DEBUG.getKeyTranslation();
+            Component debugKey = DebugKeybinds.DEBUG.getKeyTranslation();
 
             ChatComponent chatComponent = this.minecraft.gui.getChat();
             chatComponent.addMessage(new TranslatableComponent("debug.reload_chunks.help", debugKey, DebugKeybinds.RELOAD_CHUNKS.getKeyTranslation()));
@@ -90,7 +90,7 @@ public abstract class KeyboardHandlerMixin {
 //            chatComponent.addMessage(new TranslatableComponent("debug.dump_dynamic_textures.help", debugKey, DebugKeybinds.DUMP_DYNAMIC_TEXTURES.getKeyTranslation()));
             chatComponent.addMessage(new TranslatableComponent("debug.reload_resourcepacks.help", debugKey, DebugKeybinds.RELOAD_RESOURCEPACKS.getKeyTranslation()));
             chatComponent.addMessage(new TranslatableComponent("debug.pause.help", debugKey, DebugKeybinds.PAUSE_WITHOUT_MENU.getKeyTranslation()));
-//            chatComponent.addMessage(new TranslatableComponent("debug.gamemodes.help", debugKey, DebugKeybinds.OPEN_GAMEMODE_SWITCHER.getKeyTranslation()));
+            chatComponent.addMessage(new TranslatableComponent("debug.gamemodes.help", debugKey, DebugKeybinds.OPEN_GAMEMODE_SWITCHER.getKeyTranslation()));
             cir.setReturnValue(true);
         }
     }
