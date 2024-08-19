@@ -83,7 +83,7 @@ public abstract class KeyboardHandlerMixin {
             chatComponent.addMessage(new TranslatableComponent("debug.chunk_boundaries.help", debugKey, DebugKeybinds.CHUNK_BORDERS.getKeyTranslation()));
             chatComponent.addMessage(new TranslatableComponent("debug.advanced_tooltips.help", debugKey, DebugKeybinds.ADVANCED_TOOLTIPS.getKeyTranslation()));
             chatComponent.addMessage(new TranslatableComponent("debug.inspect.help", debugKey, DebugKeybinds.INSPECT.getKeyTranslation()));
-//            chatComponent.addMessage(new TranslatableComponent("debug.profiling.help", debugKey, DebugKeybinds.PROFILING.getKeyTranslation()));
+            chatComponent.addMessage(new TranslatableComponent("debug.profiling.help", debugKey, DebugKeybinds.PROFILING.getKeyTranslation()));
             chatComponent.addMessage(new TranslatableComponent("debug.creative_spectator.help", debugKey, DebugKeybinds.CREATIVE_SPECTATOR.getKeyTranslation()));
             chatComponent.addMessage(new TranslatableComponent("debug.pause_focus.help", debugKey, DebugKeybinds.PAUSE_FOCUS.getKeyTranslation()));
             chatComponent.addMessage(new TranslatableComponent("debug.help.help", debugKey, DebugKeybinds.HELP.getKeyTranslation()));
