@@ -25,7 +25,7 @@ public abstract class OptionsScreenMixin extends Screen {
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/gui/components/Button;<init>(IIIILnet/minecraft/network/chat/Component;Lnet/minecraft/client/gui/components/Button$OnPress;)V",
-                    ordinal = 4
+                    ordinal = 3
             ),
             index = 5
     )
@@ -39,7 +39,7 @@ public abstract class OptionsScreenMixin extends Screen {
 
                 @Override
                 protected void initFooter(int i, int i1) {
-                    addButton(createDoneButton(i, i1, parent));
+                    addRenderableWidget(createDoneButton(i, i1, parent));
                 }
 
                 @Override

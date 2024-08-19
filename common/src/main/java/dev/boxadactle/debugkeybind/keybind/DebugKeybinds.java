@@ -27,7 +27,7 @@ public class DebugKeybinds {
     public static ActionKeybind CHUNK_BORDERS = createActionKeybind("key.debug_actions.chunk_borders", 71);
     public static ActionKeybind ADVANCED_TOOLTIPS = createActionKeybind("key.debug_actions.advanced_tooltips", 72);
     public static ActionKeybind INSPECT = createActionKeybind("key.debug_actions.inspect", 73);
-//    public static ActionKeybind PROFILING = createActionKeybind("key.debug_actions.profiling", 76);
+    public static ActionKeybind PROFILING = createActionKeybind("key.debug_actions.profiling", 76);
     public static ActionKeybind CREATIVE_SPECTATOR = createActionKeybind("key.debug_actions.creative_spectator", 78);
     public static ActionKeybind PAUSE_FOCUS = createActionKeybind("key.debug_actions.pause_focus", 80);
     public static ActionKeybind HELP = createActionKeybind("key.debug_actions.help", 81);
@@ -85,7 +85,7 @@ public class DebugKeybinds {
                 CHUNK_BORDERS,
                 ADVANCED_TOOLTIPS,
                 INSPECT,
-//                PROFILING,
+                PROFILING,
                 CREATIVE_SPECTATOR,
                 PAUSE_FOCUS,
                 HELP,

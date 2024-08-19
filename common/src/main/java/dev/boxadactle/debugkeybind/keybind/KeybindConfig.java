@@ -35,7 +35,7 @@ public class KeybindConfig implements BConfig {
     public int chunkBorders = getDefault(CHUNK_BORDERS);
     public int advancedTooltips = getDefault(ADVANCED_TOOLTIPS);
     public int inspect = getDefault(INSPECT);
-//    public int profiling = getDefault(PROFILING);
+    public int profiling = getDefault(PROFILING);
     public int creativeSpectator = getDefault(CREATIVE_SPECTATOR);
     public int pauseFocus = getDefault(PAUSE_FOCUS);
     public int help = getDefault(HELP);
@@ -57,7 +57,7 @@ public class KeybindConfig implements BConfig {
         CHUNK_BORDERS.setKey(toKey(chunkBorders));
         ADVANCED_TOOLTIPS.setKey(toKey(advancedTooltips));
         INSPECT.setKey(toKey(inspect));
-//        PROFILING.setKey(toKey(profiling));
+        PROFILING.setKey(toKey(profiling));
         CREATIVE_SPECTATOR.setKey(toKey(creativeSpectator));
         PAUSE_FOCUS.setKey(toKey(pauseFocus));
         HELP.setKey(toKey(help));
@@ -84,13 +84,13 @@ public class KeybindConfig implements BConfig {
         chunkBorders = getKey(CHUNK_BORDERS);
         advancedTooltips = getKey(ADVANCED_TOOLTIPS);
         inspect = getKey(INSPECT);
-//        profiling = getKey(PROFILING);
+        profiling = getKey(PROFILING);
         creativeSpectator = getKey(CREATIVE_SPECTATOR);
         pauseFocus = getKey(PAUSE_FOCUS);
         help = getKey(HELP);
 //        dumpDynamicTextures = getKey(DUMP_DYNAMIC_TEXTURES);
         reloadResourcePacks = getKey(RELOAD_RESOURCEPACKS);
-//        openGamemodeSwitcher = getKey(OPEN_GAMEMODE_SWITCHER);
+        openGamemodeSwitcher = getKey(OPEN_GAMEMODE_SWITCHER);
         pauseWithoutMenu = getKey(PAUSE_WITHOUT_MENU);
 
         DebugKeybinds.refreshActionBindings();
