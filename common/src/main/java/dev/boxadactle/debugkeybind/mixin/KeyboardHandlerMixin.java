@@ -8,15 +8,13 @@ import net.minecraft.client.KeyboardHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ChatComponent;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(KeyboardHandler.class)
 public abstract class KeyboardHandlerMixin {
-
-    @Shadow private boolean handledDebugKey;
 
     @Shadow @Final private Minecraft minecraft;
 
@@ -74,24 +72,25 @@ public abstract class KeyboardHandlerMixin {
         if (!(this.debugCrashKeyTime > 0L && this.debugCrashKeyTime < Util.getMillis() - 100L) && i == 81) {
             this.debugFeedbackTranslated("debug.help.message");
 
-            Component debugKey = DebugKeybinds.DEBUG.getTranslatedKey();
+            String debugKey = DebugKeybinds.DEBUG.getKeyTranslation();
 
             ChatComponent chatComponent = this.minecraft.gui.getChat();
-            chatComponent.addMessage(Component.translatable("debug.reload_chunks.help", debugKey, DebugKeybinds.RELOAD_CHUNKS.getTranslatedKey()));
-            chatComponent.addMessage(Component.translatable("debug.show_hitboxes.help", debugKey, DebugKeybinds.SHOW_HITBOXES.getTranslatedKey()));
-            chatComponent.addMessage(Component.translatable("debug.copy_location.help", debugKey, DebugKeybinds.COPY_LOCATION.getTranslatedKey(), debugKey, "C"));
-            chatComponent.addMessage(Component.translatable("debug.clear_chat.help", debugKey, DebugKeybinds.CLEAR_CHAT.getTranslatedKey()));
-            chatComponent.addMessage(Component.translatable("debug.chunk_boundaries.help", debugKey, DebugKeybinds.CHUNK_BORDERS.getTranslatedKey()));
-            chatComponent.addMessage(Component.translatable("debug.advanced_tooltips.help", debugKey, DebugKeybinds.ADVANCED_TOOLTIPS.getTranslatedKey()));
-            chatComponent.addMessage(Component.translatable("debug.inspect.help", debugKey, DebugKeybinds.INSPECT.getTranslatedKey()));
-            chatComponent.addMessage(Component.translatable("debug.profiling.help", debugKey, DebugKeybinds.PROFILING.getTranslatedKey()));
-            chatComponent.addMessage(Component.translatable("debug.creative_spectator.help", debugKey, DebugKeybinds.CREATIVE_SPECTATOR.getTranslatedKey()));
-            chatComponent.addMessage(Component.translatable("debug.pause_focus.help", debugKey, DebugKeybinds.PAUSE_FOCUS.getTranslatedKey()));
-            chatComponent.addMessage(Component.translatable("debug.help.help", debugKey, DebugKeybinds.HELP.getTranslatedKey()));
-            chatComponent.addMessage(Component.translatable("debug.dump_dynamic_textures.help", debugKey, DebugKeybinds.DUMP_DYNAMIC_TEXTURES.getTranslatedKey()));
-            chatComponent.addMessage(Component.translatable("debug.reload_resourcepacks.help", debugKey, DebugKeybinds.RELOAD_RESOURCEPACKS.getTranslatedKey()));
-            chatComponent.addMessage(Component.translatable("debug.pause.help", debugKey, DebugKeybinds.PAUSE_WITHOUT_MENU.getTranslatedKey()));
-            chatComponent.addMessage(Component.translatable("debug.gamemodes.help", debugKey, DebugKeybinds.OPEN_GAMEMODE_SWITCHER.getTranslatedKey()));
+            chatComponent.addMessage(new TranslatableComponent("debug.reload_chunks.help", debugKey, DebugKeybinds.RELOAD_CHUNKS.getKeyTranslation()));
+            chatComponent.addMessage(new TranslatableComponent("debug.show_hitboxes.help", debugKey, DebugKeybinds.SHOW_HITBOXES.getKeyTranslation()));
+            chatComponent.addMessage(new TranslatableComponent("debug.copy_location.help", debugKey, DebugKeybinds.COPY_LOCATION.getKeyTranslation(), debugKey, "C"));
+            chatComponent.addMessage(new TranslatableComponent("debug.cycle_renderdistance.help", debugKey, DebugKeybinds.CYCLE_RENDER_DISTANCE.getKeyTranslation()));
+            chatComponent.addMessage(new TranslatableComponent("debug.clear_chat.help", debugKey, DebugKeybinds.CLEAR_CHAT.getKeyTranslation()));
+            chatComponent.addMessage(new TranslatableComponent("debug.chunk_boundaries.help", debugKey, DebugKeybinds.CHUNK_BORDERS.getKeyTranslation()));
+            chatComponent.addMessage(new TranslatableComponent("debug.advanced_tooltips.help", debugKey, DebugKeybinds.ADVANCED_TOOLTIPS.getKeyTranslation()));
+            chatComponent.addMessage(new TranslatableComponent("debug.inspect.help", debugKey, DebugKeybinds.INSPECT.getKeyTranslation()));
+//            chatComponent.addMessage(new TranslatableComponent("debug.profiling.help", debugKey, DebugKeybinds.PROFILING.getKeyTranslation()));
+            chatComponent.addMessage(new TranslatableComponent("debug.creative_spectator.help", debugKey, DebugKeybinds.CREATIVE_SPECTATOR.getKeyTranslation()));
+            chatComponent.addMessage(new TranslatableComponent("debug.pause_focus.help", debugKey, DebugKeybinds.PAUSE_FOCUS.getKeyTranslation()));
+            chatComponent.addMessage(new TranslatableComponent("debug.help.help", debugKey, DebugKeybinds.HELP.getKeyTranslation()));
+//            chatComponent.addMessage(new TranslatableComponent("debug.dump_dynamic_textures.help", debugKey, DebugKeybinds.DUMP_DYNAMIC_TEXTURES.getKeyTranslation()));
+            chatComponent.addMessage(new TranslatableComponent("debug.reload_resourcepacks.help", debugKey, DebugKeybinds.RELOAD_RESOURCEPACKS.getKeyTranslation()));
+            chatComponent.addMessage(new TranslatableComponent("debug.pause.help", debugKey, DebugKeybinds.PAUSE_WITHOUT_MENU.getKeyTranslation()));
+//            chatComponent.addMessage(new TranslatableComponent("debug.gamemodes.help", debugKey, DebugKeybinds.OPEN_GAMEMODE_SWITCHER.getKeyTranslation()));
             cir.setReturnValue(true);
         }
     }

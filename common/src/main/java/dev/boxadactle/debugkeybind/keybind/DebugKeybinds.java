@@ -3,6 +3,7 @@ package dev.boxadactle.debugkeybind.keybind;
 import com.google.common.collect.Lists;
 import dev.boxadactle.boxlib.keybind.KeybindHelper;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
@@ -22,16 +23,17 @@ public class DebugKeybinds {
     public static ActionKeybind SHOW_HITBOXES = createActionKeybind("key.debug_actions.show_hitboxes", 66);
     public static ActionKeybind COPY_LOCATION = createActionKeybind("key.debug_actions.copy_location", 67);
     public static ActionKeybind CLEAR_CHAT = createActionKeybind("key.debug_actions.clear_chat", 68);
+    public static ActionKeybind CYCLE_RENDER_DISTANCE = createActionKeybind("key.debug_actions.cycle_render_distance", 70);
     public static ActionKeybind CHUNK_BORDERS = createActionKeybind("key.debug_actions.chunk_borders", 71);
     public static ActionKeybind ADVANCED_TOOLTIPS = createActionKeybind("key.debug_actions.advanced_tooltips", 72);
     public static ActionKeybind INSPECT = createActionKeybind("key.debug_actions.inspect", 73);
-    public static ActionKeybind PROFILING = createActionKeybind("key.debug_actions.profiling", 76);
+//    public static ActionKeybind PROFILING = createActionKeybind("key.debug_actions.profiling", 76);
     public static ActionKeybind CREATIVE_SPECTATOR = createActionKeybind("key.debug_actions.creative_spectator", 78);
     public static ActionKeybind PAUSE_FOCUS = createActionKeybind("key.debug_actions.pause_focus", 80);
     public static ActionKeybind HELP = createActionKeybind("key.debug_actions.help", 81);
-    public static ActionKeybind DUMP_DYNAMIC_TEXTURES = createActionKeybind("key.debug_actions.dynamic_textures", 83);
+//    public static ActionKeybind DUMP_DYNAMIC_TEXTURES = createActionKeybind("key.debug_actions.dynamic_textures", 83);
     public static ActionKeybind RELOAD_RESOURCEPACKS = createActionKeybind("key.debug_actions.reload_resourcepacks", 84);
-    public static ActionKeybind OPEN_GAMEMODE_SWITCHER = createActionKeybind("key.debug_actions.open_gamemode_switcher", 293);
+//    public static ActionKeybind OPEN_GAMEMODE_SWITCHER = createActionKeybind("key.debug_actions.open_gamemode_switcher", 293);
     public static ActionKeybind PAUSE_WITHOUT_MENU = createActionKeybind("key.debug_actions.pause_without_menu", 256);
 
     public static void refreshActionBindings() {
@@ -78,36 +80,27 @@ public class DebugKeybinds {
                 RELOAD_CHUNKS,
                 SHOW_HITBOXES,
                 COPY_LOCATION,
+                CYCLE_RENDER_DISTANCE,
                 CLEAR_CHAT,
                 CHUNK_BORDERS,
                 ADVANCED_TOOLTIPS,
                 INSPECT,
-                PROFILING,
+//                PROFILING,
                 CREATIVE_SPECTATOR,
                 PAUSE_FOCUS,
                 HELP,
-                DUMP_DYNAMIC_TEXTURES,
+//                DUMP_DYNAMIC_TEXTURES,
                 RELOAD_RESOURCEPACKS,
-                OPEN_GAMEMODE_SWITCHER,
+//                OPEN_GAMEMODE_SWITCHER,
                 PAUSE_WITHOUT_MENU
         );
     }
 
-    public static List<Component> getCollisions(KeyMapping k) {
-        List<Component> collisions = new ArrayList<>();
+    public static List<String> getCollisions(KeyMapping k) {
+        List<String> collisions = new ArrayList<>();
 
         for (GlobalKeybind key : list) {
-            if (key.getKeyCode() == KeybindHelper.getBoundKey(k).getValue()) collisions.add(Component.translatable(key.getName()));
-        }
-
-        return collisions;
-    }
-
-    public static List<Component> getCollisions(DebugKeybind k) {
-        List<Component> collisions = new ArrayList<>();
-
-        for (GlobalKeybind key : list) {
-            if (key.getKeyCode() == k.getKeyCode()) collisions.add(Component.translatable(key.getName()));
+            if (key.getKeyCode() == KeybindHelper.getBoundKey(k).getValue()) collisions.add(I18n.get(key.getName()));
         }
 
         return collisions;

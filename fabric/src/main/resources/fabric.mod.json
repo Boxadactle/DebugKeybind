@@ -21,14 +21,14 @@
     ]
   },
   "mixins": [
-    "DebugKeybind-common.mixins.json"
+    "debugkeybind.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.15",
-    "minecraft": ">=1.21",
-    "boxlib": ">=14.0.0"
+    "fabricloader": "*",
+    "minecraft": "1.14.4",
+    "boxlib": "2.*"
   },
   "recommends": {
-    "modmenu": ">=11.0.0"
+    "modmenu": "*"
   }
 }
