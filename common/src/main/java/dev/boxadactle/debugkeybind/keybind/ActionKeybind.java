@@ -82,11 +82,11 @@ public class ActionKeybind implements DebugKeybind {
     }
 
     @Override
-    public List<String> checkConflicts(List<DebugKeybind> keybinds) {
-        List<String> list = new ArrayList<>();
+    public List<Component> checkConflicts(List<DebugKeybind> keybinds) {
+        List<Component> list = new ArrayList<>();
 
         for (DebugKeybind k : keybinds) {
-            if (!k.getName().equals(name) && k.getKeyCode() == getKeyCode()) list.add(I18n.get(k.getName()));
+            if (!k.getName().equals(name) && k.getKeyCode() == getKeyCode()) list.add(Component.translatable(k.getName()));
         }
 
         return list;

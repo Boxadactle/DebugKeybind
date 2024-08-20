@@ -9,6 +9,7 @@ import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
 import dev.boxadactle.debugkeybind.keybind.GlobalKeybind;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.network.chat.Component;
 
 import java.util.List;
 import java.util.function.Function;
@@ -65,7 +66,7 @@ public class KeybindEntry extends BOptionScreen.ConfigList.ConfigEntry {
             return;
         }
 
-        List<String> collisions = keybind.checkConflicts(DebugKeybinds.toList());
+        List<Component> collisions = keybind.checkConflicts(DebugKeybinds.toList());
 
         if (keybind instanceof GlobalKeybind) {
             KeyMapping[] mappings = ClientUtils.getOptions().keyMappings.clone();

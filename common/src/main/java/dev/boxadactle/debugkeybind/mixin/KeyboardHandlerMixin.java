@@ -81,7 +81,6 @@ public abstract class KeyboardHandlerMixin {
             chatComponent.addMessage(debugKeybind$translateHelpMessage("debug.reload_chunks.help", debugKey, DebugKeybinds.RELOAD_CHUNKS));
             chatComponent.addMessage(debugKeybind$translateHelpMessage("debug.show_hitboxes.help", debugKey, DebugKeybinds.SHOW_HITBOXES));
             chatComponent.addMessage(debugKeybind$translateHelpMessage("debug.copy_location.help", debugKey, DebugKeybinds.COPY_LOCATION));
-            chatComponent.addMessage(debugKeybind$translateHelpMessage("debug.cycle_renderdistance.help", debugKey, DebugKeybinds.CYCLE_RENDER_DISTANCE));
             chatComponent.addMessage(debugKeybind$translateHelpMessage("debug.clear_chat.help", debugKey, DebugKeybinds.CLEAR_CHAT));
             chatComponent.addMessage(debugKeybind$translateHelpMessage("debug.chunk_boundaries.help", debugKey, DebugKeybinds.CHUNK_BORDERS));
             chatComponent.addMessage(debugKeybind$translateHelpMessage("debug.advanced_tooltips.help", debugKey, DebugKeybinds.ADVANCED_TOOLTIPS));
@@ -90,7 +89,7 @@ public abstract class KeyboardHandlerMixin {
             chatComponent.addMessage(debugKeybind$translateHelpMessage("debug.creative_spectator.help", debugKey, DebugKeybinds.CREATIVE_SPECTATOR));
             chatComponent.addMessage(debugKeybind$translateHelpMessage("debug.pause_focus.help", debugKey, DebugKeybinds.PAUSE_FOCUS));
             chatComponent.addMessage(debugKeybind$translateHelpMessage("debug.help.help", debugKey, DebugKeybinds.HELP));
-//            chatComponent.addMessage(translateHelpMessage("debug.dump_dynamic_textures.help", debugKey, DebugKeybinds.DUMP_DYNAMIC_TEXTURES));
+            chatComponent.addMessage(debugKeybind$translateHelpMessage("debug.dump_dynamic_textures.help", debugKey, DebugKeybinds.DUMP_DYNAMIC_TEXTURES));
             chatComponent.addMessage(debugKeybind$translateHelpMessage("debug.reload_resourcepacks.help", debugKey, DebugKeybinds.RELOAD_RESOURCEPACKS));
             chatComponent.addMessage(debugKeybind$translateHelpMessage("debug.pause.help", debugKey, DebugKeybinds.PAUSE_WITHOUT_MENU));
             chatComponent.addMessage(debugKeybind$translateHelpMessage("debug.gamemodes.help", debugKey, DebugKeybinds.OPEN_GAMEMODE_SWITCHER));

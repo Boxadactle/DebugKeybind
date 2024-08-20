@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ControlsScreen.class)
@@ -19,8 +20,8 @@ public abstract class ControlsScreenMixin extends Screen {
 
     @Inject(method = "init", at = @At("RETURN"))
     private void addButton(CallbackInfo ci) {
-        int j = (this.width / 2 - 155) + 160;
-        int k = this.height / 6 - 12 + (24 * 2);
+        int j = this.width / 2 - 155;
+        int k = this.height / 6 - 12 + (24 * 3);
 
         addRenderableWidget(
                 Button.builder(
@@ -28,6 +29,19 @@ public abstract class ControlsScreenMixin extends Screen {
                         (b) -> minecraft.setScreen(new DebugKeybindsScreen(this))
                 ).bounds(j, k, 150, 20).build()
         );
+    }
+
+    @ModifyArg(
+            method = "init",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/components/Button$Builder;bounds(IIII)Lnet/minecraft/client/gui/components/Button$Builder;",
+                    ordinal = 2
+            ),
+            index = 1
+    )
+    private int modifyButtonY(int y) {
+        return y + 24;
     }
 
 }
