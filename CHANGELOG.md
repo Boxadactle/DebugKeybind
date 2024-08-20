@@ -1,5 +1,5 @@
 ## Changes
-- Rewritten for 1.20.2
+- Rewritten for 1.20.4
 - Fixed config saving bug
 - Allow debug help translations in all languages
 - Added button tooltips to debug key screen
