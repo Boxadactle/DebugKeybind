@@ -22,7 +22,12 @@ public abstract class ControlsScreenMixin extends Screen {
         int j = (this.width / 2 - 155) + 160;
         int k = this.height / 6 - 12 + (24 * 2);
 
-        addRenderableWidget(new Button(j, k, 150, 20, Component.translatable("controls.keybinds.debug"), (b) -> minecraft.setScreen(new DebugKeybindsScreen(this))));
+        addRenderableWidget(
+                Button.builder(
+                        Component.translatable("controls.keybinds.debug"),
+                        (b) -> minecraft.setScreen(new DebugKeybindsScreen(this))
+                ).bounds(j, k, 150, 20).build()
+        );
     }
 
 }

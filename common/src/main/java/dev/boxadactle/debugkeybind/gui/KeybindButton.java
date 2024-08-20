@@ -97,7 +97,7 @@ public class KeybindButton extends BCustomButton {
         super.renderButton(p_93657_, mouseX, mouseY, delta);
 
         if (hasCollisions) {
-            RenderUtils.drawSquare(p_93657_, x - 12, y, 10, height, GuiUtils.RED);
+            RenderUtils.drawSquare(p_93657_, getX() - 12, getY(), 10, height, GuiUtils.RED);
         }
     }
 }

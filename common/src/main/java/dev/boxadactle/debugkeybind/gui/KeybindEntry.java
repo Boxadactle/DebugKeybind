@@ -82,18 +82,18 @@ public class KeybindEntry extends BOptionScreen.ConfigList.ConfigEntry {
         int resetWidth = 50;
         int padding = 2;
 
-        label.x = (x - 25);
-        label.y = (y);
+        label.setX(x - 25);
+        label.setY(y);
         label.setWidth(entryWidth - keybindWidth - resetWidth - padding);
         label.render(stack, mouseX, mouseY, tickDelta);
 
-        keybindButton.x = (x + entryWidth - keybindWidth - resetWidth - padding);
-        keybindButton.y =(y);
+        keybindButton.setX(x + entryWidth - keybindWidth - resetWidth - padding);
+        keybindButton.setY(y);
         keybindButton.setWidth(keybindWidth);
         keybindButton.render(stack, mouseX, mouseY, tickDelta);
 
-        resetButton.x = (x + entryWidth - resetWidth);
-        resetButton.y = (y);
+        resetButton.setX(x + entryWidth - resetWidth);
+        resetButton.setY(y);
         resetButton.setWidth(resetWidth);
         resetButton.render(stack, mouseX, mouseY, tickDelta);
     }
