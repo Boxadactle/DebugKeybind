@@ -55,7 +55,7 @@ public class DebugKeybindsScreen extends BOptionScreen {
 
             DebugKeybindMain.CONFIG.save();
         });
-        doneButton.x = (startX + getButtonWidth(ButtonType.SMALL) + getPadding());
+        doneButton.setX(startX + getButtonWidth(ButtonType.SMALL) + getPadding());
 
         addRenderableWidget(resetButton);
         addRenderableWidget(doneButton);
