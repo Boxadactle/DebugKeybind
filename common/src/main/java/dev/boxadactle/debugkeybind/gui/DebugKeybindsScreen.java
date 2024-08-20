@@ -1,24 +1,14 @@
 package dev.boxadactle.debugkeybind.gui;
 
 import dev.boxadactle.boxlib.gui.config.BOptionScreen;
-import dev.boxadactle.boxlib.gui.config.widget.button.BCustomButton;
 import dev.boxadactle.boxlib.gui.config.widget.label.BCenteredLabel;
-import dev.boxadactle.boxlib.gui.config.widget.label.BLabel;
 import dev.boxadactle.boxlib.util.ClientUtils;
 import dev.boxadactle.debugkeybind.DebugKeybindMain;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybind;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
-import dev.boxadactle.debugkeybind.keybind.GlobalKeybind;
-import net.minecraft.client.KeyMapping;
-import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-
-import java.util.List;
-import java.util.function.Function;
 
 public class DebugKeybindsScreen extends BOptionScreen {
 
@@ -30,7 +20,7 @@ public class DebugKeybindsScreen extends BOptionScreen {
 
     @Override
     protected Component getName() {
-        return new TranslatableComponent("controls.keybinds.debug.title");
+        return Component.translatable("controls.keybinds.debug.title");
     }
 
     @Override
@@ -58,7 +48,7 @@ public class DebugKeybindsScreen extends BOptionScreen {
 
             refreshEntries();
         });
-        resetButton.setMessage(new TranslatableComponent("controls.resetAll"));
+        resetButton.setMessage(Component.translatable("controls.resetAll"));
 
         Button doneButton = createHalfDoneButton(startX, startY, (b) -> {
             ClientUtils.setScreen(parent);
@@ -73,13 +63,13 @@ public class DebugKeybindsScreen extends BOptionScreen {
 
     @Override
     protected void initConfigButtons() {
-        addConfigLine(new BCenteredLabel(new TranslatableComponent("key.categories.debug")));
+        addConfigLine(new BCenteredLabel(Component.translatable("key.categories.debug")));
 
         for (DebugKeybind keybind : DebugKeybinds.getGlobalKeybinds()) {
             addConfigLine(new KeybindEntry(keybind, this::setSelectedEntry, this::refreshEntries));
         }
 
-        addConfigLine(new BCenteredLabel(new TranslatableComponent("key.categories.debug_actions")));
+        addConfigLine(new BCenteredLabel(Component.translatable("key.categories.debug_actions")));
 
         for (DebugKeybind keybind : DebugKeybinds.getActionKeybinds()) {
             addConfigLine(new KeybindEntry(keybind, this::setSelectedEntry, this::refreshEntries));

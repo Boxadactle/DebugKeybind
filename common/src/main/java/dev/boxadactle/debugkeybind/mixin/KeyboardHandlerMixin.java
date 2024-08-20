@@ -11,7 +11,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ChatComponent;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -106,7 +105,7 @@ public abstract class KeyboardHandlerMixin {
 
         String message = I18n.get(key);
 
-        return new TextComponent(
+        return Component.literal(
                 message.replaceAll(debugName, debugKey.getKeyTranslation().getString().toUpperCase())
                         .replaceFirst(keyName, keybind.getKeyTranslation().getString().toUpperCase())
         );

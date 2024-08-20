@@ -3,7 +3,6 @@ package dev.boxadactle.debugkeybind.keybind;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +73,7 @@ public class ActionKeybind implements DebugKeybind {
 
     @Override
     public Component getTranslation() {
-        return new TranslatableComponent(name);
+        return Component.translatable(name);
     }
 
     @Override

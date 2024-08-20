@@ -8,8 +8,8 @@ import dev.boxadactle.boxlib.util.RenderUtils;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybind;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -62,13 +62,13 @@ public class KeybindButton extends BCustomButton {
                 GuiUtils.RED
         ));
 
-        MutableComponent tooltip = new TextComponent("");
+        MutableComponent tooltip = Component.literal("");
 
         for (int i = 0; i < conflicts.size() ; i++) {
             tooltip.append(conflicts.get(i));
 
             if (i != conflicts.size() - 1) {
-                tooltip.append(new TextComponent(",\n"));
+                tooltip.append(Component.literal(",\n"));
             }
         }
 
