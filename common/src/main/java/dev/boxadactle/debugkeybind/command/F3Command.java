@@ -1,19 +1,19 @@
 package dev.boxadactle.debugkeybind.command;
 
-import dev.boxadactle.boxlib.command.api.BClientCommand;
+import dev.boxadactle.boxlib.command.api.BCommand;
 import dev.boxadactle.boxlib.util.ClientUtils;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
 
 public class F3Command {
 
-    public static BClientCommand create() {
-        return BClientCommand.create("f3", (context) -> {
+    public static BCommand create() {
+        return BCommand.create("f3", (context) -> {
                     ClientUtils.getClient().getDebugOverlay().toggleOverlay();
                     return 0;
                 })
-                .registerSubcommand(new ReloadSubcommand())
-                .registerSubcommand(new ToggleSubcommand())
-                .registerSubcommand(new CopySubcommand())
+                .registerSubcommand(ReloadSubcommand.create())
+                .registerSubcommand(ToggleSubcommand.create())
+                .registerSubcommand(CopySubcommand.create())
                 .registerSubcommand(new DebugSubcommand("clear_chat", DebugKeybinds.CLEAR_CHAT))
                 .registerSubcommand(new DebugSubcommand("creative_spectator", DebugKeybinds.CREATIVE_SPECTATOR))
                 .registerSubcommand(new DebugSubcommand("clear_chat", DebugKeybinds.CLEAR_CHAT))

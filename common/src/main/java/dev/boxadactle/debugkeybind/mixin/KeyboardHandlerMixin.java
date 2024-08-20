@@ -78,7 +78,6 @@ public abstract class KeyboardHandlerMixin {
 
             ChatComponent chatComponent = this.minecraft.gui.getChat();
             chatComponent.addMessage(debugKeybind$translateHelpMessage("debug.reload_chunks.help", debugKey, DebugKeybinds.RELOAD_CHUNKS));
-            chatComponent.addMessage(debugKeybind$translateHelpMessage("debug.reload_chunks.help", debugKey, DebugKeybinds.RELOAD_CHUNKS));
             chatComponent.addMessage(debugKeybind$translateHelpMessage("debug.show_hitboxes.help", debugKey, DebugKeybinds.SHOW_HITBOXES));
             chatComponent.addMessage(debugKeybind$translateHelpMessage("debug.copy_location.help", debugKey, DebugKeybinds.COPY_LOCATION));
             chatComponent.addMessage(debugKeybind$translateHelpMessage("debug.clear_chat.help", debugKey, DebugKeybinds.CLEAR_CHAT));
