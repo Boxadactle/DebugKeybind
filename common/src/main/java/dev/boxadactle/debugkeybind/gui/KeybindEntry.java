@@ -1,6 +1,5 @@
 package dev.boxadactle.debugkeybind.gui;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import dev.boxadactle.boxlib.gui.config.BOptionScreen;
 import dev.boxadactle.boxlib.gui.config.widget.label.BLabel;
 import dev.boxadactle.boxlib.util.ClientUtils;
@@ -8,6 +7,7 @@ import dev.boxadactle.debugkeybind.keybind.DebugKeybind;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
 import dev.boxadactle.debugkeybind.keybind.GlobalKeybind;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.network.chat.Component;
 
@@ -78,7 +78,7 @@ public class KeybindEntry extends BOptionScreen.ConfigList.ConfigEntry {
     }
 
     @Override
-    public void render(PoseStack stack, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+    public void render(GuiGraphics stack, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
         int keybindWidth = 75;
         int resetWidth = 50;
         int padding = 2;

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import dev.boxadactle.boxlib.util.GuiUtils;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.controls.KeyBindsList;
 import net.minecraft.network.chat.Component;
@@ -31,7 +32,7 @@ public class KeyBindsListMixin {
             method = "render",
             at = @At("RETURN")
     )
-    private void checkDebugCollisions(PoseStack poseStack, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f, CallbackInfo ci) {
+    private void checkDebugCollisions(GuiGraphics poseStack, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f, CallbackInfo ci) {
         List<Component> collisions = DebugKeybinds.getCollisions(key);
 
         if (!collisions.isEmpty()) {

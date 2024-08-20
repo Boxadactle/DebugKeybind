@@ -7,6 +7,7 @@ import dev.boxadactle.boxlib.util.GuiUtils;
 import dev.boxadactle.boxlib.util.RenderUtils;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybind;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -92,7 +93,7 @@ public class KeybindButton extends BCustomButton {
     }
 
     @Override
-    public void renderWidget(PoseStack p_93657_, int mouseX, int mouseY, float delta) {
+    public void renderWidget(GuiGraphics p_93657_, int mouseX, int mouseY, float delta) {
         super.renderWidget(p_93657_, mouseX, mouseY, delta);
 
         if (hasCollisions) {
