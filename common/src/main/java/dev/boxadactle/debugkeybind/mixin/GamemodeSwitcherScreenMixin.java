@@ -38,10 +38,10 @@ public abstract class GamemodeSwitcherScreenMixin {
             method = "render",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/screens/debug/GameModeSwitcherScreen;drawCenteredString(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;III)V",
-                    ordinal = 0
+                    target = "Lnet/minecraft/client/gui/GuiGraphics;drawCenteredString(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;III)V",
+                    ordinal = 1
             ),
-            index = 2
+            index = 1
     )
     private Component updateKeyText(Component par3) {
         return Component.translatable(

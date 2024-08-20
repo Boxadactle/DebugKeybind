@@ -6,7 +6,6 @@
   "client": [
     "ControlsScreenMixin",
     "DebugInvoker",
-    "DebugScreenOverlayMixin",
     "GamemodeSwitcherScreenMixin",
     "InputConstantsMixin",
     "KeyBindsListMixin",

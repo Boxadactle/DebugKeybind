@@ -105,8 +105,8 @@ public abstract class KeyboardHandlerMixin {
         String message = I18n.get(key);
 
         return Component.literal(
-                message.replaceAll(debugName, debugKey.getKeyTranslation().getString().toUpperCase())
-                        .replaceFirst(keyName, keybind.getKeyTranslation().getString().toUpperCase())
+                message.replaceAll(debugName, debugKey.getKeyTranslation().getString())
+                        .replaceFirst(keyName, keybind.getKeyTranslation().getString())
         );
     }
 }
