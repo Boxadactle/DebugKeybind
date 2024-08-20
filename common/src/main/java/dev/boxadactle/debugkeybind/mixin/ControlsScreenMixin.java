@@ -1,12 +1,10 @@
 package dev.boxadactle.debugkeybind.mixin;
 
-import dev.boxadactle.boxlib.util.ClientUtils;
 import dev.boxadactle.debugkeybind.gui.DebugKeybindsScreen;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.controls.ControlsScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -24,7 +22,7 @@ public abstract class ControlsScreenMixin extends Screen {
         int j = (this.width / 2 - 155) + 160;
         int k = this.height / 6 - 12 + (24 * 2);
 
-        addRenderableWidget(new Button(j, k, 150, 20, new TranslatableComponent("controls.keybinds.debug"), (b) -> minecraft.setScreen(new DebugKeybindsScreen(this))));
+        addRenderableWidget(new Button(j, k, 150, 20, Component.translatable("controls.keybinds.debug"), (b) -> minecraft.setScreen(new DebugKeybindsScreen(this))));
     }
 
 }

@@ -5,7 +5,6 @@ import dev.boxadactle.boxlib.keybind.KeybindHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +64,7 @@ public class GlobalKeybind implements DebugKeybind {
     }
 
     public Component getTranslation() {
-        return new TranslatableComponent(name);
+        return Component.translatable(name);
     }
 
     public boolean isDefault() {

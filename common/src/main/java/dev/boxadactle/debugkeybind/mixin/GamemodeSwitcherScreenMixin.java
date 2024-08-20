@@ -4,7 +4,6 @@ import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.debug.GameModeSwitcherScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
@@ -44,13 +43,10 @@ public abstract class GamemodeSwitcherScreenMixin {
             ),
             index = 2
     )
-    private Component hello(Component par3) {
-        return new TranslatableComponent(
+    private Component updateKeyText(Component par3) {
+        return Component.translatable(
                 "debug.gamemodes.select_next",
-                new TranslatableComponent(
-                        "debug.gamemodes.press_f4",
-                        DebugKeybinds.OPEN_GAMEMODE_SWITCHER.getKeyTranslation()
-                ).withStyle(ChatFormatting.AQUA)
+                Component.literal(" [ ").append(DebugKeybinds.OPEN_GAMEMODE_SWITCHER.getKeyTranslation()).append(" ] ").withStyle(ChatFormatting.AQUA)
         );
     }
 
