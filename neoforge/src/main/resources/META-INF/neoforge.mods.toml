@@ -14,23 +14,23 @@ A basic mod that adds keybinds for the F3 menu
 [[dependencies.debugkeybind]]
    modId="neoforge"
    mandatory=true
-   versionRange="[21,)"
+   versionRange="[20,)"
    ordering="NONE"
    side="BOTH"
 
 [[dependencies.debugkeybind]]
    modId="minecraft"
    mandatory=true
-   versionRange="[1.21,)"
+   versionRange="[1.20.5,)"
    ordering="NONE"
    side="BOTH"
 
-[[dependencies.coordinatesdisplay]]
+[[dependencies.debugkeybind]]
    modId = "boxlib"
    type = "required"
-   versionRange = "[14.0.0, 15.0.0)"
+   versionRange = "[13.0.0, 14.0.0)"
    ordering = "NONE"
    side = "BOTH"
 
 [[mixins]]
-   config = "DebugKeybind-common.mixins.json"
+   config = "debugkeybind.mixins.json"

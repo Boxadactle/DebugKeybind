@@ -27,6 +27,6 @@ side="BOTH"
 [[dependencies.debugkeybind]]
 modId="boxlib"
 mandatory=true
-versionRange="[12.0.0,13.0.0)"
+versionRange="[13.0.0,14.0.0)"
 ordering="NONE"
 side="CLIENT"
