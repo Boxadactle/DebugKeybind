@@ -26,16 +26,6 @@ public abstract class ControlsScreenMixin extends Screen {
 
     @Inject(method = "init", at = @At("RETURN"))
     private void addButton(CallbackInfo ci) {
-        int j = this.width / 2 - 155;
-        int k = this.height / 6 - 12 + (24 * 3);
-
-        addRenderableWidget(
-                Button.builder(
-                        Component.translatable("controls.keybinds.debug"),
-                        (b) -> minecraft.setScreen(new DebugKeybindsScreen(this))
-                ).bounds(j, k, 150, 20).build()
-        );
-
         list.addSmall(List.of(Button.builder(
                 Component.translatable("controls.keybinds.debug"),
                 (b) -> minecraft.setScreen(new DebugKeybindsScreen(this))
