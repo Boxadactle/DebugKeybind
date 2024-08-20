@@ -4,11 +4,12 @@
   "package": "dev.boxadactle.debugkeybind.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "ControlsScreenMixin",
+    "DebugScreenOverlayMixin",
     "GamemodeSwitcherScreenMixin",
     "InputConstantsMixin",
     "KeyBindsListMixin",
-    "KeyboardHandlerMixin",
-    "OptionsScreenMixin"
+    "KeyboardHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
