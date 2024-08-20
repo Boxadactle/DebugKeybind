@@ -1,3 +1,5 @@
 ## Changes
-- Rewritten for 1.17.1
+- Rewritten for 1.18.2
 - Fixed config saving bug
+- Remapped "F3 + Q" on debug hud
+- Allow debug help translations in all languages

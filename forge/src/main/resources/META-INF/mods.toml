@@ -20,13 +20,13 @@ side="BOTH"
 [[dependencies.debugkeybind]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.17,)"
+versionRange="[1.18,)"
 ordering="NONE"
 side="BOTH"
 
 [[dependencies.debugkeybind]]
 modId="boxlib"
 mandatory=true
-versionRange="[5.0.0,6.0.0)"
+versionRange="[6.0.0,7.0.0)"
 ordering="NONE"
 side="CLIENT"

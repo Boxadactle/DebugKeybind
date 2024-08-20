@@ -2,9 +2,9 @@ package dev.boxadactle.debugkeybind.forge;
 
 import dev.boxadactle.debugkeybind.DebugKeybindMain;
 import dev.boxadactle.debugkeybind.gui.DebugKeybindsScreen;
+import net.minecraftforge.client.ConfigGuiHandler;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fmlclient.ConfigGuiHandler;
 
 @Mod(DebugKeybindMain.MOD_ID)
 public class DebugKeybindForge {
