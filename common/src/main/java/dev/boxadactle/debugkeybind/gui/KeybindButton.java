@@ -7,7 +7,7 @@ import dev.boxadactle.boxlib.util.GuiUtils;
 import dev.boxadactle.boxlib.util.RenderUtils;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybind;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.resources.language.I18n;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
@@ -18,7 +18,6 @@ public class KeybindButton extends BCustomButton {
 
     DebugKeybind keybind;
     Supplier<Boolean> onSelect;
-    String tooltip = null;
 
     public boolean hasCollisions = false;
 
@@ -42,10 +41,10 @@ public class KeybindButton extends BCustomButton {
         setMessage(keybind.getKeyTranslation());
     }
 
-    public void updateConflicts(List<String> conflicts) {
+    public void updateConflicts(List<Component> conflicts) {
         if (conflicts.isEmpty()) {
             setMessage(keybind.getKeyTranslation());
-            tooltip = null;
+            setTooltip(null);
             hasCollisions = false;
 
             return;
@@ -68,11 +67,11 @@ public class KeybindButton extends BCustomButton {
             tooltip.append(conflicts.get(i));
 
             if (i != conflicts.size() - 1) {
-                tooltip.append(Component.literal(",\n"));
+                tooltip.append(Component.literal(", "));
             }
         }
 
-        this.tooltip = I18n.get("controls.keybinds.duplicateKeybinds", tooltip);
+        setTooltip(Tooltip.create(Component.translatable("controls.keybinds.duplicateKeybinds", tooltip)));
 
         hasCollisions = true;
     }
@@ -93,8 +92,8 @@ public class KeybindButton extends BCustomButton {
     }
 
     @Override
-    public void renderButton(PoseStack p_93657_, int mouseX, int mouseY, float delta) {
-        super.renderButton(p_93657_, mouseX, mouseY, delta);
+    public void renderWidget(PoseStack p_93657_, int mouseX, int mouseY, float delta) {
+        super.renderWidget(p_93657_, mouseX, mouseY, delta);
 
         if (hasCollisions) {
             RenderUtils.drawSquare(p_93657_, getX() - 12, getY(), 10, height, GuiUtils.RED);
