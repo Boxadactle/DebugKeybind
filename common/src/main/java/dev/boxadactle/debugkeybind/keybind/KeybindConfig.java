@@ -27,6 +27,9 @@ public class KeybindConfig implements BConfig {
     public int hideGui = getDefault(HIDE_GUI);
 
     // debug actions
+    public int toggleProfilerChart = getDefault(TOGGLE_PROFILER_CHART);
+    public int toggleFpsCharts = getDefault(TOGGLE_FPS_CHARTS);
+    public int toggleNetworkCharts = getDefault(TOGGLE_NETWORK_CHARTS);
     public int reloadChunks = getDefault(RELOAD_CHUNKS);
     public int showHitboxes = getDefault(SHOW_HITBOXES);
     public int copyLocation = getDefault(COPY_LOCATION);
@@ -42,12 +45,22 @@ public class KeybindConfig implements BConfig {
     public int reloadResourcePacks = getDefault(RELOAD_RESOURCEPACKS);
     public int openGamemodeSwitcher = getDefault(OPEN_GAMEMODE_SWITCHER);
     public int pauseWithoutMenu = getDefault(PAUSE_WITHOUT_MENU);
+    public int chunkSectionPath = getDefault(CHUNK_SECTION_PATH);
+    public int toggleFog = getDefault(TOGGLE_FOG);
+    public int toggleSmartCull = getDefault(TOGGLE_SMART_CULL);
+    public int toggleFrustumOctree = getDefault(TOGGLE_FRUSTUM_OCTREE);
+    public int captureFrustum = getDefault(CAPTURE_FRUSTUM);
+    public int toggleSectionVisibility = getDefault(TOGGLE_SECTION_VISIBILITY);
+    public int toggleWireframe = getDefault(TOGGLE_WIREFRAME);
 
     @Override
     public void onConfigLoadPost() {
         DEBUG.setKey(toKey(debug));
         HIDE_GUI.setKey(toKey(hideGui));
 
+        TOGGLE_PROFILER_CHART.setKey(toKey(toggleProfilerChart));
+        TOGGLE_FPS_CHARTS.setKey(toKey(toggleFpsCharts));
+        TOGGLE_NETWORK_CHARTS.setKey(toKey(toggleNetworkCharts));
         RELOAD_CHUNKS.setKey(toKey(reloadChunks));
         SHOW_HITBOXES.setKey(toKey(showHitboxes));
         COPY_LOCATION.setKey(toKey(copyLocation));
@@ -63,6 +76,13 @@ public class KeybindConfig implements BConfig {
         RELOAD_RESOURCEPACKS.setKey(toKey(reloadResourcePacks));
         OPEN_GAMEMODE_SWITCHER.setKey(toKey(openGamemodeSwitcher));
         PAUSE_WITHOUT_MENU.setKey(toKey(pauseWithoutMenu));
+        CHUNK_SECTION_PATH.setKey(toKey(chunkSectionPath));
+        TOGGLE_FOG.setKey(toKey(toggleFog));
+        TOGGLE_SMART_CULL.setKey(toKey(toggleSmartCull));
+        TOGGLE_FRUSTUM_OCTREE.setKey(toKey(toggleFrustumOctree));
+        CAPTURE_FRUSTUM.setKey(toKey(captureFrustum));
+        TOGGLE_SECTION_VISIBILITY.setKey(toKey(toggleSectionVisibility));
+        TOGGLE_WIREFRAME.setKey(toKey(toggleWireframe));
 
         DebugKeybinds.refreshActionBindings();
 
@@ -74,6 +94,9 @@ public class KeybindConfig implements BConfig {
         debug = getKey(DEBUG);
         hideGui = getKey(HIDE_GUI);
 
+        toggleProfilerChart = getKey(TOGGLE_PROFILER_CHART);
+        toggleFpsCharts = getKey(TOGGLE_FPS_CHARTS);
+        toggleNetworkCharts = getKey(TOGGLE_NETWORK_CHARTS);
         reloadChunks = getKey(RELOAD_CHUNKS);
         showHitboxes = getKey(SHOW_HITBOXES);
         copyLocation = getKey(COPY_LOCATION);
@@ -89,6 +112,13 @@ public class KeybindConfig implements BConfig {
         reloadResourcePacks = getKey(RELOAD_RESOURCEPACKS);
         openGamemodeSwitcher = getKey(OPEN_GAMEMODE_SWITCHER);
         pauseWithoutMenu = getKey(PAUSE_WITHOUT_MENU);
+        chunkSectionPath = getKey(CHUNK_SECTION_PATH);
+        toggleFog = getKey(TOGGLE_FOG);
+        toggleSmartCull = getKey(TOGGLE_SMART_CULL);
+        toggleFrustumOctree = getKey(TOGGLE_FRUSTUM_OCTREE);
+        captureFrustum = getKey(CAPTURE_FRUSTUM);
+        toggleSectionVisibility = getKey(TOGGLE_SECTION_VISIBILITY);
+        toggleWireframe = getKey(TOGGLE_WIREFRAME);
 
         DebugKeybinds.refreshActionBindings();
 

@@ -19,6 +19,9 @@ public class DebugKeybinds {
     public static GlobalKeybind DEBUG = createGlobalKeybind("key.debug.debugkeybind", 292);
     public static GlobalKeybind HIDE_GUI = createGlobalKeybind("key.debug.hide_gui", 290);
 
+    public static ActionKeybind TOGGLE_PROFILER_CHART = createActionKeybind("key.debug_actions.toggle_profiler_chart", 49);
+    public static ActionKeybind TOGGLE_FPS_CHARTS = createActionKeybind("key.debug_actions.toggle_fps_charts", 50);
+    public static ActionKeybind TOGGLE_NETWORK_CHARTS = createActionKeybind("key.debug_actions.toggle_network_charts", 51);
     public static ActionKeybind RELOAD_CHUNKS = createActionKeybind("key.debug_actions.reload_chunks", 65);
     public static ActionKeybind SHOW_HITBOXES = createActionKeybind("key.debug_actions.show_hitboxes", 66);
     public static ActionKeybind COPY_LOCATION = createActionKeybind("key.debug_actions.copy_location", 67);
@@ -34,6 +37,13 @@ public class DebugKeybinds {
     public static ActionKeybind RELOAD_RESOURCEPACKS = createActionKeybind("key.debug_actions.reload_resourcepacks", 84);
     public static ActionKeybind OPEN_GAMEMODE_SWITCHER = createActionKeybind("key.debug_actions.open_gamemode_switcher", 293);
     public static ActionKeybind PAUSE_WITHOUT_MENU = createActionKeybind("key.debug_actions.pause_without_menu", 256);
+    public static ActionKeybind CHUNK_SECTION_PATH = createActionKeybind("key.debug_actions.chunk_section_path", 69);
+    public static ActionKeybind TOGGLE_FOG = createActionKeybind("key.debug_actions.toggle_fog", 70);
+    public static ActionKeybind TOGGLE_SMART_CULL = createActionKeybind("key.debug_actions.toggle_smart_cull", 76);
+    public static ActionKeybind TOGGLE_FRUSTUM_OCTREE = createActionKeybind("key.debug_actions.toggle_frustum_octree", 79);
+    public static ActionKeybind CAPTURE_FRUSTUM = createActionKeybind("key.debug_actions.capture_frustum", 85);
+    public static ActionKeybind TOGGLE_SECTION_VISIBILITY = createActionKeybind("key.debug_actions.toggle_section_visibility", 86);
+    public static ActionKeybind TOGGLE_WIREFRAME = createActionKeybind("key.debug_actions.toggle_wireframe", 87);
 
     public static void refreshActionBindings() {
         map.clear();
@@ -76,6 +86,9 @@ public class DebugKeybinds {
 
     public static List<DebugKeybind> getActionKeybinds() {
         return Lists.newArrayList(
+                TOGGLE_PROFILER_CHART,
+                TOGGLE_FPS_CHARTS,
+                TOGGLE_NETWORK_CHARTS,
                 RELOAD_CHUNKS,
                 SHOW_HITBOXES,
                 COPY_LOCATION,
@@ -90,7 +103,14 @@ public class DebugKeybinds {
                 DUMP_DYNAMIC_TEXTURES,
                 RELOAD_RESOURCEPACKS,
                 OPEN_GAMEMODE_SWITCHER,
-                PAUSE_WITHOUT_MENU
+                PAUSE_WITHOUT_MENU,
+                CHUNK_SECTION_PATH,
+                TOGGLE_FOG,
+                TOGGLE_SMART_CULL,
+                TOGGLE_FRUSTUM_OCTREE,
+                CAPTURE_FRUSTUM,
+                TOGGLE_SECTION_VISIBILITY,
+                TOGGLE_WIREFRAME
         );
     }
 

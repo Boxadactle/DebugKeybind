@@ -21,7 +21,9 @@ public class F3Command {
                 .registerSubcommand(new DebugSubcommand("dump_textures", DebugKeybinds.DUMP_DYNAMIC_TEXTURES))
                 .registerSubcommand(new DebugSubcommand("gamemode", DebugKeybinds.OPEN_GAMEMODE_SWITCHER))
                 .registerSubcommand(new DebugSubcommand("clear_chat", DebugKeybinds.CLEAR_CHAT))
-                .registerSubcommand(new DebugSubcommand("pause_menuless", DebugKeybinds.PAUSE_WITHOUT_MENU));
+                .registerSubcommand(new DebugSubcommand("pause_menuless", DebugKeybinds.PAUSE_WITHOUT_MENU))
+                .registerSubcommand(new DebugSubcommand("capture_frustum", DebugKeybinds.CAPTURE_FRUSTUM))
+                .registerSubcommand(new DebugSubcommand("chunk_section_path", DebugKeybinds.CHUNK_SECTION_PATH));
     }
 
 }
