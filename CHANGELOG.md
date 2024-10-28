@@ -1,7 +1,15 @@
 ## Changes
-- Rewritten for 1.20.1
-- Fixed config saving bug
-- Allow debug help translations in all languages
-- Added button tooltips to debug key screen
-- Added /f3 command
-- Added 1.20.6+ forge support
+- Support for 1.21.3
+- Checks chunkDebugKeys (whatever those are) when checking debug keys
+
+## New Features
+- Added profiler chart toggle key
+- Added FPS charts toggle key
+- Added network charts toggle key
+- Added chunk section path key
+- added fog toggle key
+- added smart culling toggle key
+- added frustum octree toggle key
+- added frustum capture key
+- added section visibility toggle key
+- added wireframe toggle key
