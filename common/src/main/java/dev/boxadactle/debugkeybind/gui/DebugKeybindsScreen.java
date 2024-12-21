@@ -29,7 +29,7 @@ public class DebugKeybindsScreen extends BOptionScreen {
     }
 
     @Override
-    protected int getScrollbarPosition() {
+    protected int getScrollbarX() {
         return width - 15;
     }
 

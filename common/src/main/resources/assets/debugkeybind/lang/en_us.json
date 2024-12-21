@@ -32,7 +32,7 @@
   "key.debug_actions.toggle_fog": "Toggle Fog",
   "key.debug_actions.toggle_smart_cull": "Toggle Smart Cull",
   "key.debug_actions.toggle_frustum_octree": "Toggle Frustum Octree",
-  "key.debug_actions.capture_frustum": "Capture Frustum",
+  "key.debug_actions.capture_frustum": "Capture Frustum (Shift to kill)",
   "key.debug_actions.toggle_section_visibility": "Toggle Section Visibility",
   "key.debug_actions.toggle_wireframe": "Toggle Wireframe",
 

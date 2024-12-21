@@ -32,7 +32,7 @@
   "key.debug_actions.toggle_fog": "Alternar Niebla",
   "key.debug_actions.toggle_smart_cull": "Alternar Culling Inteligente",
   "key.debug_actions.toggle_frustum_octree": "Alternar Octree de Frustum",
-  "key.debug_actions.capture_frustum": "Capturar Frustum",
+  "key.debug_actions.capture_frustum": "Capturar Frustum (pulse la tecla shift para matar)",
   "key.debug_actions.toggle_section_visibility": "Alternar Visibilidad de Sección",
   "key.debug_actions.toggle_wireframe": "Alternar Malla",
 
