@@ -1,5 +1,2 @@
 ## Changes
-- Rewritten for 1.18.2
-- Fixed config saving bug
-- Remapped "F3 + Q" on debug hud
-- Allow debug help translations in all languages
+- Allowed for keybind unbinding

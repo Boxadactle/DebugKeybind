@@ -124,6 +124,6 @@ public class DebugKeybindsScreen extends BOptionScreen {
 
     @Override
     public boolean shouldCloseOnEsc() {
-        return selectedEntry == null;
+        return selectedEntry != null;
     }
 }
