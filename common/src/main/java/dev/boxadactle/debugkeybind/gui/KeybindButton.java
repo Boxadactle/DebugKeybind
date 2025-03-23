@@ -1,5 +1,6 @@
 package dev.boxadactle.debugkeybind.gui;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.boxadactle.boxlib.gui.config.BOptionButton;
 import dev.boxadactle.boxlib.gui.config.widget.button.BCustomButton;
@@ -32,6 +33,8 @@ public class KeybindButton extends BCustomButton {
     public void update(int keyPressed) {
         if (keyPressed != 256) {
             keybind.setKey(keyPressed);
+        } else {
+            keybind.setKey(InputConstants.UNKNOWN);
         }
 
         setMessage(keybind.getKeyTranslation());
