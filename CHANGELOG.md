@@ -1,3 +1,3 @@
 ## Changes
-- Rewritten for 1.16.5
-- Fixed config saving bug
+- Rewritten for 1.16.1
+- allowed for unbinding of keybinds

@@ -3,7 +3,7 @@ package dev.boxadactle.debugkeybind.mixin;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.debug.GameModeSwitcherScreen;
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.chat.TranslatableComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -39,12 +39,12 @@ public abstract class GamemodeSwitcherScreenMixin {
             method = "render",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/screens/debug/GameModeSwitcherScreen;drawCenteredString(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;III)V",
+                    target = "Lnet/minecraft/client/gui/screens/debug/GameModeSwitcherScreen;drawCenteredString(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/FormattedText;III)V",
                     ordinal = 0
             ),
             index = 2
     )
-    private Component hello(Component par3) {
+    private FormattedText hello(FormattedText par3) {
         return new TranslatableComponent(
                 "debug.gamemodes.select_next",
                 new TranslatableComponent(
