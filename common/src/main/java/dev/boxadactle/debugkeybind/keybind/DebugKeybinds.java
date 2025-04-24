@@ -39,7 +39,7 @@ public class DebugKeybinds {
     public static ActionKeybind PAUSE_WITHOUT_MENU = createActionKeybind("key.debug_actions.pause_without_menu", 256);
     public static ActionKeybind CHUNK_SECTION_PATH = createActionKeybind("key.debug_actions.chunk_section_path", 69);
     public static ActionKeybind TOGGLE_FOG = createActionKeybind("key.debug_actions.toggle_fog", 70);
-    public static ActionKeybind TOGGLE_SMART_CULL = createActionKeybind("key.debug_actions.toggle_smart_cull", 76);
+    public static ActionKeybind TOGGLE_SMART_CULL = createActionKeybind("key.debug_actions.toggle_smart_cull", 76, 77);
     public static ActionKeybind TOGGLE_FRUSTUM_OCTREE = createActionKeybind("key.debug_actions.toggle_frustum_octree", 79);
     public static ActionKeybind CAPTURE_FRUSTUM = createActionKeybind("key.debug_actions.capture_frustum", 85);
     public static ActionKeybind TOGGLE_SECTION_VISIBILITY = createActionKeybind("key.debug_actions.toggle_section_visibility", 86);
@@ -55,13 +55,13 @@ public class DebugKeybinds {
 
     public static int remapActionKey(int code) {
         ActionKeybind k = map.get(code);
-        int keyCode = k != null ? k.getDefaultKeyCode() : -1;
+        int keyCode = k != null ? k.getRebind() : -1;
 
         // if keyCode is -1, we need to check if the key is an action keybind by default
         // if it is, we return -1, to cancel the hard-coded keybind
         if (keyCode == -1) {
             for (ActionKeybind key : list2) {
-                if (key.getDefaultKeyCode() == code) {
+                if (key.getRebind() == code) {
                     return -1;
                 }
             }
@@ -136,6 +136,12 @@ public class DebugKeybinds {
 
     private static ActionKeybind createActionKeybind(String key, int i) {
         ActionKeybind keybind = new ActionKeybind(key, i, "key.categories.debug_actions");
+        list2.add(keybind);
+        return keybind;
+    }
+
+    private static ActionKeybind createActionKeybind(String key, int i, int defaultI) {
+        ActionKeybind keybind = new ActionKeybind(key, i, "key.categories.debug_actions", defaultI);
         list2.add(keybind);
         return keybind;
     }

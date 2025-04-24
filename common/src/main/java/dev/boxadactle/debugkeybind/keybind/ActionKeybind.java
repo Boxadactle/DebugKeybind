@@ -12,6 +12,7 @@ public class ActionKeybind implements DebugKeybind {
     String category;
     InputConstants.Key key;
     InputConstants.Key defaultKey;
+    InputConstants.Key oDefaultKey;
 
     public ActionKeybind(String string, int i, String string2) {
         name = string;
@@ -20,14 +21,23 @@ public class ActionKeybind implements DebugKeybind {
         defaultKey = key;
     }
 
+    public ActionKeybind(String string, int i, String string2, int oDefault) {
+        this(string, i, string2);
+        oDefaultKey = InputConstants.Type.KEYSYM.getOrCreate(oDefault);
+    }
+
+    public int getRebind() {
+        return defaultKey.getValue();
+    }
+
     @Override
     public void setToDefault() {
-        key = defaultKey;
+        key = oDefaultKey != null ? oDefaultKey : defaultKey;
     }
 
     @Override
     public InputConstants.Key getDefaultKey() {
-        return defaultKey;
+        return oDefaultKey != null ? oDefaultKey : defaultKey;
     }
 
     @Override
@@ -52,7 +62,7 @@ public class ActionKeybind implements DebugKeybind {
 
     @Override
     public int getDefaultKeyCode() {
-        return defaultKey.getValue();
+        return (oDefaultKey != null ? oDefaultKey : defaultKey).getValue();
     }
 
     @Override
@@ -77,7 +87,7 @@ public class ActionKeybind implements DebugKeybind {
 
     @Override
     public boolean isDefault() {
-        return key.getValue() == defaultKey.getValue();
+        return key.getValue() == (oDefaultKey != null ? oDefaultKey : defaultKey).getValue();
     }
 
     @Override
