@@ -26,7 +26,7 @@
   "depends": {
     "fabricloader": "*",
     "minecraft": "1.21.*",
-    "boxlib": "17.*"
+    "boxlib": "18.*"
   },
   "recommends": {
     "modmenu": "*"

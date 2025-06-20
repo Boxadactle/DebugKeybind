@@ -1,5 +1,6 @@
 package dev.boxadactle.debugkeybind.gui;
 
+import dev.boxadactle.boxlib.gui.config.BConfigList;
 import dev.boxadactle.boxlib.gui.config.BOptionScreen;
 import dev.boxadactle.boxlib.gui.config.widget.label.BLabel;
 import dev.boxadactle.boxlib.util.ClientUtils;
@@ -14,7 +15,7 @@ import net.minecraft.network.chat.Component;
 import java.util.List;
 import java.util.function.Function;
 
-public class KeybindEntry extends BOptionScreen.ConfigList.ConfigEntry {
+public class KeybindEntry extends BConfigList.ConfigEntry {
     public DebugKeybind keybind;
 
     public BLabel label;
