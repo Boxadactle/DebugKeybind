@@ -7,6 +7,7 @@ import dev.boxadactle.debugkeybind.DebugKeybindMain;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybind;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
@@ -15,12 +16,7 @@ public class DebugKeybindsScreen extends BOptionScreen {
     KeybindEntry selectedEntry;
 
     public DebugKeybindsScreen(Screen parent) {
-        super(parent);
-    }
-
-    @Override
-    protected Component getName() {
-        return Component.translatable("controls.keybinds.debug.title");
+        super(parent, Component.translatable("controls.keybinds.debug.title"));
     }
 
     @Override
@@ -40,29 +36,28 @@ public class DebugKeybindsScreen extends BOptionScreen {
     }
 
     @Override
-    protected void initFooter(int startX, int startY) {
-        Button resetButton = createHalfCancelButton(startX, startY, (button) -> {
+    protected void initFooter(LinearLayout layout) {
+        Button resetButton = layout.addChild(createCancelButton((button) -> {
             configList.children().forEach(entry -> {
                 if (entry instanceof KeybindEntry) ((KeybindEntry) entry).resetKey();
             });
 
             refreshEntries();
-        });
+        }));
         resetButton.setMessage(Component.translatable("controls.resetAll"));
 
-        Button doneButton = createHalfDoneButton(startX, startY, (b) -> {
-            ClientUtils.setScreen(parent);
+        Button doneButton = layout.addChild(createDoneButton((b) -> {
+            ClientUtils.setScreen(lastScreen);
 
             DebugKeybindMain.CONFIG.save();
-        });
-        doneButton.setX(startX + getButtonWidth(ButtonType.SMALL) + getPadding());
+        }));
 
         addRenderableWidget(resetButton);
         addRenderableWidget(doneButton);
     }
 
     @Override
-    protected void initConfigButtons() {
+    protected void addOptions() {
         addConfigLine(new BCenteredLabel(Component.translatable("key.categories.debug")));
 
         for (DebugKeybind keybind : DebugKeybinds.getGlobalKeybinds()) {
@@ -91,6 +86,8 @@ public class DebugKeybindsScreen extends BOptionScreen {
         if (selectedEntry != null) {
             selectedEntry.updateKey(i);
             selectedEntry = null;
+
+            return true;
         }
 
         return super.keyPressed(i, j, k);
@@ -110,10 +107,5 @@ public class DebugKeybindsScreen extends BOptionScreen {
         super.onClose();
 
         DebugKeybindMain.CONFIG.save();
-    }
-
-    @Override
-    public boolean shouldCloseOnEsc() {
-        return selectedEntry != null;
     }
 }

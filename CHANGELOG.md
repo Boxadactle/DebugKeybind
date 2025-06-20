@@ -1,3 +1,3 @@
 ## Changes
-- Update to 1.21.5
-- Change default keybind for "toggle smart culling to remove conflict"
+- Update to 1.21.6
+- Allow closing with escape without a selected keybind

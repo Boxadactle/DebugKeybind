@@ -22,9 +22,9 @@ public abstract class KeyboardHandlerMixin {
 
     @Shadow private long debugCrashKeyTime;
 
-    @Shadow protected abstract void debugFeedbackTranslated(String string, Object... objects);
-
     @Shadow protected abstract boolean handleChunkDebugKeys(int i);
+
+    @Shadow protected abstract void debugFeedbackTranslated(String string);
 
     @ModifyConstant(
             method = "keyPress",
@@ -75,7 +75,7 @@ public abstract class KeyboardHandlerMixin {
     private void overrideHelpMenuAndAddChunkKeys(int i, CallbackInfoReturnable<Boolean> cir) {
         if (!(this.debugCrashKeyTime > 0L && this.debugCrashKeyTime < Util.getMillis() - 100L)) {
             if (i == 81) {
-                this.debugFeedbackTranslated("debug.help.message");
+                debugFeedbackTranslated("debug.help.message");
 
                 GlobalKeybind debugKey = DebugKeybinds.DEBUG;
 
