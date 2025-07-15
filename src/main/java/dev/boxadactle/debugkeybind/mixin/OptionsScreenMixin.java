@@ -43,7 +43,7 @@ public abstract class OptionsScreenMixin extends Screen {
                 }
 
                 @Override
-                protected int getRowWidth() {
+                public int getRowWidth() {
                     return 310;
                 }
 
@@ -53,12 +53,12 @@ public abstract class OptionsScreenMixin extends Screen {
                 }
 
                 @Override
-                protected int getScrollingWidgetStart() {
+                public int getScrollingWidgetStart() {
                     return super.getScrollingWidgetStart() + 10;
                 }
 
                 @Override
-                protected int getScrollingWidgetEnd() {
+                public int getScrollingWidgetEnd() {
                     return super.getScrollingWidgetEnd() - 10;
                 }
 

@@ -34,12 +34,12 @@ public class DebugKeybindsScreen extends BOptionScreen {
     }
 
     @Override
-    protected int getRowWidth() {
+    public int getRowWidth() {
         return 340;
     }
 
     @Override
-    protected int getScrollbarPosition() {
+    public int getScrollbarPosition() {
         return width - 15;
     }
 

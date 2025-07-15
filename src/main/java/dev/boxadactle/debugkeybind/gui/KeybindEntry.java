@@ -2,6 +2,7 @@ package dev.boxadactle.debugkeybind.gui;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.boxadactle.boxlib.gui.config.BOptionScreen;
+import dev.boxadactle.boxlib.gui.config.list.BConfigList;
 import dev.boxadactle.boxlib.gui.config.widget.label.BLabel;
 import dev.boxadactle.boxlib.util.ClientUtils;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybind;
@@ -10,10 +11,12 @@ import dev.boxadactle.debugkeybind.keybind.GlobalKeybind;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.components.AbstractWidget;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
-public class KeybindEntry extends BOptionScreen.ConfigList.ConfigEntry {
+public class KeybindEntry extends BConfigList.ConfigEntry {
     public DebugKeybind keybind;
 
     public BLabel label;
@@ -36,7 +39,7 @@ public class KeybindEntry extends BOptionScreen.ConfigList.ConfigEntry {
 
     @Override
     public List<? extends AbstractWidget> getWidgets() {
-        return List.of(label, keybindButton, resetButton);
+        return Arrays.asList(label, keybindButton, resetButton);
     }
 
     @Override
@@ -61,7 +64,7 @@ public class KeybindEntry extends BOptionScreen.ConfigList.ConfigEntry {
         resetButton.refresh();
 
         if (keybind.isUnbound()) {
-            keybindButton.updateConflicts(List.of());
+            keybindButton.updateConflicts(new ArrayList<>());
             return;
         }
 
@@ -70,7 +73,7 @@ public class KeybindEntry extends BOptionScreen.ConfigList.ConfigEntry {
         if (keybind instanceof GlobalKeybind) {
             KeyMapping[] mappings = ClientUtils.getOptions().keyMappings.clone();
 
-            collisions.addAll(((GlobalKeybind) keybind).checkMinecraftConflicts(List.of(mappings)));
+            collisions.addAll(((GlobalKeybind) keybind).checkMinecraftConflicts(Arrays.asList(mappings)));
         }
 
         keybindButton.updateConflicts(collisions);
