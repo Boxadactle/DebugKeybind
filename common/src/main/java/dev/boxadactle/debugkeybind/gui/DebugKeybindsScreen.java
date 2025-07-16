@@ -1,6 +1,7 @@
 package dev.boxadactle.debugkeybind.gui;
 
 import dev.boxadactle.boxlib.gui.config.BOptionScreen;
+import dev.boxadactle.boxlib.gui.config.widget.button.BBooleanButton;
 import dev.boxadactle.boxlib.gui.config.widget.label.BCenteredLabel;
 import dev.boxadactle.boxlib.util.ClientUtils;
 import dev.boxadactle.debugkeybind.DebugKeybindMain;
@@ -9,6 +10,7 @@ import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.options.controls.KeyBindsScreen;
 import net.minecraft.network.chat.Component;
 
 public class DebugKeybindsScreen extends BOptionScreen {
@@ -17,6 +19,16 @@ public class DebugKeybindsScreen extends BOptionScreen {
 
     public DebugKeybindsScreen(Screen parent) {
         super(parent, Component.translatable("controls.keybinds.debug.title"));
+    }
+
+    @Override
+    protected int getHeaderHeight() {
+        return 33;
+    }
+
+    @Override
+    protected int getFooterHeight() {
+        return 33;
     }
 
     @Override
@@ -54,6 +66,8 @@ public class DebugKeybindsScreen extends BOptionScreen {
 
         addRenderableWidget(resetButton);
         addRenderableWidget(doneButton);
+
+        addRenderableWidget(Button.builder(Component.translatable("key.keys"), b -> ClientUtils.setScreen(new KeyBindsScreen(lastScreen, ClientUtils.getOptions()))).bounds(width - 77, 5, 75, 20).build());
     }
 
     @Override
@@ -65,6 +79,14 @@ public class DebugKeybindsScreen extends BOptionScreen {
         }
 
         addConfigLine(new BCenteredLabel(Component.translatable("key.categories.debug_actions")));
+        addConfigLine(new BBooleanButton(
+                "button.requireDebugKey",
+                DebugKeybindMain.CONFIG.get().requireDebugKey,
+                (value) -> {
+                    DebugKeybindMain.CONFIG.get().requireDebugKey = value;
+                    refreshEntries();
+                }
+        ));
 
         for (DebugKeybind keybind : DebugKeybinds.getActionKeybinds()) {
             addConfigLine(new KeybindEntry(keybind, this::setSelectedEntry, this::refreshEntries));

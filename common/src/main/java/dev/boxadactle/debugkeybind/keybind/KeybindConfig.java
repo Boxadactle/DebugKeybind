@@ -52,6 +52,9 @@ public class KeybindConfig implements BConfig {
     public int captureFrustum = getDefault(CAPTURE_FRUSTUM);
     public int toggleSectionVisibility = getDefault(TOGGLE_SECTION_VISIBILITY);
     public int toggleWireframe = getDefault(TOGGLE_WIREFRAME);
+    public int toggleDebugKey = getDefault(TOGGLE_DEBUG_KEY);
+
+    public boolean requireDebugKey = true;
 
     @Override
     public void onConfigLoadPost() {
@@ -83,6 +86,7 @@ public class KeybindConfig implements BConfig {
         CAPTURE_FRUSTUM.setKey(toKey(captureFrustum));
         TOGGLE_SECTION_VISIBILITY.setKey(toKey(toggleSectionVisibility));
         TOGGLE_WIREFRAME.setKey(toKey(toggleWireframe));
+        TOGGLE_DEBUG_KEY.setKey(toKey(toggleDebugKey));
 
         DebugKeybinds.refreshActionBindings();
 
@@ -119,6 +123,7 @@ public class KeybindConfig implements BConfig {
         captureFrustum = getKey(CAPTURE_FRUSTUM);
         toggleSectionVisibility = getKey(TOGGLE_SECTION_VISIBILITY);
         toggleWireframe = getKey(TOGGLE_WIREFRAME);
+        toggleDebugKey = getKey(TOGGLE_DEBUG_KEY);
 
         DebugKeybinds.refreshActionBindings();
 

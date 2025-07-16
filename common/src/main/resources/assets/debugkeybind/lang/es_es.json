@@ -2,12 +2,18 @@
   "controls.keybinds.debug": "Teclas de depuración...",
   "controls.keybinds.debug.title": "Teclas de depuración",
   "controls.keybinds.duplicateKeybinds": "Teclas duplicados: %s",
+  "controls.keybinds.disabled": "(Deshabilitado)",
 
   "key.categories.debug": "Depuración",
-  "key.categories.debug_actions": "Acciones de depuración (deben pulsarse con la tecla de depuración)",
+  "key.categories.debug_actions": "Acciones de depuración",
+  "key.keys": "Teclas",
+
+  "button.requireDebugKey": "Require Debug Key: %s",
 
   "key.debug.debugkeybind": "Tecla de depuración",
   "key.debug.hide_gui": "Eliminar el GUI",
+
+  "debug.toggle_debug_key": "Alternar Requerimiento de Tecla de Depuración para Acciones de Depuración",
 
   "key.debug_actions.toggle_profiler_chart": "Alternar Gráfico de Perfilador",
   "key.debug_actions.toggle_fps_charts": "Alternar Gráficos de FPS",
@@ -34,15 +40,5 @@
   "key.debug_actions.toggle_frustum_octree": "Alternar Octree de Frustum",
   "key.debug_actions.capture_frustum": "Capturar Frustum (pulse la tecla shift para matar)",
   "key.debug_actions.toggle_section_visibility": "Alternar Visibilidad de Sección",
-  "key.debug_actions.toggle_wireframe": "Alternar Malla",
-
-  "debug.toggle_profiler_chart.help": "F3 + 1 = Alternar Gráfico de Perfilador",
-  "debug.toggle_fps_charts.help": "F3 + 2 = Alternar Gráficos de FPS",
-  "debug.toggle_network_charts.help": "F3 + 3 = Alternar Gráficos de Red",
-  "debug.toggle_fog.help": "F3 + F = Alternar Niebla",
-  "debug.toggle_smart_cull.help": "F3 + L = Alternar Culling Inteligente",
-  "debug.toggle_frustum_octree.help": "F3 + O = Alternar Octree de Frustum",
-  "debug.capture_frustum.help": "F3 + U = Capturar Frustum (pulse la tecla shift para matar)",
-  "debug.toggle_section_visibility.help": "F3 + V = Alternar Visibilidad de Sección",
-  "debug.toggle_wireframe.help": "F3 + W = Alternar Malla"
+  "key.debug_actions.toggle_wireframe": "Alternar Malla"
 }

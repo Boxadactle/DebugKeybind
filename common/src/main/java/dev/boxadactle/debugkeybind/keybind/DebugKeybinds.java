@@ -2,6 +2,8 @@ package dev.boxadactle.debugkeybind.keybind;
 
 import com.google.common.collect.Lists;
 import dev.boxadactle.boxlib.keybind.KeybindHelper;
+import dev.boxadactle.boxlib.util.GuiUtils;
+import dev.boxadactle.debugkeybind.DebugKeybindMain;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
@@ -44,6 +46,7 @@ public class DebugKeybinds {
     public static ActionKeybind CAPTURE_FRUSTUM = createActionKeybind("key.debug_actions.capture_frustum", 85);
     public static ActionKeybind TOGGLE_SECTION_VISIBILITY = createActionKeybind("key.debug_actions.toggle_section_visibility", 86);
     public static ActionKeybind TOGGLE_WIREFRAME = createActionKeybind("key.debug_actions.toggle_wireframe", 87);
+    public static ActionKeybind TOGGLE_DEBUG_KEY = createActionKeybind("key.debug_actions.toggle_debug_key", 88);
 
     public static void refreshActionBindings() {
         map.clear();
@@ -89,6 +92,7 @@ public class DebugKeybinds {
                 TOGGLE_PROFILER_CHART,
                 TOGGLE_FPS_CHARTS,
                 TOGGLE_NETWORK_CHARTS,
+                TOGGLE_DEBUG_KEY,
                 RELOAD_CHUNKS,
                 SHOW_HITBOXES,
                 COPY_LOCATION,
@@ -114,11 +118,17 @@ public class DebugKeybinds {
         );
     }
 
+    static boolean canCollide(DebugKeybind k) {
+        return !(k instanceof ActionKeybind) || !DebugKeybindMain.CONFIG.get().requireDebugKey;
+    }
+
     public static List<Component> getCollisions(KeyMapping k) {
         List<Component> collisions = new ArrayList<>();
 
-        for (GlobalKeybind key : list) {
-            if (key.getKeyCode() == KeybindHelper.getBoundKey(k).getValue()) collisions.add(Component.translatable(key.getName()));
+        for (DebugKeybind keybind : toList()) {
+            if (canCollide(keybind) && keybind.getKeyCode() == (KeybindHelper.getBoundKey(k)).getValue()) {
+                collisions.add(keybind.getTranslation());
+            }
         }
 
         return collisions;
@@ -144,5 +154,25 @@ public class DebugKeybinds {
         ActionKeybind keybind = new ActionKeybind(key, i, "key.categories.debug_actions", defaultI);
         list2.add(keybind);
         return keybind;
+    }
+
+    public static List<Component> createHelpComponents() {
+        List<Component> components = new ArrayList<>();
+        for (DebugKeybind keybind : getActionKeybinds()) {
+            if (keybind.getKeyCode() != -1) {
+                Component base = DebugKeybindMain.CONFIG.get().requireDebugKey ? DEBUG.getKeyTranslation().copy().append(" + ") : Component.empty();
+                components.add(GuiUtils.colorize(base.copy()
+                        .append(GuiUtils.colorize(keybind.getKeyTranslation(), GuiUtils.GREEN))
+                        .append(" = ")
+                        .append(GuiUtils.colorize(keybind.getComponent(), GuiUtils.AQUA))
+                , GuiUtils.GOLD));
+            } else {
+                components.add(GuiUtils.colorize(Component.translatable("controls.keybinds.disabled")
+                        .append(" = ")
+                        .append(GuiUtils.colorize(keybind.getComponent(), GuiUtils.AQUA))
+                , GuiUtils.RED));
+            }
+        }
+        return components;
     }
 }

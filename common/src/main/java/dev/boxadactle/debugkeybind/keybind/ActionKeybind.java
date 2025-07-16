@@ -1,6 +1,8 @@
 package dev.boxadactle.debugkeybind.keybind;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import dev.boxadactle.boxlib.keybind.KeybindHelper;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
@@ -96,6 +98,16 @@ public class ActionKeybind implements DebugKeybind {
 
         for (DebugKeybind k : keybinds) {
             if (!k.getName().equals(name) && k.getKeyCode() == getKeyCode()) list.add(Component.translatable(k.getName()));
+        }
+
+        return list;
+    }
+
+    public List<Component> checkMinecraftConflicts(List<KeyMapping> keyMappings) {
+        List<Component> list = new ArrayList<>();
+
+        for (KeyMapping k : keyMappings) {
+            if (KeybindHelper.getBoundKey(k).getValue() == getKeyCode()) list.add(Component.translatable(k.getName()));
         }
 
         return list;
