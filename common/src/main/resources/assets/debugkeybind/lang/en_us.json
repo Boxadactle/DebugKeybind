@@ -2,12 +2,18 @@
   "controls.keybinds.debug": "Debug Keybinds...",
   "controls.keybinds.debug.title": "Debug Keybinds",
   "controls.keybinds.duplicateKeybinds": "Duplicate Keybinds: %s",
+  "controls.keybinds.disabled": "(Disabled)",
 
   "key.categories.debug": "Debug",
-  "key.categories.debug_actions": "Debug Actions (must be pressed with debug key)",
+  "key.categories.debug_actions": "Debug Actions",
+  "key.keys": "Keys",
+
+  "button.requireDebugKey": "Require Debug Key: %s",
 
   "key.debug.debugkeybind": "Debug Key",
   "key.debug.hide_gui": "Hide GUI",
+
+  "debug.toggle_debug_key": "Toggle Debug Key Requirement for Debug Actions",
 
   "key.debug_actions.toggle_profiler_chart": "Toggle Profiler Chart",
   "key.debug_actions.toggle_fps_charts": "Toggle FPS Charts",
@@ -35,14 +41,5 @@
   "key.debug_actions.capture_frustum": "Capture Frustum (Shift to kill)",
   "key.debug_actions.toggle_section_visibility": "Toggle Section Visibility",
   "key.debug_actions.toggle_wireframe": "Toggle Wireframe",
-
-  "debug.toggle_profiler_chart.help": "F3 + 1 = Toggle Profiler Chart",
-  "debug.toggle_fps_charts.help": "F3 + 2 = Toggle FPS Charts",
-  "debug.toggle_network_charts.help": "F3 + 3 = Toggle Network Charts",
-  "debug.toggle_fog.help": "F3 + F = Toggle Fog",
-  "debug.toggle_smart_cull.help": "F3 + L = Toggle Smart Cull",
-  "debug.toggle_frustum_octree.help": "F3 + O = Toggle Frustum Octree",
-  "debug.capture_frustum.help": "F3 + U = Capture Frustum (shift to kill)",
-  "debug.toggle_section_visibility.help": "F3 + V = Toggle Section Visibility",
-  "debug.toggle_wireframe.help": "F3 + W = Toggle Wireframe"
+  "key.debug_actions.toggle_debug_key": "Toggle Debug Key Requirement"
 }

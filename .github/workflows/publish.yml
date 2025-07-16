@@ -49,7 +49,7 @@ jobs:
           path: neoforge/build/libs
 
       - name: Publish
-        run: ./gradlew publishUnified
+        run: ./gradlew publishMods
         env:
           CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}

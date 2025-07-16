@@ -1,6 +1,7 @@
 package dev.boxadactle.debugkeybind.keybind;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.network.chat.Component;
 
 import java.util.List;
@@ -36,6 +37,8 @@ public interface DebugKeybind {
     boolean isDefault();
 
     List<Component> checkConflicts(List<DebugKeybind> keybinds);
+
+    List<Component> checkMinecraftConflicts(List<KeyMapping> keyMappings);
 
     default Component getComponent() {
         return Component.translatable(getName());

@@ -17,7 +17,7 @@ public class DebugKeybindNeoforge {
         );
     }
 
-    @EventBusSubscriber(modid = DebugKeybindMain.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+    @EventBusSubscriber(modid = DebugKeybindMain.MOD_ID)
     public static class ModNeoforgeEvents {
         @SubscribeEvent
         public static void init(FMLClientSetupEvent e) {

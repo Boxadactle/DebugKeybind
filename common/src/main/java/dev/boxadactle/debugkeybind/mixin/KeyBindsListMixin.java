@@ -1,5 +1,6 @@
 package dev.boxadactle.debugkeybind.mixin;
 
+import dev.boxadactle.boxlib.keybind.KeybindHelper;
 import dev.boxadactle.boxlib.util.GuiUtils;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
 import net.minecraft.client.KeyMapping;
@@ -32,6 +33,8 @@ public class KeyBindsListMixin {
             at = @At("RETURN")
     )
     private void checkDebugCollisions(GuiGraphics poseStack, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f, CallbackInfo ci) {
+        if (key.isUnbound()) return;
+
         List<Component> collisions = DebugKeybinds.getCollisions(key);
 
         if (!collisions.isEmpty()) {
@@ -45,6 +48,7 @@ public class KeyBindsListMixin {
             locals = LocalCapture.CAPTURE_FAILSOFT
     )
     private void checkDebugCollisions(CallbackInfo ci, MutableComponent mutableComponent) {
+        if (key.isUnbound()) return;
         List<Component> collisions = DebugKeybinds.getCollisions(key);
 
         if (!collisions.isEmpty()) {

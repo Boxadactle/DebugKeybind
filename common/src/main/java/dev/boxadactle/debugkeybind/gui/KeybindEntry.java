@@ -4,6 +4,7 @@ import dev.boxadactle.boxlib.gui.config.BConfigList;
 import dev.boxadactle.boxlib.gui.config.BOptionScreen;
 import dev.boxadactle.boxlib.gui.config.widget.label.BLabel;
 import dev.boxadactle.boxlib.util.ClientUtils;
+import dev.boxadactle.debugkeybind.DebugKeybindMain;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybind;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
 import dev.boxadactle.debugkeybind.keybind.GlobalKeybind;
@@ -69,10 +70,10 @@ public class KeybindEntry extends BConfigList.ConfigEntry {
 
         List<Component> collisions = keybind.checkConflicts(DebugKeybinds.toList());
 
-        if (keybind instanceof GlobalKeybind) {
+        if (!DebugKeybindMain.CONFIG.get().requireDebugKey || keybind instanceof GlobalKeybind) {
             KeyMapping[] mappings = ClientUtils.getOptions().keyMappings.clone();
 
-            collisions.addAll(((GlobalKeybind) keybind).checkMinecraftConflicts(List.of(mappings)));
+            collisions.addAll((keybind.checkMinecraftConflicts(List.of(mappings))));
         }
 
         keybindButton.updateConflicts(collisions);

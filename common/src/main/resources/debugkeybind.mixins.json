@@ -9,6 +9,7 @@
     "GamemodeSwitcherScreenMixin",
     "InputConstantsMixin",
     "KeyBindsListMixin",
+    "KeybindsScreenMixin",
     "KeyboardHandlerMixin"
   ],
   "injectors": {

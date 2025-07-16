@@ -1,32 +1,33 @@
 modLoader="javafml"
-loaderVersion="[0,)"
-license="MIT"
+loaderVersion="${forge_loader_version_range}"
+license="${license}"
 
 [[mods]]
-modId="debugkeybind"
+modId="${mod_id}"
 version="${version}"
-displayName="DebugKeybind"
-authors="Boxadactle"
-description='''A basic mod that adds keybinds for the F3 menu'''
+displayName="${mod_name}"
+authors="${mod_author}"
+description='''${description}'''
 logoFile='icon.png'
+displayTest="IGNORE_ALL_VERSION"
 
-[[dependencies.debugkeybind]]
+[[dependencies.${mod_id}]]
 modId="forge"
 mandatory=true
-versionRange="[0,)"
+versionRange="${forge_loader_version_range}"
 ordering="NONE"
 side="BOTH"
 
-[[dependencies.debugkeybind]]
+[[dependencies.${mod_id}]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.21.6,1.22)"
+versionRange="${minecraft_version_range}"
 ordering="NONE"
 side="BOTH"
 
-[[dependencies.debugkeybind]]
+[[dependencies.${mod_id}]]
 modId="boxlib"
 mandatory=true
-versionRange="[18.0.0,19.0.0)"
+versionRange="${boxlib_version_range}"
 ordering="NONE"
 side="CLIENT"
