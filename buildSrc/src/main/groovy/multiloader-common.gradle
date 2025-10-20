@@ -4,7 +4,7 @@ plugins {
 }
 
 base {
-    archivesName = "${mod_id}-${project.name}"
+    archivesName = "DebugKeybind-${project.name}-${version}"
 }
 
 java {
@@ -119,22 +119,4 @@ processResources {
     }
 
     inputs.properties(expandProps)
-}
-
-tasks.named('javadoc', Javadoc).configure {
-    enabled = false
-}
-
-publishing {
-    publications {
-        register('mavenJava', MavenPublication) {
-            artifactId base.archivesName.get()
-            from components.java
-        }
-    }
-    repositories {
-        maven {
-            url System.getenv('local_maven_url')
-        }
-    }
 }

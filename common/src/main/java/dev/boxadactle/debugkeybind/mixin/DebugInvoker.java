@@ -1,6 +1,7 @@
 package dev.boxadactle.debugkeybind.mixin;
 
 import net.minecraft.client.KeyboardHandler;
+import net.minecraft.client.input.KeyEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
@@ -8,6 +9,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface DebugInvoker {
 
     @Invoker("handleDebugKeys")
-    boolean invokeHandleDebugKeys(int keyCode);
+    boolean invokeHandleDebugKeys(KeyEvent e);
 
 }

@@ -8,6 +8,7 @@ import dev.boxadactle.boxlib.scheduling.Scheduling;
 import dev.boxadactle.boxlib.util.ClientUtils;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybind;
 import dev.boxadactle.debugkeybind.mixin.DebugInvoker;
+import net.minecraft.client.input.KeyEvent;
 
 public class DebugSubcommand extends BasicSubcommand {
 
@@ -23,7 +24,7 @@ public class DebugSubcommand extends BasicSubcommand {
     @Override
     public void build(ArgumentBuilder<BCommandSourceStack, ?> builder) {
         builder.executes(context -> {
-            Scheduling.nextTick(() -> ((DebugInvoker) ClientUtils.getClient().keyboardHandler).invokeHandleDebugKeys(keybind.getDefaultKeyCode()));
+            Scheduling.nextTick(() -> ((DebugInvoker) ClientUtils.getClient().keyboardHandler).invokeHandleDebugKeys(new KeyEvent(keybind.getDefaultKeyCode(), 0, 0)));
 
             return 0;
         });

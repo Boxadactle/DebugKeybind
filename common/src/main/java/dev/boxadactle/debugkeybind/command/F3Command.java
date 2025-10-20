@@ -8,7 +8,7 @@ public class F3Command {
 
     public static BCommand create() {
         return BCommand.create("f3", (context) -> {
-                    ClientUtils.getClient().getDebugOverlay().toggleOverlay();
+                    ClientUtils.getClient().debugEntries.toggleF3Visible();
                     return 0;
                 })
                 .registerSubcommand(ReloadSubcommand.create())

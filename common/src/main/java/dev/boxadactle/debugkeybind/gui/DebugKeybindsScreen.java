@@ -11,6 +11,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.options.controls.KeyBindsScreen;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.network.chat.Component;
 
 public class DebugKeybindsScreen extends BOptionScreen {
@@ -104,24 +105,15 @@ public class DebugKeybindsScreen extends BOptionScreen {
     }
 
     @Override
-    public boolean keyPressed(int i, int j, int k) {
+    public boolean keyPressed(KeyEvent event) {
         if (selectedEntry != null) {
-            selectedEntry.updateKey(i);
+            selectedEntry.updateKey(event.key());
             selectedEntry = null;
 
             return true;
         }
 
-        return super.keyPressed(i, j, k);
-    }
-
-    @Override
-    public boolean mouseClicked(double d, double e, int i) {
-        if (selectedEntry != null) {
-            selectedEntry.updateKey(256);
-        }
-
-        return super.mouseClicked(d, e, i);
+        return super.keyPressed(event);
     }
 
     @Override

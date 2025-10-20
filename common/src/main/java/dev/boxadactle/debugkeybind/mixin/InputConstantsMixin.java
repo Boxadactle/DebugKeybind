@@ -1,6 +1,7 @@
 package dev.boxadactle.debugkeybind.mixin;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.blaze3d.platform.Window;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -15,8 +16,8 @@ public class InputConstantsMixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    private static void handleUnboundKey(long l, int i, CallbackInfoReturnable<Boolean> cir) {
-        if (i == -1) cir.setReturnValue(false);
+    private static void handleUnboundKey(Window window, int key, CallbackInfoReturnable<Boolean> cir) {
+        if (key == -1) cir.setReturnValue(false);
     }
 
 }

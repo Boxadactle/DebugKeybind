@@ -19,7 +19,7 @@ public class KeybindConfig implements BConfig {
     }
 
     InputConstants.Key toKey(int k) {
-        return k != -1 ? InputConstants.getKey(k, 0) : InputConstants.UNKNOWN;
+        return k != -1 ? InputConstants.Type.KEYSYM.getOrCreate(k) : InputConstants.UNKNOWN;
     }
 
     // debug

@@ -13,9 +13,7 @@ dependencies {
 
     modImplementation ("dev.boxadactle:Boxlib-fabric:${boxlib_version}") { transitive = false }
 
-    modImplementation("com.terraformersmc:modmenu:${rootProject.modmenu_version}") {
-        transitive = false
-    }
+    modImplementation("com.terraformersmc:modmenu:${modmenu_version}") { transitive = false }
 }
 
 loom {
@@ -48,7 +46,7 @@ import groovy.json.JsonOutput
 // someone pls make this work like its suppposed to
 tasks.named('processResources') {
     doLast {
-        def jsonFile = file("$buildDir/resources/main/debugkeybind.mixins.json")
+        def jsonFile = file("$buildDir/resources/main/${mod_id}.mixins.json")
 
         if (jsonFile.exists()) {
             def jsonSlurper = new JsonSlurper()

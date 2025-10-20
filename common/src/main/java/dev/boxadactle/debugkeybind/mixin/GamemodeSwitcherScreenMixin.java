@@ -17,7 +17,7 @@ public abstract class GamemodeSwitcherScreenMixin {
             method = "checkToClose",
             at = @At(
                     value = "INVOKE",
-                    target = "Lcom/mojang/blaze3d/platform/InputConstants;isKeyDown(JI)Z"
+                    target = "Lcom/mojang/blaze3d/platform/InputConstants;isKeyDown(Lcom/mojang/blaze3d/platform/Window;I)Z"
             ),
             index = 1
     )

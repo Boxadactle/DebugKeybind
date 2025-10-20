@@ -29,10 +29,10 @@ public class KeyBindsListMixin {
     @Shadow private boolean hasCollision;
 
     @Inject(
-            method = "render",
+            method = "renderContent",
             at = @At("RETURN")
     )
-    private void checkDebugCollisions(GuiGraphics poseStack, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f, CallbackInfo ci) {
+    private void checkDebugCollisions(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean isHovering, float partialTick, CallbackInfo ci) {
         if (key.isUnbound()) return;
 
         List<Component> collisions = DebugKeybinds.getCollisions(key);

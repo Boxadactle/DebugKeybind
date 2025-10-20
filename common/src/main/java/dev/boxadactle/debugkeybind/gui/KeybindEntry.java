@@ -80,24 +80,24 @@ public class KeybindEntry extends BConfigList.ConfigEntry {
     }
 
     @Override
-    public void render(GuiGraphics stack, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+    public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean b, float v) {
         int keybindWidth = 75;
         int resetWidth = 50;
         int padding = 2;
 
-        label.setX(x - 25);
-        label.setY(y);
-        label.setWidth(entryWidth - keybindWidth - resetWidth - padding);
-        label.render(stack, mouseX, mouseY, tickDelta);
+        label.setX(getX() - 25);
+        label.setY(getY());
+        label.setWidth(getWidth() - keybindWidth - resetWidth - padding);
+        label.render(guiGraphics, mouseX, mouseY, v);
 
-        keybindButton.setX(x + entryWidth - keybindWidth - resetWidth - padding);
-        keybindButton.setY(y);
+        keybindButton.setX(getX() + getWidth() - keybindWidth - resetWidth - padding);
+        keybindButton.setY(getY());
         keybindButton.setWidth(keybindWidth);
-        keybindButton.render(stack, mouseX, mouseY, tickDelta);
+        keybindButton.render(guiGraphics, mouseX, mouseY, v);
 
-        resetButton.setX(x + entryWidth - resetWidth);
-        resetButton.setY(y);
+        resetButton.setX(getX() + getWidth() - resetWidth);
+        resetButton.setY(getY());
         resetButton.setWidth(resetWidth);
-        resetButton.render(stack, mouseX, mouseY, tickDelta);
+        resetButton.render(guiGraphics, mouseX, mouseY, v);
     }
 }

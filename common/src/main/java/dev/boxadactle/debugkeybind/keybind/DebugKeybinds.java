@@ -5,7 +5,7 @@ import dev.boxadactle.boxlib.keybind.KeybindHelper;
 import dev.boxadactle.boxlib.util.GuiUtils;
 import dev.boxadactle.debugkeybind.DebugKeybindMain;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.resources.language.I18n;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
@@ -56,21 +56,21 @@ public class DebugKeybinds {
         }
     }
 
-    public static int remapActionKey(int code) {
-        ActionKeybind k = map.get(code);
+    public static KeyEvent remapActionKey(KeyEvent key) {
+        ActionKeybind k = map.get(key.key());
         int keyCode = k != null ? k.getRebind() : -1;
 
         // if keyCode is -1, we need to check if the key is an action keybind by default
         // if it is, we return -1, to cancel the hard-coded keybind
         if (keyCode == -1) {
-            for (ActionKeybind key : list2) {
-                if (key.getRebind() == code) {
-                    return -1;
+            for (ActionKeybind keybind : list2) {
+                if (keybind.getRebind() == key.key()) {
+                    return null;
                 }
             }
         }
 
-        return keyCode != -1 ? keyCode : code;
+        return keyCode != -1 ? new KeyEvent(keyCode, key.scancode(), key.modifiers()) : key;
     }
 
     public static List<DebugKeybind> toList() {

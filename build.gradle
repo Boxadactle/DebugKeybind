@@ -1,8 +1,9 @@
 plugins {
     // see https://fabricmc.net/develop/ for new versions
-    id 'fabric-loom' version '1.10-SNAPSHOT' apply false
+    id 'fabric-loom' version '1.11-SNAPSHOT' apply false
     // see https://projects.neoforged.net/neoforged/moddevgradle for new versions
-    id 'net.neoforged.moddev' version '2.0.99' apply false
+    id 'net.neoforged.moddev' version '2.0.115' apply false
+
     id "me.modmuss50.mod-publish-plugin" version "0.8.4"
     id "com.github.breadmoirai.github-release" version "2.5.2"
 }
@@ -11,6 +12,7 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
     apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
 
     repositories {
         // Fix issue with lwjgl-freetype not being found on macOS / ForgeGradle issue
@@ -43,18 +45,12 @@ publishMods {
         minecraftVersions.addAll(project.game_versions.split(","))
         changelogType = "markdown"
         javaVersions.add(JavaVersion.current())
-        requires {
-            slug = "boxlib"
-        }
     }
 
     def mrOptions = modrinthOptions {
         accessToken = System.getenv("MODRINTH_TOKEN")
         projectId = project.project_id_modrinth
         minecraftVersions.addAll(project.game_versions.split(","))
-        requires {
-            slug = "boxlib"
-        }
     }
 
     curseforge("curseforgeFabric") {
