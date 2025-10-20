@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(KeyBindsScreen.class)
-public class KeybindsScreenMixin extends OptionsSubScreen {
+public abstract class KeybindsScreenMixin extends OptionsSubScreen {
 
     public KeybindsScreenMixin(Screen lastScreen, Options options, Component title) {
         super(lastScreen, options, title);
@@ -27,11 +27,6 @@ public class KeybindsScreenMixin extends OptionsSubScreen {
     )
     public void addButton(CallbackInfo ci) {
         addRenderableWidget(Button.builder(Component.translatable("key.categories.debug"), b -> ClientUtils.setScreen(new DebugKeybindsScreen(lastScreen))).bounds(width - 77, 5, 75, 20).build());
-    }
-
-    @Override
-    protected void addOptions() {
-
     }
 
     @Override

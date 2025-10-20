@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import dev.boxadactle.boxlib.scheduling.Scheduling;
 import dev.boxadactle.boxlib.util.ClientUtils;
 import dev.boxadactle.boxlib.util.GuiUtils;
+import dev.boxadactle.boxlib.util.WorldUtils;
 import dev.boxadactle.debugkeybind.DebugKeybindMain;
 import dev.boxadactle.debugkeybind.keybind.DebugKeybinds;
 import net.minecraft.Util;
@@ -85,7 +86,8 @@ public abstract class KeyboardHandlerMixin {
             )
     )
     private KeyEvent remapDebugKeys(KeyEvent event) {
-        return DebugKeybindMain.CONFIG.get().requireDebugKey ? DebugKeybinds.remapActionKey(event) : new KeyEvent(-1, 0, 0);
+        //                                                                                                   59 = ;, F3+; doesnt exist
+        return DebugKeybindMain.CONFIG.get().requireDebugKey ? DebugKeybinds.remapActionKey(event) : new KeyEvent(59, 0, 0);
     }
 
     // have to override help keybind
@@ -95,6 +97,10 @@ public abstract class KeyboardHandlerMixin {
             cancellable = true
     )
     private void overrideHelpMenuAndAddChunkKeys(KeyEvent event, CallbackInfoReturnable<Boolean> cir) {
+        if (event == null) {
+            cir.setReturnValue(false);
+            return;
+        }
         if (!(this.debugCrashKeyTime > 0L && this.debugCrashKeyTime < Util.getMillis() - 100L)) {
             if (event.key() == 81) {
                 debugFeedbackTranslated("debug.help.message");

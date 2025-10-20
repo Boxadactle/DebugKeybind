@@ -46,7 +46,7 @@ public class DebugKeybinds {
     public static ActionKeybind CAPTURE_FRUSTUM = createActionKeybind("key.debug_actions.capture_frustum", 85);
     public static ActionKeybind TOGGLE_SECTION_VISIBILITY = createActionKeybind("key.debug_actions.toggle_section_visibility", 86);
     public static ActionKeybind TOGGLE_WIREFRAME = createActionKeybind("key.debug_actions.toggle_wireframe", 87);
-    public static ActionKeybind TOGGLE_DEBUG_KEY = createActionKeybind("key.debug_actions.toggle_debug_key", 88);
+    public static ActionKeybind TOGGLE_DEBUG_KEY = createActionKeybind("key.debug_actions.toggle_debug_key", 88, -1);
 
     public static void refreshActionBindings() {
         map.clear();

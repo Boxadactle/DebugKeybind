@@ -25,7 +25,8 @@ public class ActionKeybind implements DebugKeybind {
 
     public ActionKeybind(String string, int i, String string2, int oDefault) {
         this(string, i, string2);
-        oDefaultKey = InputConstants.Type.KEYSYM.getOrCreate(oDefault);
+        oDefaultKey = oDefault != -1 ? InputConstants.Type.KEYSYM.getOrCreate(oDefault) : InputConstants.UNKNOWN;
+        key = oDefaultKey;
     }
 
     public int getRebind() {
